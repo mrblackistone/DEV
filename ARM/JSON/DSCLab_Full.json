@@ -445,7 +445,7 @@
               "typeHandlerVersion": "2.19",
               "autoUpgradeMinorVersion": true,
               "settings": {
-                "ModulesUrl": "https://raw.githubusercontent.com/krjhitch/ARMandDSCDeploy/master/01_SingleADDC/artifacts/CreateADPDC.zip",
+                "ModulesUrl": "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/CreateADPDC.zip",
                 "ConfigurationFunction": "CreateADPDC.ps1\\CreateADPDC",
                 "Properties": {
                   "DomainName": "domain.local",
@@ -476,7 +476,7 @@
               "typeHandlerVersion": "2.19",
               "autoUpgradeMinorVersion": true,
               "settings": {
-                "ModulesUrl": "https://github.com/Microsoft/DSCEA/raw/dev/tests/CreateADPDC.zip",
+                "ModulesUrl": "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/CreateADPDC.zip",
                 "ConfigurationFunction": "CreateADPDC.ps1\\JoinAD",
                 "Properties": {
                   "DomainName": "domain.local",
@@ -507,7 +507,7 @@
               "typeHandlerVersion": "2.19",
               "autoUpgradeMinorVersion": true,
               "settings": {
-                "ModulesUrl": "https://github.com/Microsoft/DSCEA/raw/dev/tests/CreateADPDC.zip",
+                "ModulesUrl": "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/CreateADPDC.zip",
                 "ConfigurationFunction": "CreateADPDC.ps1\\JoinAD",
                 "Properties": {
                   "DomainName": "domain.local",
@@ -538,7 +538,7 @@
               "typeHandlerVersion": "2.19",
               "autoUpgradeMinorVersion": true,
               "settings": {
-                "ModulesUrl": "https://github.com/Microsoft/DSCEA/raw/dev/tests/CreateADPDC.zip",
+                "ModulesUrl": "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/CreateADPDC.zip",
                 "ConfigurationFunction": "CreateADPDC.ps1\\JoinAD",
                 "Properties": {
                   "DomainName": "domain.local",
