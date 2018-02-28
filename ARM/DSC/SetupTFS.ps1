@@ -1,50 +1,11 @@
-param(
+﻿param(
     [Parameter(Mandatory=$true)]$envDataFilePath,
     [switch]$Deploy
 )
 
-$envData = @{
-    AllNodes = @(
-        @{NodeName = '*';PSDSCAllowPlainTextPassword = $true;PSDSCAllowDomainUser = $true},
-        @{NodeName = 'tfstest1.demo.local'}
-    )
-    NonNodeData = @{
-        Data = @{
-            DSCResourceLocation = '\\mgmt1\dsc\ResourceModules'
-        }
-        Accounts = @{
-            Setup      = Get-Credential -Message 'Setup Account Credential'   -User 'DEMO\SVC-TFS-Setup'
-            SQLService = Get-Credential -Message 'SQL Engine Service Account' -User 'DEMO\SVC-TFS-SQL'
-            SQLAgent   = Get-Credential -Message 'SQL Agent Service Account'  -User 'DEMO\SVC-TFS-SQLAgent'
-            TFSService = Get-Credential -Message 'TFS Service Account '       -User 'DEMO\SVC-TFS-Service'
-            Admins = 'DEMO\Core-TFS-Admins'
-        }
-        SQL = @{
-            DotNetBitsSource      = '\\mgmt1\dsc\Sxs'
-            DotNetBitsDestination = 'F:\bits\Sxs'
-            SQLBitsSource         = '\\mgmt1\dsc\SQL2017'
-            SQLBitsDestination    = 'E:\bits\SQL2017'
-            InstanceName          = 'TFSDEVOPS'
-            SQLFeatures           = 'SQLEngine,FullText'
-            SQLSysAdminAccounts   = 'DEMO\Core-TFS-SQLSA'
-            InstanceDirectory     = 'E:\Program Files\Microsoft SQL Server'
-            InstallShareDirectory = 'E:\Program Files\Microsoft SQL Server'
-            InstallShareWoWDir    = 'E:\Program Files (x86)\Microsoft SQL Server'
-            SQLUserDBDir          = 'F:\SQLDATA'
-            SQLUserDBLogDir       = 'F:\SQLOGS'
-            SQLTempDBDir          = 'F:\SQLTEMPDB\tempMDF'
-            SQLTempDBLogDir       = 'F:\SQLTEMPDB\tempLDF'
-            SQLBackupDir          = 'F:\SQLBACKUP'
-            SQLEnginePort         = '54321'
-            SQLManagementSubnets  = '10.0.0.0/24'
-        }
-        TFS = @{
-            TFSBitsSource         = '\\mgmt1\dsc\TFS2018'
-            TFSBitsDestination    = 'C:\bits\TFS2018'
-            TFSPublicSiteName     = 'tfstest1.demo.local'
-        }
-    }
-}
+$envData = Invoke-Expression (Get-Content -Path $envDataFilePath | Out-String)
+$envDataFile = Get-Item $envDataFilePath
+$mofLocation = Join-Path -Path "$($envDataFile.DirectoryName)\..\mofs" -ChildPath ($EnvDataFile.BaseName -replace '\.','-')
 
 [DscLocalConfigurationManager()]
 configuration 'SetResourceModuleLocation' {
@@ -57,10 +18,11 @@ configuration 'SetResourceModuleLocation' {
             ConfigurationID = '3a15d863-bd25-432c-9e45-9199afecde91'
         }
         ResourceRepositoryShare FileShare {
-            SourcePath = $EnvData.NonNodeData.Data.DSCResourceLocation
+            SourcePath = $ConfigurationData.NonNodeData.Data.DSCResourceLocation
         }
     }
 }
+SetResourceModuleLocation -ConfigurationData $envData -OutputPath $mofLocation
 
 Configuration 'InstallTFS' {
     Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
@@ -70,8 +32,8 @@ Configuration 'InstallTFS' {
     node $AllNodes.NodeName {
         Group 'Administrators' {
             GroupName        = 'Administrators'
-            Credential       = $EnvData.NonNodeData.Accounts.Setup
-            MembersToInclude = $EnvData.NonNodeData.Accounts.Admins
+            Credential       = $ConfigurationData.NonNodeData.Accounts.Setup
+            MembersToInclude = $ConfigurationData.NonNodeData.Accounts.Admins
         }
         $wmirulenames = 'WMI-RPCSS-In-TCP','WMI-WINMGMT-In-TCP','WMI-WINMGMT-Out-TCP','WMI-ASYNC-In-TCP'
         $wmirulenames | ForEach-Object {
@@ -81,14 +43,14 @@ Configuration 'InstallTFS' {
             }
         }
         File 'CopyTFSSourceFilesLocally' {
-            SourcePath      = $EnvData.NonNodeData.TFS.TFSBitsSource
-            DestinationPath = $EnvData.NonNodeData.TFS.TFSBitsDestination
+            SourcePath      = $ConfigurationData.NonNodeData.TFS.TFSBitsSource
+            DestinationPath = $ConfigurationData.NonNodeData.TFS.TFSBitsDestination
             Type            = 'Directory'
             Recurse         = $true
             Checksum        = 'SHA-256'
             MatchSource     = $true
         }
-        $fileloc = Join-Path -Path $EnvData.NonNodeData.TFS.TFSBitsDestination -Child 'TfsServer2018.exe'
+        $fileloc = Join-Path -Path $ConfigurationData.NonNodeData.TFS.TFSBitsDestination -Child 'TfsServer2018.exe'
         Script 'InstallTFS' {
             GetScript = {
                 @{
@@ -108,10 +70,10 @@ Configuration 'InstallTFS' {
             } 
             DependsOn = '[xSQLServerNetwork]ConfigureSQLPort'
         }
-        $tfsserviceaccountname = $EnvData.NonNodeData.Accounts.TFSService.UserName
-        $tfsserviceaccountpasswordtxt = $EnvData.NonNodeData.Accounts.TFSService.GetNetworkCredential().Password
-        $fqdn = $EnvData.NonNodeData.TFS.TFSPublicSiteName
-        $sqlinstance = $Node.NodeName,$EnvData.NonNodeData.SQL.InstanceName -join '\'
+        $tfsserviceaccountname = $ConfigurationData.NonNodeData.Accounts.TFSService.UserName
+        $tfsserviceaccountpasswordtxt = $ConfigurationData.NonNodeData.Accounts.TFSService.GetNetworkCredential().Password
+        $fqdn = $ConfigurationData.NonNodeData.TFS.TFSPublicSiteName
+        $sqlinstance = $Node.NodeName,$ConfigurationData.NonNodeData.SQL.InstanceName -join '\'
         Script 'ConfigureTFS' {
             GetScript = {@{Result = (Test-NetConnection -ComputerName localhost -Port 443).TcpTestSucceeded}}
             TestScript = {(Test-NetConnection -ComputerName localhost -Port 443).TcpTestSucceeded}
@@ -139,8 +101,8 @@ Configuration 'InstallTFS' {
             DependsOn = '[Script]InstallTFS'
         }
         File 'CopySQLSourceFilesLocally' {
-            SourcePath      = $EnvData.NonNodeData.SQL.SQLBitsSource
-            DestinationPath = $EnvData.NonNodeData.SQL.SQLBitsDestination
+            SourcePath      = $ConfigurationData.NonNodeData.SQL.SQLBitsSource
+            DestinationPath = $ConfigurationData.NonNodeData.SQL.SQLBitsDestination
             Type            = 'Directory'
             Recurse         = $true
             Checksum        = 'SHA-256'
@@ -148,19 +110,19 @@ Configuration 'InstallTFS' {
         }
         <# Commented out to see if Server 2016 can download and install directly from the internet
         File 'CopyDotNetFilesLocally' {
-                SourcePath      = $EnvData.NonNodeData.SQL.DotNetBitsSource
-                DestinationPath = $EnvData.NonNodeData.SQL.DotNetBitsDestination
+                SourcePath      = $ConfigurationData.NonNodeData.SQL.DotNetBitsSource
+                DestinationPath = $ConfigurationData.NonNodeData.SQL.DotNetBitsDestination
                 Type            = 'Directory'
                 Recurse         = $true
                 Checksum        = 'SHA-256'
                 MatchSource     = $true
         }
         #>
-        $folders = @($EnvData.NonNodeData.SQL.SQLUserDBDir,
-                     $EnvData.NonNodeData.SQL.SQLUserDBLogDir,
-                     $EnvData.NonNodeData.SQL.SQLTempDBDir,
-                     $EnvData.NonNodeData.SQL.SQLTempDBLogDir,
-                     $EnvData.NonNodeData.SQL.SQLBackupDir)
+        $folders = @($ConfigurationData.NonNodeData.SQL.SQLUserDBDir,
+                     $ConfigurationData.NonNodeData.SQL.SQLUserDBLogDir,
+                     $ConfigurationData.NonNodeData.SQL.SQLTempDBDir,
+                     $ConfigurationData.NonNodeData.SQL.SQLTempDBLogDir,
+                     $ConfigurationData.NonNodeData.SQL.SQLBackupDir)
         $sqlResourceDependsOn = @()
         $uniquefolders = $folders | Sort-Object -Unique 
         for($i=0;$i -lt $uniquefolders.count;$i++) {
@@ -172,30 +134,30 @@ Configuration 'InstallTFS' {
         }
         WindowsFeature 'DotNet35' {
                 Name   = 'Net-Framework-Core'
-                #Source = $EnvData.NonNodeData.SQL.DotNetBitsDestination
+                #Source = $ConfigurationData.NonNodeData.SQL.DotNetBitsDestination
                 #DependsOn = '[File]CopyDotNetFilesLocally'
         }
         $sqlResourceDependsOn += '[WindowsFeature]DotNet35'
         $sqlResourceDependsOn += '[File]CopySQLSourceFilesLocally'
         xSQLServerSetup 'SetupSQL' {
                 DependsOn           = $sqlResourceDependsOn
-                InstanceName        = $EnvData.NonNodeData.SQL.InstanceName
-                SetupCredential     = $EnvData.NonNodeData.Accounts.Setup
-                SourcePath          = $EnvData.NonNodeData.SQL.SQLBitsDestination
-                Features            = $EnvData.NonNodeData.SQL.SQLFeatures
-                SQLSvcAccount       = $EnvData.NonNodeData.Accounts.SQLService
-                AgtSvcAccount       = $EnvData.NonNodeData.Accounts.SQLAgent
-                SQLSysAdminAccounts = $EnvData.NonNodeData.SQL.SQLSysAdminAccounts
-                SQLUserDBDir        = $EnvData.NonNodeData.SQL.SQLUserDBDir
-                SQLUserDBLogDir     = $EnvData.NonNodeData.SQL.SQLUserDBLogDir
-                SQLTempDBDir        = $EnvData.NonNodeData.SQL.SQLTempDBDir
-                SQLTempDBLogDir     = $EnvData.NonNodeData.SQL.SQLTempDBLogDir
-                SQLBackupDir        = $EnvData.NonNodeData.SQL.SQLBackupDir
+                InstanceName        = $ConfigurationData.NonNodeData.SQL.InstanceName
+                SetupCredential     = $ConfigurationData.NonNodeData.Accounts.Setup
+                SourcePath          = $ConfigurationData.NonNodeData.SQL.SQLBitsDestination
+                Features            = $ConfigurationData.NonNodeData.SQL.SQLFeatures
+                SQLSvcAccount       = $ConfigurationData.NonNodeData.Accounts.SQLService
+                AgtSvcAccount       = $ConfigurationData.NonNodeData.Accounts.SQLAgent
+                SQLSysAdminAccounts = $ConfigurationData.NonNodeData.SQL.SQLSysAdminAccounts
+                SQLUserDBDir        = $ConfigurationData.NonNodeData.SQL.SQLUserDBDir
+                SQLUserDBLogDir     = $ConfigurationData.NonNodeData.SQL.SQLUserDBLogDir
+                SQLTempDBDir        = $ConfigurationData.NonNodeData.SQL.SQLTempDBDir
+                SQLTempDBLogDir     = $ConfigurationData.NonNodeData.SQL.SQLTempDBLogDir
+                SQLBackupDir        = $ConfigurationData.NonNodeData.SQL.SQLBackupDir
         }
         xSQLServerNetwork 'ConfigureSQLPort' {
             DependsOn            = '[xSQLServerSetup]SetupSQL'
-            InstanceName         = $EnvData.NonNodeData.SQL.InstanceName
-            TCPPort              = $EnvData.NonNodeData.SQL.SQLEnginePort
+            InstanceName         = $ConfigurationData.NonNodeData.SQL.InstanceName
+            TCPPort              = $ConfigurationData.NonNodeData.SQL.SQLEnginePort
             ProtocolName         = 'tcp'
             RestartService       = $true
             IsEnabled            = $true
@@ -222,7 +184,7 @@ Configuration 'InstallTFS' {
             Direction     = 'Inbound'
             Program       = 'C:\Program Files\Microsoft SQL Server\MSSQL12.TFSDEVOPS\MSSQL\binn\sqlservr.exe'
             Profile       = 'Any'
-            RemoteAddress = $EnvData.NonNodeData.SQL.SQLManagementSubnets
+            RemoteAddress = $ConfigurationData.NonNodeData.SQL.SQLManagementSubnets
         }
         <#
         xFirewall 'Deny RDP Access' {
@@ -237,4 +199,14 @@ Configuration 'InstallTFS' {
         #>
     }
 }
+InstallTFS -ConfigurationData $envData -OutputPath $mofLocation
              
+if($Deploy) {
+    Write-Host "Start Time: $(Get-Date)"
+    Set-DscLocalConfigurationManager -Path $mofLocation -verbose
+    Start-DscConfiguration -Path $mofLocation -wait -force -verbose
+    Write-Host 'Restarting remote Computer(s)...'
+    Restart-Computer -ComputerName ($envData.AllNodes.NodeName | where-object {$_ -ne '*'}) -wait -for PowerShell -Force
+    Start-DscConfiguration -ComputerName ($envData.AllNodes.NodeName | where-object {$_ -ne '*'}) -UseExisting -Wait -Verbose -Force
+    Write-Host "End Time: $(Get-Date)"
+}
