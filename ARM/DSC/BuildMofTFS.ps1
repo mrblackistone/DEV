@@ -1,2 +1,0 @@
-﻿.\Configs\SetupTFS.ps1 -envDataFilePath .\Environments\TFSEnvironment.DEMO.psd1 -Deploy
-#This needs to be reviewed, the MOF file copies the SQL bits to a bits folder on the E drive, and the TFS bits to a bits folder on the C drive
