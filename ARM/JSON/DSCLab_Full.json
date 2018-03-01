@@ -24,12 +24,12 @@
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": [
-                        "10.0.0.0/16"
+                        "25.0.0.0/16"
                     ]
                 },
                 "dhcpOptions": {
                     "dnsServers": [
-                        "10.0.0.11",
+                        "25.0.0.11",
                         "8.8.8.8"
                     ]
                 },
@@ -37,7 +37,7 @@
                     {
                         "name": "Subnet1",
                         "properties": {
-                            "addressPrefix": "10.0.0.0/24",
+                            "addressPrefix": "25.0.0.0/24",
                             "networkSecurityGroup": {
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'CoreVnet-Subnet1-NSG')]"
                             }
@@ -46,7 +46,7 @@
                     {
                         "name": "Subnet2",
                         "properties": {
-                            "addressPrefix": "10.0.2.0/24",
+                            "addressPrefix": "25.0.2.0/24",
                             "networkSecurityGroup": {
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'CoreVnet-Subnet2-NSG')]"
                             }
@@ -55,7 +55,7 @@
                     {
                         "name": "Subnet3",
                         "properties": {
-                            "addressPrefix": "10.0.3.0/24",
+                            "addressPrefix": "25.0.3.0/24",
                             "networkSecurityGroup": {
                                 "id": "[resourceId('Microsoft.Network/networkSecurityGroups', 'CoreVnet-Subnet3-NSG')]"
                             }
@@ -157,7 +157,7 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAddress": "10.0.0.11",
+                            "privateIPAddress": "25.0.0.11",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -181,7 +181,7 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAddress": "10.0.0.21",
+                            "privateIPAddress": "25.0.0.21",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -208,7 +208,7 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAddress": "10.0.0.31",
+                            "privateIPAddress": "25.0.0.31",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
@@ -236,7 +236,7 @@
                     {
                         "name": "ipconfig1",
                         "properties": {
-                            "privateIPAddress": "10.0.0.32",
+                            "privateIPAddress": "25.0.0.32",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"

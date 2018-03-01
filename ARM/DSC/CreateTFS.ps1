@@ -36,7 +36,7 @@ $envData = @{
             SQLTempDBLogDir       = 'F:\SQLTEMPDB\tempLDF'
             SQLBackupDir          = 'F:\SQLBACKUP'
             SQLEnginePort         = '54321'
-            SQLManagementSubnets  = '10.0.0.0/24'
+            SQLManagementSubnets  = '25.0.0.0/24'
         }
         TFS = @{
             TFSBitsSource         = '\\mgmt1\dsc\TFS2018'
