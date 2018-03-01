@@ -1,8 +1,3 @@
-param(
-    [Parameter(Mandatory=$true)]$envDataFilePath,
-    [switch]$Deploy
-)
-
 $envData = @{
     AllNodes = @(
         @{NodeName = '*';PSDSCAllowPlainTextPassword = $true;PSDSCAllowDomainUser = $true},
