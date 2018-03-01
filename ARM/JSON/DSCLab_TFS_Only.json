@@ -64,12 +64,12 @@
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces'), 'tfs1nic1']",
-                "[resourceId('Microsoft.Compute/availabilitySets'), 'TFSAvailabilitySet']"
+                "[resourceId('Microsoft.Network/networkInterfaces', 'tfs1nic1')]",
+                "[resourceId('Microsoft.Compute/availabilitySets', 'TFSAvailabilitySet')]"
             ],
             "properties": {
                 "availabilitySet": {
-                    "id": "TFSAvailabilitySet"
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', 'TFSAvailabilitySet')]"
                 },
                 "osProfile": {
                     "computerName": "tfs1",
@@ -113,12 +113,12 @@
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces'), 'tfs2nic1']",
-                "[resourceId('Microsoft.Compute/availabilitySets'), 'TFSAvailabilitySet')"
+                "[resourceId('Microsoft.Network/networkInterfaces', 'tfs2nic1')]",
+                "[resourceId('Microsoft.Compute/availabilitySets', 'TFSAvailabilitySet')]"
             ],
             "properties": {
                 "availabilitySet": {
-                    "id": "TFSAvailabilitySet"
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', 'TFSAvailabilitySet')]"
                 },
                 "osProfile": {
                     "computerName": "tfs2",
@@ -224,7 +224,7 @@
             "type": "Microsoft.Network/loadBalancers",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks'), 'CoreVnet']"
+                "[resourceId('Microsoft.Network/virtualNetworks', 'CoreVnet')]"
             ],
             "properties": {
                 "frontendIPConfigurations": [

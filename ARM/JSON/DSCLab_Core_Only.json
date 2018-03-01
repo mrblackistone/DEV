@@ -358,6 +358,34 @@
             "dependson":[
                 "Microsoft.Network/virtualNetworks/CoreVnet"
             ]
+        },
+        {
+            "apiVersion": "2015-06-15",
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "DC1/PowerShell.ConfigDNS",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "dc1/DSC.CreateAD"
+            ],
+            "tags": {
+                "displayName": "config-app"
+            },
+            "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.9",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/Scripts/AddDNSARecord.ps1"
+                    ]
+                },
+                "protectedSettings": {
+                    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File AddDNSARecord.ps1', ' -computername ', 'domain.local', ' -ipaddress ', '25.0.0.5', ' -zone ', 'domain.local')]",
+                    "storageAccountName": "myStorageAccountName",
+                    "storageAccountKey": "myStorageAccountKey"
+                }
+            }
         }
     ]
 }
