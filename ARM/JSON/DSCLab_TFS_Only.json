@@ -21,7 +21,9 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', 'LoadBalancer-TFS')]"
+            ],
             "properties": {
                 "ipConfigurations": [
                     {
@@ -31,7 +33,12 @@
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
-                            }
+                            },
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'LoadBalancer-TFS'), '/backendAddressPools/RDP')]"
+                                }
+                            ]
                         }
                     }
                 ]
@@ -42,7 +49,9 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
-            "dependsOn": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', 'LoadBalancer-TFS')]"
+            ],
             "properties": {
                 "ipConfigurations": [
                     {
@@ -52,7 +61,12 @@
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
-                            }
+                            },
+                            "loadBalancerBackendAddressPools": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', 'LoadBalancer-TFS'), '/backendAddressPools/RDP')]"
+                                }
+                            ]
                         }
                     }
                 ]
@@ -255,6 +269,69 @@
             "sku": {
                 "name": "Aligned"
             }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "name": "LoadBalancer-TFS",
+            "apiVersion": "2016-03-30",
+            "location": "usgovvirginia",
+            "scale": null,
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAddress": "25.0.0.5",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'CoreVnet', '/subnets/Subnet1')]"
+                            }
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "RDP"
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "RDP",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', 'frontendIPConfigurations/LoadBalancerFrontEnd')]"
+                            },
+                            "frontendPort": 3389,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "loadDistribution": "SourceIP",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', '/backendAddressPools/RDP')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', 'probes/HealthProbe-RDP')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "HealthProbe-RDP",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 3389,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [],
+                "outboundNatRules": [],
+                "inboundNatPools": []
+            },
+            "dependsOn": []
         }
     ]
 }

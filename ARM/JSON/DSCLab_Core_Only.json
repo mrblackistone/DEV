@@ -362,10 +362,10 @@
         {
             "apiVersion": "2015-06-15",
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "DC1/PowerShell.ConfigDNS",
+            "name": "dc1/PS.ConfigDNS",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "dc1/DSC.CreateAD"
+                "Microsoft.Compute/virtualMachines/dc1/extensions/DSC.CreateAD"
             ],
             "tags": {
                 "displayName": "config-app"
@@ -381,9 +381,7 @@
                     ]
                 },
                 "protectedSettings": {
-                    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File AddDNSARecord.ps1', ' -computername ', 'domain.local', ' -ipaddress ', '25.0.0.5', ' -zone ', 'domain.local')]",
-                    "storageAccountName": "myStorageAccountName",
-                    "storageAccountKey": "myStorageAccountKey"
+                    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File AddDNSARecord.ps1', ' -computername ', 'tfs', ' -ipaddress ', '25.0.0.5', ' -zone ', 'domain.local')]"
                 }
             }
         }
