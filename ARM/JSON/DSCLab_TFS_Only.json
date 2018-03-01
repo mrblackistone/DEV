@@ -233,28 +233,6 @@
             }
         },
         {
-            "apiVersion": "2017-08-01",
-            "name": "TFSLoadBalancer",
-            "type": "Microsoft.Network/loadBalancers",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', 'CoreVnet')]"
-            ],
-            "properties": {
-                "frontendIPConfigurations": [
-                    {
-                        "name": "LoadBalancerFrontEnd",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "subnet": {
-                                "id": "[variables('subnetRef')]"
-                            }
-                        }
-                    }
-                ]
-            }
-        },    
-        {
             "apiVersion": "2017-03-30",
             "type": "Microsoft.Compute/availabilitySets",
             "name": "TFSAvailabilitySet",
@@ -284,7 +262,7 @@
                             "privateIPAddress": "25.0.0.5",
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'CoreVnet', '/subnets/Subnet1')]"
+                                "id": "[variables('subnetRef')]"
                             }
                         }
                     }
@@ -299,7 +277,7 @@
                         "name": "RDP",
                         "properties": {
                             "frontendIPConfiguration": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', 'frontendIPConfigurations/LoadBalancerFrontEnd')]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', '/frontendIPConfigurations/LoadBalancerFrontEnd')]"
                             },
                             "frontendPort": 3389,
                             "backendPort": 3389,
@@ -311,7 +289,7 @@
                                 "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', '/backendAddressPools/RDP')]"
                             },
                             "probe": {
-                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', 'probes/HealthProbe-RDP')]"
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers'), 'LoadBalancer-TFS', '/probes/HealthProbe-RDP')]"
                             }
                         }
                     }

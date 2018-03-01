@@ -367,13 +367,10 @@
             "dependsOn": [
                 "Microsoft.Compute/virtualMachines/dc1/extensions/DSC.CreateAD"
             ],
-            "tags": {
-                "displayName": "config-app"
-            },
             "properties": {
                 "publisher": "Microsoft.Compute",
                 "type": "CustomScriptExtension",
-                "typeHandlerVersion": "1.9",
+                "typeHandlerVersion": "1.7",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
