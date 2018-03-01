@@ -22,8 +22,7 @@
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "Microsoft.Network/virtualNetworks/CoreVnet",
-                "publictfs1IP"
+                "[resourceId('Microsoft.Network/publicIPAddresses'), 'publictfs1IP']"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -50,8 +49,7 @@
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "Microsoft.Network/virtualNetworks/CoreVnet",
-                "publictfs2IP"
+                "[resourceId('Microsoft.Network/publicIPAddresses'), 'publictfs2IP'"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -78,10 +76,13 @@
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "Microsoft.Network/networkInterfaces/tfs1nic1",
-                "Microsoft.Compute/availabilitySets/TFSAvailabilitySet"
+                "[resourceId('Microsoft.Network/networkInterfaces'), 'tfs1nic1']",
+                "[resourceId('Microsoft.Compute/availabilitySets'), 'TFSAvailabilitySet']"
             ],
             "properties": {
+                "availabilitySet": {
+                    "id": "TFSAvailabilitySet"
+                },
                 "osProfile": {
                     "computerName": "tfs1",
                     "adminUsername": "[variables('adminUsername')]",
@@ -124,10 +125,13 @@
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "Microsoft.Network/networkInterfaces/tfs2nic1",
-                "Microsoft.Compute/availabilitySets/TFSAvailabilitySet"
+                "[resourceId('Microsoft.Network/networkInterfaces'), 'tfs2nic1']",
+                "[resourceId('Microsoft.Compute/availabilitySets'), 'TFSAvailabilitySet')"
             ],
             "properties": {
+                "availabilitySet": {
+                    "id": "TFSAvailabilitySet"
+                },
                 "osProfile": {
                     "computerName": "tfs2",
                     "adminUsername": "[variables('adminUsername')]",
@@ -252,7 +256,7 @@
             "type": "Microsoft.Network/loadBalancers",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "Microsoft.Network/virtualNetworks/CoreVnet"
+                "[resourceId('Microsoft.Network/virtualNetworks'), 'CoreVnet']"
             ],
             "properties": {
                 "frontendIPConfigurations": [
@@ -273,9 +277,7 @@
             "type": "Microsoft.Compute/availabilitySets",
             "name": "TFSAvailabilitySet",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "Microsoft.Network/virtualNetworks/CoreVnet"
-            ],
+            "dependsOn": [],
             "properties": {
                 "platformUpdateDomainCount": 5,
                 "platformFaultDomainCount": 2,
@@ -283,7 +285,7 @@
             },
             "tags": {},
             "sku": {
-                "name": "[parameters('sku')]"
+                "name": "Aligned"
             }
         }
     ]

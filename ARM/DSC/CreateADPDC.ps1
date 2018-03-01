@@ -34,6 +34,14 @@ configuration CreateADPDC
             Name = "AD-Domain-Services" 
         } 
 
+        WindowsFeature 'RSATTools'
+        {
+            DependsOn = '[WindowsFeature]ADDSInstall'
+            Ensure = 'Present'
+            Name = 'RSAT-AD-Tools'
+            IncludeAllSubFeature = 'True'
+        }
+
         xADDomain FirstDS 
         {
             DomainName = $DomainName
