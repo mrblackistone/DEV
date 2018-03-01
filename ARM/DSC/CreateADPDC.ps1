@@ -39,7 +39,7 @@ configuration CreateADPDC
             DependsOn = '[WindowsFeature]ADDSInstall'
             Ensure = 'Present'
             Name = 'RSAT-AD-Tools'
-            IncludeAllSubFeature = 'True'
+            IncludeAllSubFeature = $true
         }
 
         xADDomain FirstDS 

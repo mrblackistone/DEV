@@ -21,9 +21,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses'), 'publictfs1IP']"
-            ],
+            "dependsOn": [],
             "properties": {
                 "ipConfigurations": [
                     {
@@ -33,11 +31,7 @@
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
-                            },
-                        "publicIPAddress": {
-                            "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'publictfs1IP')]"
-                        }
-
+                            }
                         }
                     }
                 ]
@@ -48,9 +42,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses'), 'publictfs2IP'"
-            ],
+            "dependsOn": [],
             "properties": {
                 "ipConfigurations": [
                     {
@@ -60,11 +52,7 @@
                             "privateIPAllocationMethod": "Static",
                             "subnet": {
                                 "id": "[variables('subnetRef')]"
-                            },
-                        "publicIPAddress": {
-                            "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'publictfs2IP')]"
-                        }
-
+                            }
                         }
                     }
                 ]
@@ -229,26 +217,6 @@
                 }
               }
             }
-        },
-        {          
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "publictfs1IP",    
-            "apiVersion": "2016-03-30",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "publicIPAllocationMethod": "Dynamic"
-            },
-            "dependson":[]
-        },
-        {          
-            "type": "Microsoft.Network/publicIPAddresses",
-            "name": "publictfs2IP",    
-            "apiVersion": "2016-03-30",
-            "location": "[resourceGroup().location]",
-            "properties": {
-                "publicIPAllocationMethod": "Dynamic"
-            },
-            "dependson":[]
         },
         {
             "apiVersion": "2017-08-01",
