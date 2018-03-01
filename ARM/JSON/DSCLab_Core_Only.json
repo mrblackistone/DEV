@@ -361,7 +361,7 @@
         },
         {
             "apiVersion": "2015-06-15",
-            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "type": "Microsoft.Compute/VirtualMachines/extensions",
             "name": "dc1/PS.ConfigDNS",
             "location": "[resourceGroup().location]",
             "dependsOn": [
@@ -374,7 +374,7 @@
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
-                        "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/Scripts/AddDNSARecord.ps1"
+                        "https://miblackibinaries.blob.core.usgovcloudapi.net/bin/Scripts/AddDNSARecord.zip"
                     ]
                 },
                 "protectedSettings": {
