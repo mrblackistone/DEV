@@ -1,0 +1,125 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "VMBaseName": {
+            "type": "string",
+            "defaultValue": "TestIt"
+        },
+        "NumberofVMs": {
+            "type": "int",
+            "defaultValue": 3
+        },
+        "SubnetName": {
+            "type": "string",
+            "defaultValue": "BackEnd"
+        },
+        "FirstThreeOctets": {
+            "type": "string",
+            "metadata": {
+                "description": "First three octets of the IP range in format 10.0.0 (for example) to exclude the final period."
+            },
+            "defaultValue": "10.1.0"
+        },
+        "FourthOctet": {
+            "type": "int",
+            "metadata": {
+                "description": "First number to use as the fourth octet in an IP range.  For example, if three VMs are being created from 10.0.0.25 through 10.0.0.27, then you would enter 25"
+            },
+            "defaultValue": 25
+        },
+        "VNetName": {
+            "type": "string",
+            "defaultValue": "TestLabVNet"
+        },
+        "adminUsername": {
+            "type": "string",
+            "defaultValue": "TheTestAdmin"
+        },
+        "adminPassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {
+        "adminUserName":"[parameters('adminUsername')]", 
+        "adminPassword":"[parameters('adminPassword')]",
+        "vnetId": "[resourceId(resourceGroup().Name,'Microsoft.Network/virtualNetworks', parameters('VNetName'))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('SubnetName'))]"
+    },
+    "resources": [
+        {
+            "name": "[concat(parameters('VMBaseName'), copyindex(), 'nic1')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2016-09-01",
+            "location": "[resourceGroup().location]",
+            "copy": {
+                "name": "NICLoop",
+                "count": "[parameters('NumberofVMs')]"
+            },
+            "dependsOn": [],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "[concat('ipconfig', copyindex())]",
+                        "properties": {
+                            "privateIPAddress": "[concat(parameters('FirstThreeOctets'), '.', add(parameters('FourthOctet'), copyindex()))]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[variables('subnetRef')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "[concat(parameters('VMBaseName'), CopyIndex())]",
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2016-04-30-preview",
+            "location": "[resourceGroup().location]",
+            "copy": {
+                "name": "NICLoop",
+                "count": "[parameters('NumberofVMs')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('VMBaseName'), copyindex(), 'nic1'))]"
+            ],
+            "properties": {
+                "osProfile": {
+                    "computerName": "[concat(parameters('VMBaseName'), copyindex())]",
+                    "adminUsername": "[variables('adminUsername')]",
+                    "adminPassword": "[variables('adminPassword')]",
+                    "windowsConfiguration": {
+                        "provisionVmAgent": "true"
+                    }
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_A2_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS"
+                        }
+                    },
+                    "dataDisks": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('VMBaseName'), copyindex(), 'nic1'))]"
+                        }
+                    ]
+                },
+                "licenseType": "Windows_Server"
+            }
+        }
+    ]
+}
