@@ -38,6 +38,10 @@
         },
         "adminPassword": {
             "type": "securestring"
+        },
+        "VMSize": {
+            "type": "string",
+            "defaultValue": "Standard_A2_v2"
         }
     },
     "variables": {
@@ -94,7 +98,7 @@
                     }
                 },
                 "hardwareProfile": {
-                    "vmSize": "Standard_A2_v2"
+                    "vmSize": "[parameters('VMSize')]"
                 },
                 "storageProfile": {
                     "imageReference": {
