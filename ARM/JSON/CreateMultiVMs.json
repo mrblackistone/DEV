@@ -4,29 +4,43 @@
     "parameters": {
         "VMBaseName": {
             "type": "string",
-            "defaultValue": "TestIt"
+            "defaultValue": "TestIt",
+            "maxLength": 12,
+            "metadata": {
+                "description": "Maximum base name length is 12 characters."
+            }
         },
         "NumberofVMs": {
             "type": "int",
-            "defaultValue": 3
+            "defaultValue": 3,
+            "minValue": 1,
+            "maxValue": 245,
+            "metadata": {
+                "description": "Up to 245 machines are allowed."
+            }
         },
         "SubnetName": {
             "type": "string",
-            "defaultValue": "BackEnd"
+            "defaultValue": "BackEnd",
+            "metadata": {
+                "description": "This is the name of the Subnet that your machines will be added to.  Please ensure that the range of IP addresses to be used are available."
+            }
         },
         "FirstThreeOctets": {
             "type": "string",
             "metadata": {
-                "description": "First three octets of the IP range in format 10.0.0 (for example) to exclude the final period."
+                "description": "First three octets of the IP range in format 10.0.0 (for example) but DO NOT include the final period.  There should be three numbers separated by two periods."
             },
-            "defaultValue": "10.1.0"
+            "defaultValue": "10.0.0"
         },
         "FourthOctet": {
             "type": "int",
             "metadata": {
-                "description": "First number to use as the fourth octet in an IP range.  For example, if three VMs are being created from 10.0.0.25 through 10.0.0.27, then you would enter 25"
+                "description": "First number to use as the final octet in an IP range.  For example, if three VMs are being created from 10.0.0.25 through 10.0.0.27, then you would enter 25"
             },
-            "defaultValue": 25
+            "defaultValue": 25,
+            "minValue": 5,
+            "maxValue": 252
         },
         "VNetName": {
             "type": "string",
@@ -41,14 +55,19 @@
         },
         "VMSize": {
             "type": "string",
-            "defaultValue": "Standard_A2_v2"
+            "defaultValue": "Standard_A2_v2",
+            "allowedValues": [
+                "Standard_A2_v2",
+                "Standard_A2"
+            ]
         }
     },
     "variables": {
         "adminUserName":"[parameters('adminUsername')]", 
         "adminPassword":"[parameters('adminPassword')]",
         "vnetId": "[resourceId(resourceGroup().Name,'Microsoft.Network/virtualNetworks', parameters('VNetName'))]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('SubnetName'))]"
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('SubnetName'))]",
+        "NumberofVMsMod": "[if(less(parameters('NumberofVMs'),sub(245,parameters('FourthOctet'))),parameters('NumberofVMs'),sub(245,parameters('FourthOctet'))]"
     },
     "resources": [
         {
@@ -58,7 +77,7 @@
             "location": "[resourceGroup().location]",
             "copy": {
                 "name": "NICLoop",
-                "count": "[parameters('NumberofVMs')]"
+                "count": "[variables('NumberofVMsMod')]"
             },
             "dependsOn": [],
             "properties": {
@@ -83,7 +102,7 @@
             "location": "[resourceGroup().location]",
             "copy": {
                 "name": "NICLoop",
-                "count": "[parameters('NumberofVMs')]"
+                "count": "[variables('NumberofVMsMod')]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('VMBaseName'), copyindex(), 'nic1'))]"
