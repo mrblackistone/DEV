@@ -14,9 +14,9 @@
             "type": "int",
             "defaultValue": 3,
             "minValue": 1,
-            "maxValue": 245,
+            "maxValue": 251,
             "metadata": {
-                "description": "Up to 245 machines are allowed."
+                "description": "Up to 251 machines are allowed."
             }
         },
         "SubnetName": {
@@ -39,8 +39,8 @@
                 "description": "First number to use as the final octet in an IP range.  For example, if three VMs are being created from 10.0.0.25 through 10.0.0.27, then you would enter 25"
             },
             "defaultValue": 25,
-            "minValue": 5,
-            "maxValue": 252
+            "minValue": 4,
+            "maxValue": 254
         },
         "VNetName": {
             "type": "string",
@@ -48,7 +48,7 @@
         },
         "adminUsername": {
             "type": "string",
-            "defaultValue": "TheTestAdmin"
+            "defaultValue": "TestAdmin"
         },
         "adminPassword": {
             "type": "securestring"
@@ -67,7 +67,7 @@
         "adminPassword":"[parameters('adminPassword')]",
         "vnetId": "[resourceId(resourceGroup().Name,'Microsoft.Network/virtualNetworks', parameters('VNetName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('SubnetName'))]",
-        "NumberofVMsMod": "[if(less(parameters('NumberofVMs'),sub(245,parameters('FourthOctet'))),parameters('NumberofVMs'),sub(245,parameters('FourthOctet')))]"
+        "NumberofVMsMod": "[if(less(parameters('NumberofVMs'),sub(255,parameters('FourthOctet'))),parameters('NumberofVMs'),sub(255,parameters('FourthOctet')))]"
     },
     "resources": [
         {
