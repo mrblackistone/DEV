@@ -67,7 +67,7 @@
         "adminPassword":"[parameters('adminPassword')]",
         "vnetId": "[resourceId(resourceGroup().Name,'Microsoft.Network/virtualNetworks', parameters('VNetName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('SubnetName'))]",
-        "NumberofVMsMod": "[if(less(parameters('NumberofVMs'),sub(245,parameters('FourthOctet'))),parameters('NumberofVMs'),sub(245,parameters('FourthOctet'))]"
+        "NumberofVMsMod": "[if(less(parameters('NumberofVMs'),sub(245,parameters('FourthOctet'))),parameters('NumberofVMs'),sub(245,parameters('FourthOctet')))]"
     },
     "resources": [
         {
