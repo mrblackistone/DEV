@@ -48,10 +48,16 @@
         },
         "adminUsername": {
             "type": "string",
-            "defaultValue": "TestAdmin"
+            "defaultValue": "TestAdmin",
+            "metadata": {
+                "description": "Account name for the local administrator account."
+            }
         },
         "adminPassword": {
-            "type": "securestring"
+            "type": "securestring",
+            "metadata": {
+                "description": "Password for the local administrator account."
+            }
         },
         "VMSize": {
             "type": "string",
