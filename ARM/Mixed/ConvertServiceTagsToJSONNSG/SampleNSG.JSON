@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroups_NSGTestGood_name": {
+            "defaultValue": "NSGTestGood",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "None",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSGTestGood_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "usgovvirginia",
+            "scale": null,
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "DenyInternetOutbound",
+                        "properties": {
+                            "description": "Blocks outbound internet access",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "Internet",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "SampleRule",
+                        "properties": {
+                            "description": "Allows traffic to $",
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "69.69.69.0/24",
+                            "access": "Allow",
+                            "priority": 499,
+                            "direction": "Outbound"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        }
+    ]
+}
