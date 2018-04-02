@@ -1,10 +1,14 @@
+param (
+    $subscriptionID
+)
+
 Login-AzureRMAccount -Environment azureusgovernment
 Get-AzureRMSubscription
-Select-AzureRmSubscription -Subscription c2717208-1840-476c-81c9-e87f7c46f832
+Select-AzureRmSubscription -Subscription $subscriptionID
 
 
 #Provide the subscription Id of the subscription where managed disk exists
-$sourceSubscriptionId='c2717208-1840-476c-81c9-e87f7c46f832'
+$sourceSubscriptionId=$subscriptionID
 
 #Provide the name of your resource group where managed disk exists
 $sourceResourceGroupName='mrbTest'
@@ -20,7 +24,7 @@ $managedDisk= Get-AzureRMDisk -ResourceGroupName $sourceResourceGroupName -DiskN
 
 #Provide the subscription Id of the subscription where managed disk will be copied to
 #If managed disk is copied to the same subscription then you can skip this step
-$targetSubscriptionId='c2717208-1840-476c-81c9-e87f7c46f832'
+$targetSubscriptionId=$subscriptionID
 
 #Name of the resource group where snapshot will be copied to
 $targetResourceGroupName='mrbTest'
