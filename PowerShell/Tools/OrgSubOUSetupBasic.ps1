@@ -5,7 +5,7 @@ param(
 $OUAdmins = "$OrgName-OU-Admins"
 $AzureAdmins = "$OrgName-Azure-Admins"
 $Users = "$OrgName-Users"
-$ParentOU = "OU=Orgs,DC=DOSDev,DC=local"
+$ParentOU = "OU=Orgs,DC=TestOrg,DC=local"
 
 $OrgPath = "OU=$OrgName,$ParentOU"
 
