@@ -1,3 +1,7 @@
+param (
+    $location
+)
+
 # 1.  The purpose of this script is to go through all JSON files in your current folder and subfolders,
 #     then look up their resources' types, find the most recent available API version online, and update
 #     the API version in the JSON to the newest, and finally write the change to the file(s).
@@ -27,7 +31,7 @@ Get-ChildItem -Filter *.json -Recurse | ForEach-Object {
         } else {
             $providerNamespace = $_.type.split("/",2)[0]
             $resourceTypeName = $_.type.split("/",2)[1]
-            $thisObjectNewestVersion = ((Get-AzureRMResourceProvider -ProviderNamespace $providerNamespace).ResourceTypes | Where-Object ResourceTypeName -eq $resourceTypeName).ApiVersions[0]
+            $thisObjectNewestVersion = ((Get-AzureRMResourceProvider -Location $location -ProviderNamespace $providerNamespace).ResourceTypes | Where-Object ResourceTypeName -eq $resourceTypeName).ApiVersions[0]
             if ($thisObjectNewestVersion -ne $null) {
                 $newestApiVersions += @{$_.type = $thisObjectNewestVersion}
                 $_.apiVersion = $newestApiVersions[$_.type]
