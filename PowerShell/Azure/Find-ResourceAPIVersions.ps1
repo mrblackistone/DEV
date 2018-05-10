@@ -4,6 +4,7 @@ param (
 #The purpose of this script is to go through all of the resources you have access to across all of your Azure environment's subscriptions, 
 #and provide the two most recent available API versions for their respective provider namespaces and resource types.
 
+$a = @()
 Get-azurermsubscription | ForEach-Object {
     Select-AzureRmSubscription -Subscription $_.SubscriptionId
     Get-AzureRmResource | ForEach-Object {
