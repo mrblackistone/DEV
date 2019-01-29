@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csBasics\\csBasics.csproj",
+      "projectUniqueName": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csBasics.1\\csBasics.csproj",
       "projectName": "csBasics",
-      "projectPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csBasics\\csBasics.csproj",
+      "projectPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csBasics.1\\csBasics.csproj",
       "packagesPath": "C:\\Users\\einar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csBasics\\obj\\",
+      "outputPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csBasics.1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

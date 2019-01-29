@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csClassesAndObjects\\csClassesAndObjects.csproj",
+      "projectUniqueName": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csClassesAndObjects.3\\csClassesAndObjects.csproj",
       "projectName": "csClassesAndObjects",
-      "projectPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csClassesAndObjects\\csClassesAndObjects.csproj",
+      "projectPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csClassesAndObjects.3\\csClassesAndObjects.csproj",
       "packagesPath": "C:\\Users\\einar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csClassesAndObjects\\obj\\",
+      "outputPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csClassesAndObjects.3\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

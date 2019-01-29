@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csMethods\\csMethods.csproj",
+      "projectUniqueName": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csMethods.2\\csMethods.csproj",
       "projectName": "csMethods",
-      "projectPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csMethods\\csMethods.csproj",
+      "projectPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csMethods.2\\csMethods.csproj",
       "packagesPath": "C:\\Users\\einar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csMethods\\obj\\",
+      "outputPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\csMethods.2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
