@@ -1,0 +1,29 @@
+Install PowerShell Core
+Install VSCode and the C# extension
+Install .NET Core SDK
+Browse to where you want your C# project’s top level folder to be
+Run dotnet new console –o MyApp
+Run dotnet restore and say yes if prompted
+Run dotnet run to run your app
+Set VSCode User Settings:
+    "terminal.integrated.shell.windows": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+    "powershell.powerShellExePath": "C:\\Program Files\\PowerShell\\6\\pwsh.exe",
+
+Basic Code:
+using System;
+
+namespace MyApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello, world!");
+            int x = 10;
+            double y = 20.05;
+            Console.WriteLine("x = {0}; y = {1}", x, y);
+        }
+    }
+}
+
+
