@@ -142,7 +142,6 @@ namespace MyApp
             string conditionalMsg;
             conditionalMsg = (conditionalVar >= 18) ? "Welcome" : "Nope";
             Console.WriteLine("Conditional message is {0}", conditionalMsg);
-            //
         }
     }
 }
