@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 
 namespace MyApp
 {
@@ -142,6 +143,21 @@ namespace MyApp
             string conditionalMsg;
             conditionalMsg = (conditionalVar >= 18) ? "Welcome" : "Nope";
             Console.WriteLine("Conditional message is {0}", conditionalMsg);
+            //Random Numbers
+            //Pseudo-random
+            Random rnd = new Random();
+            int month = rnd.Next(1, 13); // creates a number between 1 and 12
+            int dice = rnd.Next(1, 7);   // creates a number between 1 and 6
+            int card = rnd.Next(52);     // creates a number between 0 and 51
+            Console.WriteLine("Month, dice, and card are {0}, {1}, {2}", month, dice, card);
+            //Cryptographically-secure random
+            using (RNGCryptoServiceProvider rg = new RNGCryptoServiceProvider()) 
+            { 
+                byte[] rno = new byte[5];    
+                rg.GetBytes(rno);    
+                int randomvalue = BitConverter.ToInt32(rno, 0); 
+                Console.WriteLine("Cryptographically-secure random number is {0}", randomvalue);
+            }
         }
     }
 }

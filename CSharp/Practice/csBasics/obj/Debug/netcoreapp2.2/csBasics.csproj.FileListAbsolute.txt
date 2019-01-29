@@ -1,0 +1,11 @@
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\bin\Debug\netcoreapp2.2\csBasics.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\bin\Debug\netcoreapp2.2\csBasics.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\bin\Debug\netcoreapp2.2\csBasics.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\bin\Debug\netcoreapp2.2\csBasics.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\bin\Debug\netcoreapp2.2\csBasics.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\obj\Debug\netcoreapp2.2\csBasics.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\obj\Debug\netcoreapp2.2\csBasics.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\obj\Debug\netcoreapp2.2\csBasics.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\obj\Debug\netcoreapp2.2\csBasics.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\obj\Debug\netcoreapp2.2\csBasics.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csBasics\obj\Debug\netcoreapp2.2\csBasics.pdb
