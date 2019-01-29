@@ -1,0 +1,11 @@
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\obj\Debug\netcoreapp2.2\csClassesAndObjects.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\obj\Debug\netcoreapp2.2\csClassesAndObjects.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\obj\Debug\netcoreapp2.2\csClassesAndObjects.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\obj\Debug\netcoreapp2.2\csClassesAndObjects.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\bin\Debug\netcoreapp2.2\csClassesAndObjects.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\bin\Debug\netcoreapp2.2\csClassesAndObjects.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\bin\Debug\netcoreapp2.2\csClassesAndObjects.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\bin\Debug\netcoreapp2.2\csClassesAndObjects.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\bin\Debug\netcoreapp2.2\csClassesAndObjects.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\obj\Debug\netcoreapp2.2\csClassesAndObjects.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csClassesAndObjects\obj\Debug\netcoreapp2.2\csClassesAndObjects.pdb

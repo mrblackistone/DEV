@@ -1,0 +1,11 @@
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\bin\Debug\netcoreapp2.2\csMethods.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\bin\Debug\netcoreapp2.2\csMethods.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\bin\Debug\netcoreapp2.2\csMethods.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\bin\Debug\netcoreapp2.2\csMethods.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\bin\Debug\netcoreapp2.2\csMethods.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\obj\Debug\netcoreapp2.2\csMethods.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\obj\Debug\netcoreapp2.2\csMethods.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\obj\Debug\netcoreapp2.2\csMethods.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\obj\Debug\netcoreapp2.2\csMethods.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\obj\Debug\netcoreapp2.2\csMethods.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csMethods\obj\Debug\netcoreapp2.2\csMethods.pdb
