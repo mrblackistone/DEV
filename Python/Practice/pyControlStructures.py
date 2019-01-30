@@ -131,9 +131,27 @@ z = list(range(5,20,3))
 print(z) #Returns [5,8,11,14,17]
 
 #For loops
+#While loop was like this:
+wordList = ["this","is","a","list"]
+counter = 0
+max_index = len(wordList) - 1
+while counter <= max_index :
+    word = wordList[counter]
+    print(word + "!")
+    counter = counter + 1
+#Shorter FOR syntax gives us this:
+wordList = ["this","is","a","list"]
+for word in wordList :
+    print (word + "!")
+#Can use range to limit repetitions when no list is used:
+for varname in range(5) :
+    print(varname) #Returns range values
 
-
-
-
-
-
+#Simple calculator
+while True :
+    print("Options: add, sub, mult, div, quit")
+    user_input = input(": ")
+    if user_input == "quit" :
+        break
+    elif user_input == "add" :
+        
