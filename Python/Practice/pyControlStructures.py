@@ -154,4 +154,19 @@ while True :
     if user_input == "quit" :
         break
     elif user_input == "add" :
-        
+        num1 = float(input("Enter a number: "))
+        num2 = float(input("Enter another: "))
+        print(num1 + num2)
+    elif user_input == "sub" :
+        num1 = float(input("Enter a number: "))
+        num2 = float(input("Enter another: "))
+        print(num1 - num2)
+    elif user_input == "mult" :
+        num1 = float(input("Enter a number: "))
+        num2 = float(input("Enter another: "))
+        print(num1 * num2)
+    elif user_input == "div" :
+        num1 = float(input("Enter a number: "))
+        num2 = float(input("Enter another: "))
+        print(num1 / num2)
+

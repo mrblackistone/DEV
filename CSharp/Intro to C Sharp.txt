@@ -1,3 +1,27 @@
+Terms:
+    Class
+    Operator
+    Operation
+    Object
+    Method
+    Function
+    Parameter
+    Argument
+    Property
+    Comment
+    Variable
+    Keyword
+    Type
+    Name
+    Value
+    Block
+    Cast
+    Expression
+    Statement (that which completes an action, ends in ;)
+
+
+
+
 Install PowerShell Core
 Install VSCode and the C# extension
 Install .NET Core SDK
