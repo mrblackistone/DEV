@@ -1,0 +1,4 @@
+C:\git\DEV-1\CSharp\Practice\StructsEnumsExceptionsFiles.6\obj\Debug\netcoreapp2.0\StructsEnumsExceptionsFiles.6.csprojAssemblyReference.cache
+C:\git\DEV-1\CSharp\Practice\StructsEnumsExceptionsFiles.6\obj\Debug\netcoreapp2.0\StructsEnumsExceptionsFiles.6.csproj.CoreCompileInputs.cache
+C:\git\DEV-1\CSharp\Practice\StructsEnumsExceptionsFiles.6\obj\Debug\netcoreapp2.0\StructsEnumsExceptionsFiles.6.AssemblyInfoInputs.cache
+C:\git\DEV-1\CSharp\Practice\StructsEnumsExceptionsFiles.6\obj\Debug\netcoreapp2.0\StructsEnumsExceptionsFiles.6.AssemblyInfo.cs

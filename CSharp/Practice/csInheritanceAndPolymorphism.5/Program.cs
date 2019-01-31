@@ -4,6 +4,7 @@ namespace csInheritanceAndPolymorphism._5
 {
     class Program
     {
+        //Class Inheritance (To Be)
         class baseClass {
             public int Legs {get;set;}
             public int Age {get;set;}
@@ -95,6 +96,18 @@ namespace csInheritanceAndPolymorphism._5
             }
         }
 
+        //Nested classes (To Have)
+        class Car {
+            string name;
+            public Car(string nm) {
+                name = nm;
+                Motor m = new Motor();
+            }
+            public class Motor {
+                //some code
+            }
+        }
+
         //Main-----------------------------------------------------------------------------
         static void Main(string[] args)
         {
@@ -124,6 +137,9 @@ namespace csInheritanceAndPolymorphism._5
             z.Draw(); //Outputs circle drawing
             ISquash y = new interfaceCircle();
             y.Squash(); //Outputs about squashing
+
+            //Namespaces
+            System.Console.WriteLine("Hello"); //Here, "System" would be required if "using System;" was not called at the start of the file.
         }
     }
 }
