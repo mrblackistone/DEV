@@ -1,15 +1,16 @@
 Terms:
     Class
+    Class Members:
+        Methods
+        Properties
+        Variables
     Operator
     Operation
     Object
-    Method
     Function
     Parameter
     Argument
-    Property
     Comment
-    Variable
     Keyword
     Type
     Name

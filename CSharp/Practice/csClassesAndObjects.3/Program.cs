@@ -28,7 +28,7 @@ namespace csClassesAndObjects
             }
         }
         class BankAccount {
-             private double balance; //BankAccount.balance can only be referenced within the BankAccount class
+            private double balance; //BankAccount.balance can only be referenced within the BankAccount class
             public BankAccount (double bl = 0) {
                 balance = bl;
             } //constructor sets value for new instances to 0.  Must be public to set it.
@@ -45,7 +45,65 @@ namespace csClassesAndObjects
             } //Since this is within the class, it can reference balance.  It's referenced as ClassName.MethodName()
             //Example:  BankAccount.GetBalance()
         }
+        class animal {
+            public string Name { get; set; } //Short form to create properties, and private fields as well.
+            //Use when no custom logic is needed.
+            public animal (string nm = "Bessie") {
+                Name = nm;
+            }
+            //Constructor sets name to Bessie by default
+            ~animal() {
+                Console.WriteLine("Dog class destroyed");
+            }
+            //Destructor writes message when instantiated object is destroyed.
+        }
+        class staticStuff {
+            public static int count=0; //static keyword on method, variable, or property
+            //means it belongs to the class itself, instead of to instantiated objects.
+            //There's only one copy of the class member, no matter how many instances are created.
+            //Static members can be access through their class name: staticStuff.count
+            public staticStuff() {
+                count++;
+            }
+            public static void Bark() { //static method, which can only access static members
+                Console.WriteLine("Woof!");
+            }
+        }
+        class MathClass {
+            public const int ONE = 1; //constants are static by default
+        }
+        class StaticConstructor {
+            public static int X { get; set; }
+            public static int Y { get; set; }
+            static StaticConstructor() { //Constructor will be called when we try to
+            //access StaticConstructor.X or StaticConstructor.Y
+                X = 10;
+                Y = 20;
+            }
+        }
+        static class StaticClass {
+            public static void DoIt() {
+                Console.WriteLine("Doing it");
+            }
+        }
+        class thisClass {
+            private string name;
+            public thisClass(string zzz) {
+                this.name = zzz; //this.name represents member of the class, 
+                //zzz represents parameter of the constructor
+            }
+        }
+        class readonlyClass {
+            private readonly string name = "John"; //readonly variable (field)
+            //readonly does not need to be initialized when declared, unlike const
+            //readonly can be changed in a constructor, but const cannot
+            //readonly value can come from a calculation, which const's cannot
+            public readonlyClass(string zzz) {
+                this.name = zzz;
+            }
+        }
         static void Main(string[] args)
+
         {
             Person p1 = new Person();
             p1.SayHi();
@@ -56,8 +114,11 @@ namespace csClassesAndObjects
             acct1.Deposit(500);
             acct1.Withdraw(7);
             Console.WriteLine("Balance is: {0}", acct1.GetBalance());
+            Console.WriteLine(MathClass.ONE);
+            StaticClass.DoIt();
         }
         //Properties
+        //Allow public interaction with private fields
 
     }
 }
