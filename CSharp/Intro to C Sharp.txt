@@ -3,7 +3,7 @@ Terms:
     Class Members:
         Methods
         Properties
-        Variables
+        Variables (Fields)
     Operator
     Operation
     Object
@@ -20,6 +20,21 @@ Terms:
     Expression
     Statement (that which completes an action, ends in ;)
 
+Keywords
+    Static
+    Access Modifiers
+        Public - Type or member available from any assembly
+        Private - Type or member available only in same class or struct
+        Protected - Type or member available only in same class or struct, or in a derived class
+        Sealed - Class-level keyword. Means no classes can inherit from it.
+    Void - No value returned by the method.
+    Virtual - For a Method.  Means method can be overridden in derived classes.
+    Override - For a Method in a derived class.  Specifies that overriding of base class' version of method is occurring.
+    Abstract - Used for class or method to state that it is incomplete.  Class must be abstract before it can contain abstract methods.
+        Cannot be instantiated
+        May contain abstract methods and accessors
+        Non-abstract derivations fro it must include actual implementations of all inherited abstract methods and accessors.
+    Interface - For a class.  Means class is fully abstract.
 
 
 

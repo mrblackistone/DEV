@@ -1,0 +1,11 @@
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\obj\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\obj\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\obj\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\obj\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\bin\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\bin\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\bin\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\bin\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\bin\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\obj\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csInheritanceAndPolymorphism.5\obj\Debug\netcoreapp2.2\csInheritanceAndPolymorphism.5.pdb

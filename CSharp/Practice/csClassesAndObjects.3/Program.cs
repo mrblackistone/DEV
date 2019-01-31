@@ -102,6 +102,34 @@ namespace csClassesAndObjects
                 this.name = zzz;
             }
         }
+        class indexerClass {
+            private string[] names = new string[10];
+            public string this[int index] {
+                get {
+                    return names[index];
+                }
+                set {
+                    names[index] = value;
+                }
+            }
+        }
+        class overloadingClass {
+            public int Height {get;set;}
+            public int Width {get;set;}
+            public overloadingClass(int h, int w) {
+                Height = h;
+                Width = w;
+            }
+            //Here's the overload part:
+            public static overloadingClass operator+ (overloadingClass a, overloadingClass b) {
+                //operator_ where _ is the operator symbol declares this an overload
+                int h = a.Height + b.Height;
+                int w = a.Width + b.Width;
+                overloadingClass res = new overloadingClass(h, w);
+                return res;
+            }
+        }
+        //Main----------------------------------------------------------------------------
         static void Main(string[] args)
 
         {
@@ -114,8 +142,25 @@ namespace csClassesAndObjects
             acct1.Deposit(500);
             acct1.Withdraw(7);
             Console.WriteLine("Balance is: {0}", acct1.GetBalance());
-            Console.WriteLine(MathClass.ONE);
-            StaticClass.DoIt();
+            
+            //Constant (which is static by default)
+            Console.WriteLine(MathClass.ONE); //returns 1
+            
+            //Static Class
+            StaticClass.DoIt(); //returns Doing it
+            
+            //indexer
+            indexerClass c = new indexerClass();
+            c[0] = "Dave";
+            c[1] = "Bob";
+            Console.WriteLine(c[1]); //returns Bob
+
+            //Operator overloading
+            overloadingClass b1 = new overloadingClass(14,3);
+            overloadingClass b2 = new overloadingClass(5,7);
+            overloadingClass b3 = b1 + b2; //plus (+) is the operator that was overloaded
+            Console.WriteLine(b2.Height); //19
+            Console.WriteLine(b2.Width); //10
         }
         //Properties
         //Allow public interaction with private fields
