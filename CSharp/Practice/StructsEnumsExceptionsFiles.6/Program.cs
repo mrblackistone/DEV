@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace StructsEnumsExceptionsFiles._6
 {
@@ -67,7 +68,44 @@ namespace StructsEnumsExceptionsFiles._6
             //over using values, or having to use a narrowing conversion and casting INT
 
             //Exception handling
-            
+            try {
+                int [] arr = new int[] { 4,5,8 };
+                Console.WriteLine(arr[8]);
+            }
+            catch (exception e) {
+                Console.WriteLine("An error occurred."); //catch block executes without stopping program
+            }
+            finally {
+                Console.WriteLine("All done."); //finally block runs always, even if return statement exists in catch block
+            }
+            //Mutliple exceptions
+            try {
+                x = Convert.ToInt32(Console.Read());
+                y = Convert.ToInt32(Console.Read());
+                Console.WriteLine(x/y);
+            }
+            //Common exception types: FileNotFoundException, FormatException, IndexOutOfRangeException, InvalidOperationException, OutOfMemoryException
+            //Use exception handling if the error is rare.  If it's common, build code to avoid it.
+            catch (DivideByZeroException e) {
+                Console.WriteLine("Cannot divide by zero");
+                return;
+            }
+            catch (Exception e) {
+                Console.WriteLine("An error occurred.");
+                return;
+            }
+            finally {
+                Console.WriteLine("Completed.");
+            }  //One need for a finally block is to close a file, whether an exception occurred or not.
+
+            //Working with files (System.IO namespace)
+            //Write
+            string str = "Some text";
+            File.WriteAllText("Test.txt", str); //Creates file (or overwrites whole file) and adds the text.
+            //Read
+            string str2 = File.ReadAllText("test.txt");
+            Console.WriteLine(str2);
+            //Also:  AppendAllText(), Create(), Delete(), Exists(), Copy(), and Move()
         }
     }
 }
