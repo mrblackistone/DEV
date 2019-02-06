@@ -40,6 +40,7 @@ namespace csArraysAndStrings._4
             Console.WriteLine("shortArray should have 3 as largest:  "+shortArray.Max());
             Console.WriteLine("shortArray should have 1 as smallest:  "+shortArray.Min());
             Console.WriteLine("shortArray should have 6 as sum:  "+shortArray.Sum());
+            
             //String properties: Length
             string theString = "A bunch of stuff";
             Console.WriteLine(theString.Length);
