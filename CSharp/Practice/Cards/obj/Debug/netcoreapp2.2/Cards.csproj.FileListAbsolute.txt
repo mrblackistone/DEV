@@ -1,0 +1,4 @@
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfo.cs

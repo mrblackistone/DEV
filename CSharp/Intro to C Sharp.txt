@@ -21,7 +21,7 @@ Terms:
     Statement (that which completes an action, ends in ;)
 
 Keywords
-    Static
+    Static - 
     Access Modifiers
         Public - Type or member available from any assembly
         Private - Type or member available only in same class or struct

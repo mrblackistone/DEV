@@ -9,3 +9,14 @@ C:\git\DEV-1\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.d
 C:\git\DEV-1\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.pdb
 C:\git\DEV-1\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.dll
 C:\git\DEV-1\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\bin\Debug\netcoreapp2.0\csGenerics.7.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\csGenerics.7\obj\Debug\netcoreapp2.0\csGenerics.7.pdb

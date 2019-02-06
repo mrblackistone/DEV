@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Cards\\Cards.csproj",
+  "TargetFramework": "netcoreapp2.2",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
