@@ -1,0 +1,11 @@
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\bin\Debug\netcoreapp2.2\CryptoDiceRoll.deps.json
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\bin\Debug\netcoreapp2.2\CryptoDiceRoll.runtimeconfig.json
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\bin\Debug\netcoreapp2.2\CryptoDiceRoll.runtimeconfig.dev.json
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\bin\Debug\netcoreapp2.2\CryptoDiceRoll.dll
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\bin\Debug\netcoreapp2.2\CryptoDiceRoll.pdb
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\obj\Debug\netcoreapp2.2\CryptoDiceRoll.csprojAssemblyReference.cache
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\obj\Debug\netcoreapp2.2\CryptoDiceRoll.csproj.CoreCompileInputs.cache
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\obj\Debug\netcoreapp2.2\CryptoDiceRoll.AssemblyInfoInputs.cache
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\obj\Debug\netcoreapp2.2\CryptoDiceRoll.AssemblyInfo.cs
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\obj\Debug\netcoreapp2.2\CryptoDiceRoll.dll
+C:\git\DEV-1\CSharp\Practice\CryptoDiceRoll\obj\Debug\netcoreapp2.2\CryptoDiceRoll.pdb

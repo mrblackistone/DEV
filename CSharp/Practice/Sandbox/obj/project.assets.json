@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\git\\DEV-1\\CSharp\\Practice\\CryptoDiceRoll\\CryptoDiceRoll.csproj",
-      "projectName": "CryptoDiceRoll",
-      "projectPath": "C:\\git\\DEV-1\\CSharp\\Practice\\CryptoDiceRoll\\CryptoDiceRoll.csproj",
+      "projectUniqueName": "C:\\git\\DEV-1\\CSharp\\Practice\\Sandbox\\Sandbox.csproj",
+      "projectName": "Sandbox",
+      "projectPath": "C:\\git\\DEV-1\\CSharp\\Practice\\Sandbox\\Sandbox.csproj",
       "packagesPath": "C:\\Users\\miblacki\\.nuget\\packages\\",
-      "outputPath": "C:\\git\\DEV-1\\CSharp\\Practice\\CryptoDiceRoll\\obj\\",
+      "outputPath": "C:\\git\\DEV-1\\CSharp\\Practice\\Sandbox\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

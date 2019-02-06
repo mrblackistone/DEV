@@ -1,0 +1,11 @@
+C:\git\DEV-1\CSharp\Practice\Sandbox\obj\Debug\netcoreapp2.2\Sandbox.csprojAssemblyReference.cache
+C:\git\DEV-1\CSharp\Practice\Sandbox\obj\Debug\netcoreapp2.2\Sandbox.csproj.CoreCompileInputs.cache
+C:\git\DEV-1\CSharp\Practice\Sandbox\obj\Debug\netcoreapp2.2\Sandbox.AssemblyInfoInputs.cache
+C:\git\DEV-1\CSharp\Practice\Sandbox\obj\Debug\netcoreapp2.2\Sandbox.AssemblyInfo.cs
+C:\git\DEV-1\CSharp\Practice\Sandbox\bin\Debug\netcoreapp2.2\Sandbox.deps.json
+C:\git\DEV-1\CSharp\Practice\Sandbox\bin\Debug\netcoreapp2.2\Sandbox.runtimeconfig.json
+C:\git\DEV-1\CSharp\Practice\Sandbox\bin\Debug\netcoreapp2.2\Sandbox.runtimeconfig.dev.json
+C:\git\DEV-1\CSharp\Practice\Sandbox\bin\Debug\netcoreapp2.2\Sandbox.dll
+C:\git\DEV-1\CSharp\Practice\Sandbox\bin\Debug\netcoreapp2.2\Sandbox.pdb
+C:\git\DEV-1\CSharp\Practice\Sandbox\obj\Debug\netcoreapp2.2\Sandbox.dll
+C:\git\DEV-1\CSharp\Practice\Sandbox\obj\Debug\netcoreapp2.2\Sandbox.pdb
