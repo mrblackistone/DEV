@@ -56,11 +56,11 @@ namespace Sandbox
                 if ( order.Contains(roll) ) {
                     continue;
                 }
-                //Construct order
+                order.Insert(iteration, roll); //needs help
+                iteration++;
 
             } while (iteration <= iterations);
-
-
+            Console.WriteLine(order);
         }
     }
 }
