@@ -43,7 +43,7 @@ namespace csArraysAndStrings._4
             //String properties: Length
             string theString = "A bunch of stuff";
             Console.WriteLine(theString.Length);
-            //String methods:  IndexOf, Insert, Remove, Replace, Subsctring, Contains
+            //String methods:  IndexOf, Insert, Remove, Replace, Substring, Contains
             Console.WriteLine(theString.IndexOf("b")); //returns index of first "b"
             Console.WriteLine(theString.Insert(4,"zzzz")); //inserts "zzzz" at index 4
             Console.WriteLine(theString.Remove(7)); //removes everything at and after index 7 (leaving first 7 chars)
