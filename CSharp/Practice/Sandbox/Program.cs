@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+/*
 namespace Sandbox
 {
     class Program
@@ -129,9 +129,10 @@ namespace Sandbox
 
             } while (iteration < iterations);
             foreach (int z in order) { Console.WriteLine(z); }
-            */
+            
 
 
         }
     }
 }
+*/
