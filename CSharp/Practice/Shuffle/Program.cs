@@ -8,20 +8,26 @@ namespace Shuffle
     {
         class Card
         {
-            public int Number { get; }
+            public object Name { get; }
             public string Suit { get; }
-            public Card(int num, string suit)
+            public int Values { get; }
+            public Card(object name, string suit, int vals)
             {
-                Number = num;
+                Name = name;
                 Suit = suit;
+                Values = vals;
             }
-            public int GetNumber()
+            public object GetName()
             {
-                return Number;
+                return Name;
             }
             public string GetSuit()
             {
                 return Suit;
+            }
+            public int GetValues()
+            {
+                return Values;
             }
         }
         public static List<T> Shuffle<T>(List<T> list)
@@ -36,26 +42,58 @@ namespace Shuffle
             }
             return list;
         }
+        //Main------------------------------------------------------------------------------
         static void Main(string[] args)
         {
             //Objects
             List<Card> myCards = new List<Card>();
-            myCards.Add(new Card(1, "Hearts"));
-            myCards.Add(new Card(5, "Hearts"));
-            myCards.Add(new Card(2, "Clubs"));
-            myCards.Add(new Card(3, "Diamonds"));
-            myCards.Add(new Card(4, "Spades"));
-            myCards.Add(new Card(9, "Spades"));
+            
+            string[] Suits = { "Hearts", "Spades", "Clubs", "Diamonds" };
+            object[] Names = { "Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King" };
+            Console.WriteLine("How many decks?");
+            int numDecks = Convert.ToInt32(Console.ReadLine());
+            int valz = 0;
+
+            for (int a = 1; a <= numDecks; a++)
+            {
+                foreach (string suit in Suits)
+                {
+                    foreach (object name in Names)
+                    {
+                        switch (name) {
+                            case "Ace":
+                                valz = 1;
+                                break;
+                            case "Jack":
+                            case "Queen":
+                            case "King":
+                            case 10:
+                                valz = 10;
+                                break;
+                            default:
+                                valz = Convert.ToInt32(name);
+                                break;
+                        }
+                        myCards.Add(new Card(name, suit, valz));
+                    }
+                }
+            }
+
+
+            //Sample:  myCards.Add(new Card(9, "Spades"));
+
             //Shuffle
             var rnd = new Random();
             var result = myCards.OrderBy(item => rnd.Next());
             foreach (var item in result)
             {
-                Console.WriteLine(item.GetSuit());
+                Console.WriteLine(item.GetName() + " of " + item.GetSuit() + " with base value of " + item.GetValues());
             }
 
 
             //Integers
+            /*
+            Console.WriteLine("Shuffled list of Integers:");
             List<int> mylist = new List<int>();
             mylist.Add(1);
             mylist.Add(2);
@@ -71,6 +109,7 @@ namespace Shuffle
                 Console.WriteLine(item);
             }
             Console.ReadLine();
+            */
         }
     }
 }
