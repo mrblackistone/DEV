@@ -7,7 +7,7 @@ namespace Sandbox
 {
     class Program
     {
-                //Function to get random number for multi-threading only
+        //Function to get random number for multi-threading only
         private static readonly Random getrandom = new Random();
 
         public static int GetRandomNumber(int min, int max)
@@ -36,6 +36,24 @@ namespace Sandbox
                 return Suit;
             }
 
+        }
+
+        private static Random rng = new Random();
+        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
+        {
+            var source = list.ToList();
+            int n = source.Count;
+            var shuffled = new List<T>(n);
+            shuffled.AddRange(source);
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = shuffled[k];
+                shuffled[k] = shuffled[n];
+                shuffled[n] = value;
+            }
+            return shuffled;
         }
 
         //Main--------------------------------------------------------------------------
@@ -113,23 +131,7 @@ namespace Sandbox
             foreach (int z in order) { Console.WriteLine(z); }
             */
 
-            private static Random rng = new Random();
-            public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> list)
-            {
-                var source = list.ToList();
-                int n = source.Count;
-                var shuffled = new List<T>(n);
-                shuffled.AddRange(source);
-                while (n > 1)
-                {
-                    n--;
-                    int k = rng.Next(n + 1);
-                    T value = shuffled[k];
-                    shuffled[k] = shuffled[n];
-                    shuffled[n] = value;
-                }
-                return shuffled;
-            }
+
         }
     }
 }
