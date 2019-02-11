@@ -6,18 +6,18 @@ namespace Shuffle
 {
     class Program
     {
-        class Card
+        public class Card
         {
-            public object Name { get; }
+            public string Name { get; }
             public string Suit { get; }
             public List<int> Values { get; }
-            public Card(object name, string suit, List<int> vals)
+            public Card(string name, string suit, List<int> vals)
             {
                 Name = name;
                 Suit = suit;
                 Values = vals;
             }
-            public object GetName()
+            public string GetName()
             {
                 return Name;
             }
@@ -47,9 +47,9 @@ namespace Shuffle
         {
             //Objects
             List<Card> myCards = new List<Card>();
-            
+            int myCardTester = 0;
             string[] Suits = { "Hearts", "Spades", "Clubs", "Diamonds" };
-            object[] Names = { "Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King" };
+            string[] Names = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
             Console.WriteLine( "How many decks?" );
             int numDecks = Convert.ToInt32(Console.ReadLine());
             List<int> vals = new List<int>();
@@ -58,43 +58,67 @@ namespace Shuffle
             {
                 foreach (string suit in Suits)
                 {
-                    foreach (object name in Names)
+                    foreach (string name in Names)
                     {
-                        switch (name) {
-                            case "Ace":
-                                vals.Clear();
-                                vals.Add(1);
-                                vals.Add(13);
-                                Console.WriteLine(vals[0] + " " + vals[1]);
-                                break;
-                            case "Jack":
-                            case "Queen":
-                            case "King":
-                            case 10:
-                                vals.Clear();
-                                vals.Add(10);
-                                Console.WriteLine(vals[0]);
-                                break;
-                            default:
-                                vals.Clear();
-                                vals.Add(Convert.ToInt32(name));
-                                Console.WriteLine(vals[0]);
-                                break;
+                        if ( name == "Ace" )
+                        {
+                            Console.WriteLine("name is actually " + name + " and we selected Ace");
+                            vals.Clear();
+                            vals.Add(1);
+                            Console.WriteLine("Vals[0] is now set to " + vals[0]);
+                            vals.Add(13);
+                            Console.WriteLine(vals[0] + " " + vals[1]);
+                            myCards.Add(new Card(name, suit, vals));
+                            Console.WriteLine("Object just created is " + myCards[myCardTester].Name + " " + myCards[myCardTester].Suit + " " + myCards[myCardTester].Values[0]);
+                        } else if ( name == "Jack" || name == "Queen" || name == "King" || name == "10" ) {
+                            Console.WriteLine("name is actually " + name + " and we selected Face Cards");
+                            vals.Clear();
+                            vals.Add(444);
+                            Console.WriteLine(vals[0]);
+                            myCards.Add(new Card(name, suit, vals));
+                            Console.WriteLine("Object just created is " + myCards[myCardTester].Name + " " + myCards[myCardTester].Suit + " " + myCards[myCardTester].Values[0]);
+                        } else
+                        {
+                            Console.WriteLine("name is actually " + name + " and we selected the Else statement");
+                            vals.Clear();
+                            vals.Add(Convert.ToInt32(name));
+                            Console.WriteLine(vals[0]);
+                            myCards.Add(new Card(name, suit, vals));
+                            Console.WriteLine("Object just created is " + myCards[myCardTester].Name + " " + myCards[myCardTester].Suit + " " + myCards[myCardTester].Values[0]);
                         }
-                        Console.WriteLine("Adding " + name + " " + suit + " " + vals);
-                        foreach (int hhh in vals) { Console.WriteLine("Adding " + hhh + " from the current list.");}
-                        myCards.Add(new Card(name, suit, vals));
+                        myCardTester++;
+                        Console.WriteLine();
+
                     }
                 }
             }
+            Console.WriteLine("Pre-shuffle:");
+            Console.WriteLine(myCards[0].Name + " " + myCards[0].Suit + " " + myCards[0].Values[0]);
+            Console.WriteLine(myCards[5].Name + " " + myCards[5].Suit + " " + myCards[5].Values[0]);
+            Console.WriteLine(myCards[11].Name + " " + myCards[11].Suit + " " + myCards[1].Values[0]);
+            Console.WriteLine();
 
+            myCards = Shuffle(myCards);
+
+            Console.WriteLine("Post-shuffle:");
+            for ( int r = 0; r < myCards.Count; r++)
+            {
+                Console.WriteLine(myCards[r].Name + " " + myCards[r].Suit + " " + myCards[r].Values[0]);
+            }
+
+            //foreach ( object shuffledCard in myCards )
+            //{
+            //    Console.Write("\n" + shuffledCard.GetName() + )
+            //}
 
             //Sample:  myCards.Add(new Card(9, "Spades"));
 
-            //Shuffle
+            //Shuffle???
+            /*
             var rnd = new Random();
             var result = myCards.OrderBy(item => rnd.Next());
             foreach (var item in result)
+                        
             //Report shuffled order
             {
                 Console.Write("\n" + item.GetName() + " of " + item.GetSuit() + " with base value of ");
@@ -102,7 +126,9 @@ namespace Shuffle
                     Console.Write(ggg + " ");
                 }
             }
+            */
 
+            Console.Read();
 
             //Integers
             /*
