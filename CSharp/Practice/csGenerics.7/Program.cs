@@ -52,7 +52,7 @@ namespace csGenerics._7
             SwapGeneric<String>(ref x, ref y);
             //Now x is "World" and y is "Hello
 
-            //Create objects usin Generic Class
+            //Create objects using Generic Class
             Stackz<int> intStack = new Stackz<int>();
             intStack.Push(3);
             intStack.Push(6);

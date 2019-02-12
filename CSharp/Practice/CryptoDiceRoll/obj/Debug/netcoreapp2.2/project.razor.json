@@ -2,13 +2,5 @@
   "ProjectFilePath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\CryptoDiceRoll\\CryptoDiceRoll.csproj",
   "TargetFramework": "netcoreapp2.2",
   "TagHelpers": [],
-  "Configuration": {
-    "ConfigurationName": "UnsupportedRazor",
-    "LanguageVersion": "1.0",
-    "Extensions": [
-      {
-        "ExtensionName": "UnsupportedRazorExtension"
-      }
-    ]
-  }
+  "Configuration": null
 }

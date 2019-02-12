@@ -2,3 +2,10 @@ C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\C
 C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.csproj.CoreCompileInputs.cache
 C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfoInputs.cache
 C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.pdb

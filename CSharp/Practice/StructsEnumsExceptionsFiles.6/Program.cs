@@ -41,7 +41,7 @@ namespace StructsEnumsExceptionsFiles._6
             //struct
             book b;
             b.title = "Test";
-            b.price = "6.95";
+            b.price = 6.95;
             b.author = "David";
             Console.WriteLine(b.title); //returns Test
             //struct using parameter-taking constructor
@@ -72,8 +72,8 @@ namespace StructsEnumsExceptionsFiles._6
                 int [] arr = new int[] { 4,5,8 };
                 Console.WriteLine(arr[8]);
             }
-            catch (exception e) {
-                Console.WriteLine("An error occurred."); //catch block executes without stopping program
+            catch (Exception e) {
+                Console.WriteLine("An error occurred.\n", e); //catch block executes without stopping program
             }
             finally {
                 Console.WriteLine("All done."); //finally block runs always, even if return statement exists in catch block
@@ -91,7 +91,7 @@ namespace StructsEnumsExceptionsFiles._6
                 return;
             }
             catch (Exception e) {
-                Console.WriteLine("An error occurred.");
+                Console.WriteLine("An error occurred.\n", e);
                 return;
             }
             finally {
