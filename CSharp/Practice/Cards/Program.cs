@@ -19,7 +19,7 @@ namespace Cards
                 Value = vl;
             }
         }
-                public static List<T> Shuffle<T>(List<T> list)
+        public static List<T> Shuffle<T>(List<T> list)
         {
             Random rnd = new Random();
             for (int i = 0; i < list.Count; i++)
@@ -54,6 +54,7 @@ namespace Cards
                         switch (name)
                         {
                             case "Ace":
+                                Console.WriteLine("\nCase Ace");
                                 currVals.Clear();
                                 currVals.Add(1);
                                 currVals.Add(13);
@@ -62,12 +63,12 @@ namespace Cards
                                 Console.WriteLine("Indexer is currently: " + indexerVar);
                                 Console.WriteLine("For variable 'a' is currently: " + a);
                                 indexerVar++;
-                                Console.ReadLine();
                                 break;
                             case "10":
                             case "Jack":
                             case "Queen":
                             case "King":
+                                Console.WriteLine("\nCase 10 and Face Cards");
                                 currVals.Clear();
                                 currVals.Add(10);
                                 preShuffleDeck.Add(new Card(name, suit, currVals));
@@ -75,9 +76,9 @@ namespace Cards
                                 Console.WriteLine("Indexer is currently: " + indexerVar);
                                 Console.WriteLine("For variable 'a' is currently: " + a);
                                 indexerVar++;
-                                Console.ReadLine();
                                 break;
                             default:
+                                Console.WriteLine("\nCase Default");
                                 convertedName = Convert.ToInt32(name);
                                 currVals.Clear();
                                 currVals.Add(convertedName);
@@ -86,17 +87,34 @@ namespace Cards
                                 Console.WriteLine("Indexer is currently: " + indexerVar);
                                 Console.WriteLine("For variable 'a' is currently: " + a);
                                 indexerVar++;
-                                Console.ReadLine();
                                 break;
                         }
+                Console.WriteLine("\nAfter Name {0}:", name);
+                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
                     }
+                Console.WriteLine("\nAfter Suit {0}:", suit);
+                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
                 }
+                Console.WriteLine("\nAfter Deck {0}:", a);
+                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
+
             }
 
             //Display output
-            Console.WriteLine("Name: {0}; Suit: {1}; Values:", preShuffleDeck[0].Name, preShuffleDeck[0].Suit);
+            Console.WriteLine("\nPre-Shuffle:");
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
             Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[8].Name, preShuffleDeck[8].Suit, preShuffleDeck[8].Value[0]);
             Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[10].Name, preShuffleDeck[10].Suit, preShuffleDeck[10].Value[0]);
+
+            //List<Card> postShuffleDeck = new List<Card>();
+            //postShuffleDeck = Shuffle(preShuffleDeck);
+            preShuffleDeck = Shuffle(preShuffleDeck);
+
+            Console.WriteLine("\nPost-Shuffle:");
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[8].Name, preShuffleDeck[8].Suit, preShuffleDeck[8].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[10].Name, preShuffleDeck[10].Suit, preShuffleDeck[10].Value[0]);
+
         }
     }
 }
