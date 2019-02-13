@@ -40,11 +40,10 @@ namespace Cards
             numDecks = Convert.ToInt32(Console.ReadLine());
             string[] suitsArray = { "Hearts", "Spades", "Diamonds", "Clubs" };
             string[] namesArray = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
-            //List<int> currVals = new List<int>();
             int[] currVals = new int[2];
-            List<Card> preShuffleDeck = new List<Card>();
-            int convertedName = 0;
-            int indexerVar = 0;
+            List<Card> fullDeckList = new List<Card>();
+            int convertedName;
+            int cardCountVar = 0;
 
             for (int a = 1; a <= numDecks; a++)
             {
@@ -55,84 +54,65 @@ namespace Cards
                         switch (name)
                         {
                             case "Ace":
-                                Console.WriteLine("\nCase Ace");
                                 Array.Resize(ref currVals, 2);
-                                //currVals.Clear();
-                                //currVals.Add(1);
-                                //currVals.Add(13);
                                 currVals[0] = 1;
                                 currVals[1] = 13;
-                                Console.WriteLine("Adding {0} of {1}, with values {2} and {3}", name, suit, currVals[0], currVals[1]);
-                                preShuffleDeck.Add(new Card(name, suit, (int[])currVals.Clone()));
-                                Console.WriteLine("Indexer is currently: " + indexerVar);
-                                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}, {3}", preShuffleDeck[indexerVar].Name, preShuffleDeck[indexerVar].Suit, preShuffleDeck[indexerVar].Value[0], preShuffleDeck[indexerVar].Value[1]);
-                                Console.WriteLine("Deck is currently: " + a);
-                                Console.WriteLine("As read from object list:");
-                                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2} {3}", preShuffleDeck[indexerVar].Name, preShuffleDeck[indexerVar].Suit, preShuffleDeck[indexerVar].Value[0], preShuffleDeck[indexerVar].Value[1]);
-                                indexerVar++;
+                                fullDeckList.Add(new Card(name, suit, (int[])currVals.Clone()));
+                                //Clone required, otherwise object will reference variable rather than its value.
+                                //Name and Suit don't need to be cloned as they are not objects, and value is assumed.
+                                cardCountVar++;
                                 break;
                             case "10":
                             case "Jack":
                             case "Queen":
                             case "King":
-                                Console.WriteLine("\nCase 10 and Face Cards");
                                 Array.Resize(ref currVals, 1);
-                                //currVals.Clear();
-                                //currVals.Add(10);
                                 currVals[0] = 10;
-                                Console.WriteLine("Adding {0} of {1}, with value {2}", name, suit, currVals[0]);
-                                preShuffleDeck.Add(new Card(name, suit, (int[])currVals.Clone()));
-                                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[indexerVar].Name, preShuffleDeck[indexerVar].Suit, preShuffleDeck[indexerVar].Value[0]);
-                                Console.WriteLine("Indexer is currently: " + indexerVar);
-                                Console.WriteLine("Deck is currently: " + a);
-                                Console.WriteLine("As read from object list:");
-                                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[indexerVar].Name, preShuffleDeck[indexerVar].Suit, preShuffleDeck[indexerVar].Value[0]);
-                                indexerVar++;
+                                fullDeckList.Add(new Card(name, suit, (int[])currVals.Clone()));
+                                cardCountVar++;
                                 break;
                             default:
-                                Console.WriteLine("\nCase Default");
                                 convertedName = Convert.ToInt32(name);
                                 Array.Resize(ref currVals, 1);
-                                //currVals.Clear();
-                                //currVals.Add(convertedName);
                                 currVals[0] = convertedName;
-                                Console.WriteLine("Adding {0} of {1}, with value {2}", name, suit, currVals[0]);
-                                preShuffleDeck.Add(new Card(name, suit, (int[])currVals.Clone()));
-                                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[indexerVar].Name, preShuffleDeck[indexerVar].Suit, preShuffleDeck[indexerVar].Value[0]);
-                                Console.WriteLine("Indexer is currently: " + indexerVar);
-                                Console.WriteLine("Deck is currently: " + a);
-                                Console.WriteLine("As read from object list:");
-                                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[indexerVar].Name, preShuffleDeck[indexerVar].Suit, preShuffleDeck[indexerVar].Value[0]);
-                                indexerVar++;
+                                fullDeckList.Add(new Card(name, suit, (int[])currVals.Clone()));
+                                cardCountVar++;
                                 break;
                         }
-                        Console.WriteLine("\nAfter Name {0}:", name);
-                        Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
                     }
-                    Console.WriteLine("\nAfter Suit {0}:", suit);
-                    Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
-                    Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[8].Name, preShuffleDeck[8].Suit, preShuffleDeck[8].Value[0]);
                 }
-                Console.WriteLine("\nAfter Deck {0}:", a);
-                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
-                Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[8].Name, preShuffleDeck[8].Suit, preShuffleDeck[8].Value[0]);
             }
 
             //Display output
             Console.WriteLine("\nPre-Shuffle:");
-            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2} {3}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0], preShuffleDeck[0].Value[1]);
-            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[8].Name, preShuffleDeck[8].Suit, preShuffleDeck[8].Value[0]);
-            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[10].Name, preShuffleDeck[10].Suit, preShuffleDeck[10].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2} {3}", fullDeckList[0].Name, fullDeckList[0].Suit, fullDeckList[0].Value[0], fullDeckList[0].Value[1]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", fullDeckList[8].Name, fullDeckList[8].Suit, fullDeckList[8].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", fullDeckList[10].Name, fullDeckList[10].Suit, fullDeckList[10].Value[0]);
 
-            //List<Card> postShuffleDeck = new List<Card>();
-            //postShuffleDeck = Shuffle(preShuffleDeck);
-            preShuffleDeck = Shuffle(preShuffleDeck);
+            //Shuffle deck
+            fullDeckList = Shuffle(fullDeckList);
 
+            //Display shuffled results from same positions
             Console.WriteLine("\nPost-Shuffle:");
-            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[0].Name, preShuffleDeck[0].Suit, preShuffleDeck[0].Value[0]);
-            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[8].Name, preShuffleDeck[8].Suit, preShuffleDeck[8].Value[0]);
-            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", preShuffleDeck[10].Name, preShuffleDeck[10].Suit, preShuffleDeck[10].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", fullDeckList[0].Name, fullDeckList[0].Suit, fullDeckList[0].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}", fullDeckList[8].Name, fullDeckList[8].Suit, fullDeckList[8].Value[0]);
+            Console.WriteLine("Name: {0}; Suit: {1}; Values: {2}\n", fullDeckList[10].Name, fullDeckList[10].Suit, fullDeckList[10].Value[0]);
 
+            //Display full shuffled deck
+            int x,y;
+            string w,z;
+            for ( int a = 0; a < cardCountVar; a++ ) {
+                w = fullDeckList[a].Name;
+                z = fullDeckList[a].Suit;
+                if ( fullDeckList[0].Value.Length == 2 ) { //Trying to get this to work.  Aces not appearing.
+                    x = fullDeckList[a].Value[0];
+                    y = fullDeckList[a].Value[1];
+                    Console.WriteLine("{0} of {1} with values {2} and {3}", w, z, x, y);
+                } else if ( fullDeckList[a].Value.Length == 1 ) {
+                    x = fullDeckList[a].Value[0];
+                    Console.WriteLine("{0} of {1} with value {2}", w, z, x);
+                }
+            }
         }
     }
 }
