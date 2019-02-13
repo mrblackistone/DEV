@@ -686,28 +686,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\einar\\.nuget\\packages\\": {},
+    "C:\\Users\\miblacki\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Cards\\Cards.csproj",
+      "projectUniqueName": "C:\\git\\DEV-1\\CSharp\\Practice\\Cards\\Cards.csproj",
       "projectName": "Cards",
-      "projectPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Cards\\Cards.csproj",
-      "packagesPath": "C:\\Users\\einar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Cards\\obj\\",
+      "projectPath": "C:\\git\\DEV-1\\CSharp\\Practice\\Cards\\Cards.csproj",
+      "packagesPath": "C:\\Users\\miblacki\\.nuget\\packages\\",
+      "outputPath": "C:\\git\\DEV-1\\CSharp\\Practice\\Cards\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\einar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\miblacki\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
