@@ -63,6 +63,8 @@ namespace StructsEnumsExceptionsFiles._6
                 case TrafficLights.Yellow :
                     Console.WriteLine("Caution!");
                     break;
+                default:
+                    break;
             } //returns Stop!
             //This is great for a restricted list, or to improve readability 
             //over using values, or having to use a narrowing conversion and casting INT
