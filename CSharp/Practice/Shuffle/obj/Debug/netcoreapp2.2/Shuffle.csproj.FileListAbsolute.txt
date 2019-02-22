@@ -9,3 +9,14 @@ C:\git\DEV-1\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.dll
 C:\git\DEV-1\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.pdb
 C:\git\DEV-1\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.dll
 C:\git\DEV-1\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.deps.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.runtimeconfig.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.runtimeconfig.dev.json
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\bin\Debug\netcoreapp2.2\Shuffle.pdb
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.csprojAssemblyReference.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.csproj.CoreCompileInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.AssemblyInfoInputs.cache
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.AssemblyInfo.cs
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.dll
+C:\Users\einar\Documents\git\DEV\CSharp\Practice\Shuffle\obj\Debug\netcoreapp2.2\Shuffle.pdb

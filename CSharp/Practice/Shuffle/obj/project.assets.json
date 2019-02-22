@@ -477,7 +477,7 @@
       ]
     },
     "Microsoft.NETCore.DotNetAppHost/2.2.0": {
-      "sha512": "OK/H8p9Ig6mLMITjXJ4VOewrJg/TU+dAPHE4BdMWMv+8COzBehf7XF1+DofKkmqdHpO2cJoS5Sc9PEZ6PKCbsg==",
+      "sha512": "qIrVLupwT2NYTrf7KM7Nh+mJr36V5MITVRjyGOByVVCwGmQgQmI/6bjZYQv+QdExi4Cm87eCKJX9FdT6nc00Xg==",
       "type": "package",
       "path": "microsoft.netcore.dotnetapphost/2.2.0",
       "files": [
@@ -686,30 +686,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\miblacki\\.nuget\\packages\\": {},
+    "C:\\Users\\einar\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\git\\DEV-1\\CSharp\\Practice\\Shuffle\\Shuffle.csproj",
+      "projectUniqueName": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Shuffle\\Shuffle.csproj",
       "projectName": "Shuffle",
-      "projectPath": "C:\\git\\DEV-1\\CSharp\\Practice\\Shuffle\\Shuffle.csproj",
-      "packagesPath": "C:\\Users\\miblacki\\.nuget\\packages\\",
-      "outputPath": "C:\\git\\DEV-1\\CSharp\\Practice\\Shuffle\\obj\\",
+      "projectPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Shuffle\\Shuffle.csproj",
+      "packagesPath": "C:\\Users\\einar\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\einar\\Documents\\git\\DEV\\CSharp\\Practice\\Shuffle\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\miblacki\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\einar\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
