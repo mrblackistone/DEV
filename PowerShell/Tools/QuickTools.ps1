@@ -96,7 +96,7 @@ Function List-Commands {
         "List-Commands"                = "Lists these commands"
     }
     $myArray = @()
-    $inputCommandDescriptions.Keys | ForEach { $myArray += [PSCustomObject]@{Command = $_;Description=$inputCommandDescriptions.Item($_)} }
+    $inputCommandDescriptions.Keys | ForEach-Object { $myArray += [PSCustomObject]@{Command = $_;Description=$inputCommandDescriptions.Item($_)} }
     $myArray
 }
  
