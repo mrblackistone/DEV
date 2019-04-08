@@ -97,7 +97,7 @@ namespace csClassesAndObjects
             private readonly string name = "John"; //readonly variable (field)
             //readonly does not need to be initialized when declared, unlike const
             //readonly can be changed in a constructor, but const cannot
-            //readonly value can come from a calculation, which const's cannot
+            //readonly value can come from a calculation, whereas a const cannot
             public readonlyClass(string zzz) {
                 this.name = zzz;
             }
