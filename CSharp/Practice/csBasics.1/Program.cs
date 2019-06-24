@@ -11,6 +11,10 @@ namespace MyApp
         */
         static void Main(string[] args)
         {
+            for (int i = 0; i < 10; i++) {
+                Console.WriteLine(i);
+            }
+            
             //Single line comment.  We output a string.
             Console.WriteLine("Hello, world!");
             //Explicit declaration of two variables with types and values
@@ -39,7 +43,7 @@ namespace MyApp
             //PEMDAS is used.
             int a = 14;
             int b = 5;
-            Console.WriteLine("a and b are {0} and {1} respecively.", a, b);
+            Console.WriteLine("a and b are {0} and {1} respectively.", a, b);
             Console.WriteLine("a plus b is: {0}", a+b);
             Console.WriteLine("a minus b is: {0}", a-b);
             Console.WriteLine("a times b is: {0}", a*b);
@@ -60,7 +64,7 @@ namespace MyApp
             b--;
             //If-Then-ElseIf-Else
             //Comparison operators are >= <= == != for GE, LE, EQ, and NotEQ
-            Console.WriteLine("a and b are {0} and {1} respecively.", a, b);
+            Console.WriteLine("a and b are {0} and {1} respectively.", a, b);
             if (a%2 == 0) {
                 Console.WriteLine("Variable a is even.");
             }
