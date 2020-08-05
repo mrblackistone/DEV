@@ -21,7 +21,7 @@ namespace myMethods
 
         static void Main(string[] args)
         {
-            fwwwe
+            //fwwwe
         }
     }
 }
