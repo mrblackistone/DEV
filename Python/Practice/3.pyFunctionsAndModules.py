@@ -27,7 +27,7 @@ print(addNumbers(4,5)) #returns 9
 def shout(word) : #This is a comment, and below is a docstring
     """
     Function adds an
-    exlamation mark
+    exclamation mark
     """
     print(word + "!")
 shout("dude")
