@@ -20,3 +20,16 @@ C:\git\DEV-1\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfoInp
 C:\git\DEV-1\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfo.cs
 C:\git\DEV-1\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.dll
 C:\git\DEV-1\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.pdb
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.csproj.AssemblyReference.cache
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.GeneratedMSBuildEditorConfig.editorconfig
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfoInputs.cache
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.AssemblyInfo.cs
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.csproj.CoreCompileInputs.cache
+C:\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.deps.json
+C:\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.runtimeconfig.json
+C:\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.runtimeconfig.dev.json
+C:\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.dll
+C:\git\DEV\CSharp\Practice\Cards\bin\Debug\netcoreapp2.2\Cards.pdb
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.dll
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.pdb
+C:\git\DEV\CSharp\Practice\Cards\obj\Debug\netcoreapp2.2\Cards.genruntimeconfig.cache
