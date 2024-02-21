@@ -13,18 +13,16 @@
   - [Instructions](#instructions)
 - [Usage and Demo](#usage-and-demo)
   - [Ingesting Data](#ingesting-data)
+  - [UI Title and Banner](#ui-title-and-banner)
   - [Changing Behavior](#changing-behavior)
-    - [UI Title and Banner](#ui-title-and-banner)
-    - [UI Settings](#ui-settings)
+    - [Chat Settings](#chat-settings)
     - [System Message](#system-message)
   - [Thought Process](#thought-process)
   - [Prompt Engineering](#prompt-engineering)
   - [Saving Money](#saving-money)
 - [Infrastructure](#infrastructure)
-- [Other Information](#other-information)
+- [Appendix](#appendix)
 
-<!-- /TOC -->
-<!-- /TOC -->
 <!-- /TOC -->
 
 
@@ -52,7 +50,7 @@ In order to get the most out of this document, it is best to learn the terminolo
 
 ## Mathematics
 
-- **Vector** - A vector is a quantity that has a magnitude and direction. In OpenAI, a vector is represented as an array (list) of floating point numbers. The length of the array corresponds to the vector dimension. For instance, the vector [3.0,4.0] corresponds to a 2-vector having magnitude 5 (3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>). Therefore, the number of dimensions of the array, n, corresponds to the length of the array: an *n-array*.
+- **Vector** - A vector is a quantity that has a magnitude and direction. In OpenAI, a vector is represented as an array (list) of floating point numbers. The length of the array corresponds to the vector dimension. For instance, the vector [3.0,4.0] corresponds to a 2-vector having magnitude 5 (3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>). Therefore, the number of dimensions of the array, n, corresponds to the length of the array (i.e., an *n-array*)
 - **Dimensions** - The ada 2 embedding model has only 1,536 dimensions, which is impossible for a person to visualize.
 - **Vector database** - A <a href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vector embeddings, which are mathematical representations of data in a high-dimensional space. In this space, each dimension corresponds to a feature of the data, and tens of thousands of dimensions might be used to represent sophisticated data. A vector's position in this space represents its characteristics. Words, phrases, or entire documents, and images, audio, and other types of data can all be vectorized. These vector embeddings are used in similarity search, multi-modal search, recommendations engines, large languages models (LLMs), etc.
 - **Cosine similarity** - Azure OpenAI embeddings rely on <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query. From a mathematic perspective, cosine similarity measures the cosine of the angle between two vectors projected in a multidimensional space. This measurement is beneficial, because if two documents are far apart by Euclidean distance due to size, they could still have a smaller angle between them and therefore higher cosine similarity.
@@ -272,21 +270,100 @@ make deploy
 5. Track the status under the Upload Status tab in the Manage Content page.  This page does not refresh automatically.
 6. They should proceed to Uploaded to Queued to Complete.  While "queued", they are being processed, so expect them to remain in this state for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized is located <a href="https://platform.openai.com/tokenizer">here</a>.
 
+## UI Title and Banner
+
+You can adjust the title on the main page and the banner in your local.env file:
+
+The APPLICATION_TITLE environment variable sets the title at the top of the page.
+The CHAT_WARNING_BANNER_TEXT environment variable sets the banner text at the top of the page.
+
 ## Changing Behavior
 
-### UI Title and Banner
+### Chat Settings
 
+1. Go to Chat in the upper right corner.
+2. Click the Adjust icon.
+3. Make changes:
+   - Response Length is also known as "Top P" or "Nucleus Sampling" and determines how succinct or verbose the response will be.
+   - Conversation Type is also known as "Temperature" and determines how constrained or "creative" the response will be.
 
-
-### UI Settings
-
-Go to Chat in the upper right corner.
-Click the Adjust icon.
-Make changes:
-- Response Length is also known as "Top P" or "Nucleus Sampling" and determines how succinct or verbose the response will be.
-- Conversation Type is also known as "Temperature" and determines how constrained or "creative" the response will be.
 
 ### System Message
+
+The system message is an initial "query" made behind the scenes automatically to instruct the LLM on how it should interact with the user.  The system message from the PubSec Info Assistant is shown below.
+
+```python
+system_message_chat_conversation = """You are an Azure OpenAI Completion system. Your persona is {systemPersona} who helps answer questions about an agency's data. {response_length_prompt}
+    User persona is {userPersona} Answer ONLY with the facts listed in the list of sources below in {query_term_language} with citations.If there isn't enough information below, say you don't know and do not give citations. For tabular information return it as an html table. Do not return markdown format.
+    Your goal is to provide answers based on the facts listed below in the provided source documents. Avoid making assumptions,generating speculative or generalized information or adding personal opinions.
+       
+    
+    Each source has a file name followed by a pipe character and the actual information.Use square brackets to reference the source, e.g. [info1.txt]. Do not combine sources, list each source separately, e.g. [info1.txt][info2.pdf].
+    Never cite the source content using the examples provided in this paragraph that start with info.
+      
+    Here is how you should answer every question:
+    
+    -Look for information in the source documents to answer the question in {query_term_language}.
+    -If the source document has an answer, please respond with citation.You must include a citation to each document referenced only once when you find answer in source documents.      
+    -If you cannot find answer in below sources, respond with I am not sure.Do not provide personal opinions or assumptions and do not include citations.
+    
+    {follow_up_questions_prompt}
+    {injected_prompt}
+    
+    """
+follow_up_questions_prompt_content = """
+    Generate three very brief follow-up questions that the user would likely ask next about their agencies data. Use triple angle brackets to reference the questions, e.g. <<<Are there exclusions for prescriptions?>>>. Try not to repeat questions that have already been asked.
+    Only generate questions and do not generate any text before or after the questions, such as 'Next Questions'
+    """
+```
+
+This system message is located in app > backend > approaches > chatreadretrieveread.py
+
+You'll notice that it references other strings, some of which include:
+
+- systemPersona: This is the system personal configured via the GUI.
+- userPersona: This is the user personal configured via the GUI.
+- response_length_prompt: This will resolve to one of the three following prompts, depending on what was selected in the GUI.  The code for this is located near the bottom of the chatreadretrieveread.py file, in the get_response_length_prompt_text() function.
+   - Please provide a succinct answer. This means that your answer should be no more than 1024 tokens long.
+   - Please provide a standard answer. This means that your answer should be no more than 2048 tokens long.
+   - Please provide a thorough answer. This means that your answer should be no more than 3072 tokens long.
+- query_term_language: The language the system is configured to use (default is English).
+- follow_up_questions_prompt: This will be the content of the follow_up_questions_prompt_content variable, if suggest_followup_questions is set to true.
+
+There is also a query_prompt_template defined in the file, which is used for subsequent queries to maintain chain of thought:
+
+```python
+
+    query_prompt_template = """Below is a history of the conversation so far, and a new question asked by the user that needs to be answered by searching in source documents.
+    Generate a search query based on the conversation and the new question. Treat each search term as an individual keyword. Do not combine terms in quotes or brackets.
+    Do not include cited source filenames and document names e.g info.txt or doc.pdf in the search query terms.
+    Do not include any text inside [] or <<<>>> in the search query terms.
+    Do not include any special characters like '+'.
+    If the question is not in {query_term_language}, translate the question to {query_term_language} before generating the search query.
+    If you cannot generate a search query, return just the number 0.
+    """
+```
+
+Lastly, there are some few-shot prompts included in the file as well:
+
+```python
+    #Few Shot prompting for Keyword Search Query
+    query_prompt_few_shots = [
+    {'role' : USER, 'content' : 'What are the future plans for public transportation development?' },
+    {'role' : ASSISTANT, 'content' : 'Future plans for public transportation' },
+    {'role' : USER, 'content' : 'how much renewable energy was generated last year?' },
+    {'role' : ASSISTANT, 'content' : 'Renewable energy generation last year' }
+    ]
+
+    #Few Shot prompting for Response. This will feed into Chain of thought system message.
+    response_prompt_few_shots = [
+    {"role": USER ,'content': 'I am looking for information in source documents'},
+    {'role': ASSISTANT, 'content': 'user is looking for information in source documents. Do not provide answers that are not in the source documents'},
+    {'role': USER, 'content': 'What steps are being taken to promote energy conservation?'},
+    {'role': ASSISTANT, 'content': 'Several steps are being taken to promote energy conservation including reducing energy consumption, increasing energy efficiency, and increasing the use of renewable energy sources.Citations[File0]'}
+    ]
+```
+
 
 ## Thought Process
 
@@ -294,17 +371,28 @@ To see how an answer was generated, click one of the citations or one of the ico
 
 ## Prompt Engineering
 
-- Make a query, but ask for it in another language.
-- Make a query, but ask for it in another language and font.
-- Tell a joke about the grounded data.
+Note that all of the following will require you to have provided grounding data (uploaded files) that have completed the enrichment pipeline, and that you queries pertain to that data.
+
+- Make a query, then make a second query that references the same context implicitly.  For example: "What are three of the top Baseball teams of all time?" then "What is a fourth one?"  This second question doesn't explicitly mention baseball, but due to Chain of Thought the previous query and response will be sent along with the second query, allowing OpenAI to "understand" the context.
+- Make a query, but ask for it in another language.  You'll note that it is capable of translating on-the-fly to other languages, which can greatly benefit staff who don't speak English as their primary language.
+- Make a query, but ask for it in another language and font.  This is just for fun, to show you what it is capable of understanding.
+- As it to tell a joke about the grounded data.
+- Ask for data, but request that it be in a markdown table format.
+- Do the same, but ask for a bulleted list.
+- Ask for a summary of some subject.
 
 ## Saving Money
 
+Some of the services can be quite expensive.  You can control costs by resizing several services, within the same family, when they are not in use.
+
 Make sure to only do these after you've ingested your grounding data.  Otherwise ingestion will be very slow.
+
 - Go to the Function App > Settings > Scale Up and change it from Standard S2 to Standard S1.
 - Go to the Search Service > Settings > Scale and ensure Replicas is set to 1 and Partitions is set to 25 GB.
-- Go to the Enrichmentweb Web App > Settings > Scale Up and change it from Premium v3 P1V3 to Premium v3 P0V3.
-- Go to the web Web App > Settings > Scale Up and confirm it's set to Standard S1.
+- Go to the "Enrichmentweb" Web App > Settings > Scale Up and change it from Premium v3 P1V3 to Premium v3 P0V3.
+- Go to the "web" Web App > Settings > Scale Up and confirm it's set to Standard S1.
+
+You'll want to ensure these services aren't scaled below the minimums needed to ingest or search your data when it's time to perform either task.
 
 # Infrastructure
 
@@ -339,9 +427,9 @@ Note: At this time that there is a maximum of one AOAI instance per subscription
 | infoasststoremediaxxxxx                 | Storage account                         | *Gov*: **Commercial** |
 | default (infoasstmediasvcxxxxx/default) | Streaming Endpoint                      | *Gov*: **Commercial** |
 
-# Other Information
+# Appendix
 
-There are 16 primitive Pythagorean triples of numbers up to 100:
+For those who are interested, there are 16 primitive Pythagorean triples of numbers up to 100:
 
 (3, 4, 5) (5, 12, 13) (8, 15, 17) (7, 24, 25)
 (20, 21, 29) (12, 35, 37) (9, 40, 41) (28, 45, 53)
