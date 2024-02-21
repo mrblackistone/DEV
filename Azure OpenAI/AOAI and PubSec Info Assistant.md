@@ -11,10 +11,20 @@
 - [PubSec Info Assistant](#pubsec-info-assistant)
   - [Pre-requisites](#pre-requisites)
   - [Instructions](#instructions)
-  - [**NOTE**: *If container setup fails and you receive a message stating you are running in recovery mode, follow the instructions in the terminal to attempt to rebuild the container. This should take much less time.*](#note-if-container-setup-fails-and-you-receive-a-message-stating-you-are-running-in-recovery-mode-follow-the-instructions-in-the-terminal-to-attempt-to-rebuild-the-container-this-should-take-much-less-time)
-- [Demonstrations](#demonstrations)
+- [Usage and Demo](#usage-and-demo)
+  - [Ingesting Data](#ingesting-data)
+  - [Changing Behavior](#changing-behavior)
+    - [UI Title and Banner](#ui-title-and-banner)
+    - [UI Settings](#ui-settings)
+    - [System Message](#system-message)
+  - [Thought Process](#thought-process)
+  - [Prompt Engineering](#prompt-engineering)
+  - [Saving Money](#saving-money)
+- [Infrastructure](#infrastructure)
 - [Other Information](#other-information)
 
+<!-- /TOC -->
+<!-- /TOC -->
 <!-- /TOC -->
 
 
@@ -88,13 +98,14 @@ In order to get the most out of this document, it is best to learn the terminolo
 ## Search Resources
 
 - **Azure AI Search** - This accelerator employs Vector Hybrid Search, which combines vector similarity with keyword matching to enhance search accuracy. (Note that in Azure Government keyword search is not yet available as of Feb 21, 2024.) This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
-- **Vector vs Keyword vs Semantic Ranker vs Hybrid Search** - Different search methods. For the Information Assistant Accelerator, only Vector search is currently available (Feb 13, 2024).
+- **Types of Search Methods** - Different search methods. For the Information Assistant Accelerator, only Vector search is currently available (Feb 21, 2024).
    - **Vector** - <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview">Vector search</a> is an approach in information retrieval that stores numeric representations of content for search scenarios. Because the content is numeric rather than plain text, the search engine matches on vectors that are the most similar to the query, with no requirement for matching on exact terms.
    - **Hybrid** - Hybrid search is a combination of full text and vector queries that execute against a search index that contains both searchable plain text content and generated embeddings. For query purposes, hybrid search is:
       - A single query request that includes both search and vectors query parameters
       - Executing in parallel
       - With merged results in the query response, scored using Reciprocal Rank Fusion (RRF)
-   - **Keyword** - 
+   - **Full Text** - A full-text search is a comprehensive method that compares every word of the search request against every word within a document or database.
+   - **Keyword** - Keyword search looks for exact matches of words, but lacks semantic understanding.
    - **Semantic Ranker** (proprietary in Azure AI Search) - In Azure AI Search, semantic ranking measurably improves search relevance by using language understanding to rerank search results. Semantic ranking doesn't use generative AI or vectors. Semantic ranker is a collection of query-related capabilities that improve the quality of an initial BM25-ranked or RRF-ranked search result for text-based queries. When you enable it on your search service, semantic ranking extends the query execution pipeline in two ways:
       - First, it adds secondary ranking over an initial result set that was scored using BM25 or RRF. This secondary ranking uses multi-lingual, deep learning models adapted from Microsoft Bing to promote the most semantically relevant results.
       - Second, it extracts and returns captions and answers in the response, which you can render on a search page to improve the user's search experience.
@@ -158,21 +169,23 @@ NOTE:  The instructions are written for all three of the following scenarios. Co
 12. **Wait** until it's set up. (**Approximately 5.5 minutes** if using a 4-core codespace.)
 
 ---
+
 **NOTE**: *If container setup fails and you receive a message stating you are running in recovery mode, follow the instructions in the terminal to attempt to rebuild the container. This should take much less time.*
+
 ---
 
-13. Favorite the URL of your temporary codespace environment, to make it easy to return to (e.g. https://upgraded-meme-w95p5695pp43995q.github.dev/.
-14. Optional but strongly recommended:
+13. **Favorite** the URL of your temporary codespace environment, to make it easy to return to (e.g. https://upgraded-meme-w95p5695pp43995q.github.dev/).
+14. Optional but **strongly recommended**:
    - Open your local copy of VS Code.
    - Ensure the Github Codespaces extension is installed.
    - Click the Remote Explorer icon on the left bar.
    - Authenticate to Github, if you haven't already.
    - Select the codespace that's named the same as the two randomly-selected words in the URL of the codespace in the browser (which you favorited). e.g., "upgraded meme" or "ubiquitous acorn"
    - Continue the following steps in VS Code rather than the browser…
-      - Navigate to scripts/environments 
-      -  Copy the local.env.example file to the same folder.
-15. Rename the copied file to local.env.
-16. Modify the following settings in the file:
+15. Navigate to scripts/environments 
+16. Copy the local.env.example file to the same folder.
+17. **Rename** the copied file to **local.env**.
+18. **Modify** the following settings in the file:
 
 | System Variable                        | Value                                                                     |
 |----------------------------------------|---------------------------------------------------------------------------|
@@ -187,23 +200,31 @@ NOTE:  The instructions are written for all three of the following scenarios. Co
 | AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME | {name you gave your text-embedding-ada-002 model}<br>(OpenAI Instance > Overview > Azure OpenAI Studio) |
 | IS_USGOV_DEPLOYMENT                    | **true** or **false** depending on which cloud you're deploying the resources to. |
    
-17. If you are pointing to an existing OpenAI instance, you will also need to modify the following in the file:
+19. If you are pointing to an existing OpenAI instance, you will also need to modify the following in the file:
 
 | System Variable                        | Value                                              |
 |----------------------------------------|----------------------------------------------------|
 | USE_EXISTING_AOAI                      | true                                               |
 
-18. If the existing OpenAI instance is not in the same subscription as where you're deploying your resources, you will need to update the following (using whatever models and version you deployed in OpenAI Studio):
+20. If you are pointing to an existing AOAI instance, and it is not in the same subscription as where you're deploying your resources, you will need to update the following (using whatever models and version you deployed in OpenAI Studio):
 
 | AZURE_OPENAI_CHATGPT_MODEL_NAME        | gpt-35-turbo                                       |
 | AZURE_OPENAI_CHATGPT_MODEL_VERSION     | 0301                                               |
 | AZURE_OPENAI_EMBEDDINGS_MODEL_NAME     | text-embedding-ada-002                             |
 | AZURE_OPENAI_EMBEDDINGS_MODEL_VERSION  | 2                                                  |
 
-19. Save the file.
-20. If you're deploying to Azure Government, run the following command in the console (open console with Terminal > New Terminal):
+21. **Save** the file.
+22. If you're deploying to Azure Government, run the following command in the console (open console with Terminal > New Terminal):
+
+```css
 az cloud set --name AzureUSGovernment
-21. Now you need to authenticate and ensure you're targeting the correct subscription and tenant. Use the following commands in the terminal to authenticate and set the correct target subscription (the same one you added to the local.env file) for your deployment and then confirm it:
+```
+
+23.  Now you need to **authenticate** and **target the correct subscription** and tenant. Use the following commands in the terminal to:
+   -  Authenticate
+   -  View the list of subscriptions.
+   -  Set the correct target subscription (the same one you added to the local.env file).
+   -  Confirm your session is now configured to deploy to that subscription.
 
 ```css
 az login --use-device-code
@@ -212,41 +233,117 @@ az account set --subscription {your target subscription id}
 az account show
 ```
 
-22. Deploy your resources by running the following command:
+24.  **Deploy** your resources by running the following command:
 
 ```
 make deploy
 ```
 
-23. Watch for a prompt. It should take about 1 &half; minutes.
-24. When prompted with "Are you happy with the plan? Would you like to apply?" type y and then press enter.
-25. Wait for the deployment to complete successfully. (up to 31 minutes)
-26. In the Azure portal, navigate to the resource group you're deploying to and note the five-character generated string appended to most of the resource names.
-27. In the Azure portal, navigate to the infoasst_web_access_xxxxx enterprise application in Microsoft Entre ID (where 'xxxxx' is the same generated suffix used for your resources).
+25. **Wait** for a prompt. It should take about **1 &half; minutes**.
+26. When prompted with "Are you happy with the plan? Would you like to apply?" **type y** and then **press Enter**.
+27. **Wait** for the deployment to complete successfully, up to **31 minutes**.
+
+---
+
+28. **After deployment completes**, go to the Azure portal.
+29. Navigate to the **resource group** you're deploying to and note the five-character generated string appended to most of the resource names.
+30. Navigate to the **infoasst_web_access_xxxxx Enterprise Application** in **Microsoft Entre ID** (where 'xxxxx' is the same generated suffix used for your resources).
    - Note:  You may need to delete the filter to only show Application type of "Enterprise Application".
-28. Open the enterprise application, then go to Manage > Users and Groups
-29. Add yourself as a user.
-30. If you want to make your application accessible to anyone in your directory (tenant):
+31. Open the enterprise application, then go to **Manage > Users and Groups**
+32. **Add yourself** as a user.
+33. If you want to make your application accessible to anyone in your directory (tenant):
    - Go to Manage > Properties
    - Change "Assignment Required?" to "No" if it isn't already. If it's set to "Yes" then only the users/groups you added in the previous step will have access.
-31. Navigate to the infoasst-web-xxxx Web App resource in the portal, and click on the URL for the website.
+34. Navigate to the **infoasst-web-xxxx Web App** resource in the portal, and **click on the URL for the website**.
    - If permissions are requested, accept.
-   - If the website reports an Application Error, check your env file, fix any errors, and run make deploy again.
-   - If the website reports a redirect URL mismatch, check the redirect URI in the infoasst_web_access_xxxxx app registration and ensure you changed .net to .us
+   - If the website reports an Application Error, check your env file, fix any errors, and run `make deploy` again.
+   - If the website reports a redirect URL mismatch, check the redirect URI in the infoasst_web_access_xxxxx app registration and ensure you change .net to .us, if deploying to Azure Government.
    - To aid in troubleshooting, you can navigate to the logstream using KUDU (scm) at:  https://infoasst-web-xxxxx.scm.azurewebsites.us/api/logstream
-   - Note that Application Insights may not be helpful, if the web application is not compatible.
+   - Note that Application Insights may be helpful in troubleshooting.
 
-# Demonstrations
+# Usage and Demo
+
+## Ingesting Data
+
+1. Manage Content in the upper right corner.
+2. Partition and categorize data using folders and tags.  Folders and tags are analogous to OLAP slicing and dicing operations.
+3. Each tag is added by typing it then pressing enter.
+4. Select the file(s) that should be associated with both the folder and the tag(s), then upload them.
+5. Track the status under the Upload Status tab in the Manage Content page.  This page does not refresh automatically.
+6. They should proceed to Uploaded to Queued to Complete.  While "queued", they are being processed, so expect them to remain in this state for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized is located <a href="https://platform.openai.com/tokenizer">here</a>.
+
+## Changing Behavior
+
+### UI Title and Banner
+
+
+
+### UI Settings
+
+Go to Chat in the upper right corner.
+Click the Adjust icon.
+Make changes:
+- Response Length is also known as "Top P" or "Nucleus Sampling" and determines how succinct or verbose the response will be.
+- Conversation Type is also known as "Temperature" and determines how constrained or "creative" the response will be.
+
+### System Message
+
+## Thought Process
+
+To see how an answer was generated, click one of the citations or one of the icons in the corner of the response. A pane will open to the right. Click on the Thought Process tab.
+
+## Prompt Engineering
 
 - Make a query, but ask for it in another language.
 - Make a query, but ask for it in another language and font.
 - Tell a joke about the grounded data.
 
+## Saving Money
+
+Make sure to only do these after you've ingested your grounding data.  Otherwise ingestion will be very slow.
+- Go to the Function App > Settings > Scale Up and change it from Standard S2 to Standard S1.
+- Go to the Search Service > Settings > Scale and ensure Replicas is set to 1 and Partitions is set to 25 GB.
+- Go to the Enrichmentweb Web App > Settings > Scale Up and change it from Premium v3 P1V3 to Premium v3 P0V3.
+- Go to the web Web App > Settings > Scale Up and confirm it's set to Standard S1.
+
+# Infrastructure
+
+Note: Media Services only exists because AI Video Indexer currently uses its endpoints, soon to be replaced with Partner Solutions.
+
+Depending on if you're deploying to Azure Commercial or Azure government, you should have the following resources after a successful deployment.  20 in Commercial or 21 in Government, plus the AOAI instance (which may be in the same or a different resource group, depending on what you specified in the env file).
+
+Note: At this time that there is a maximum of one AOAI instance per subscription per region.
+
+| Name                                    | Type                                    | Environment(s)        |
+|-----------------------------------------|-----------------------------------------|-----------------------|
+| Application Insights Smart Detection    | Action Group                            | *Gov*                 |
+| infoasst-enrichmentweb-xxxxx            | App Service                             | *Gov*; **Commercial** |
+| infoasst-web-xxxxx                      | App Service                             | *Gov*; **Commercial** |
+| infoasst-asp-xxxxx                      | App Service Plan                        | *Gov*; **Commercial** |
+| infoasst-enrichmentasp-xxxxx            | App Service Plan                        | *Gov*; **Commercial** |
+| infoasst-func-asp-xxxxx                 | App Service Plan                        | *Gov*; **Commercial** |
+| infoasst-ai-xxxxx                       | Application Insights                    | *Gov*; **Commercial** |
+| infoasst-enrichment-cog-xxxxx           | Azure AI Services Multi-Service Account | *Gov*; **Commercial** |
+| infoasst-cog-xxxxx                      | Azure AI Services Multi-Service Account | **Commercial**        |
+| infoasstvi-xxxxx                        | Azure AI Video Indexer                  | *Gov*; **Commercial** |
+| infoasst-cosmos-xxxxx                   | Azure Cosmos DB account                 | *Gov*: **Commercial** |
+| infoasst-lw-xxxxx                       | Azure Workbook Template                 | *Gov*: **Commercial** |
+| infoasst-fr-xxxxx                       | Document intelligence                   | *Gov*: **Commercial** |
+| infoasst-func-xxxxx                     | Function App                            | *Gov*: **Commercial** |
+| infoasst-kv-xxxxx                       | Key Vault                               | *Gov*                 |
+| infoasst-la-xxxxx                       | Log Analytics Workspace                 | *Gov*: **Commercial** |
+| infoasstmediasvcxxxxx                   | Media Service                           | *Gov*: **Commercial** |
+| infoasst-search-xxxxx                   | Search Service                          | *Gov*: **Commercial** |
+| Failure Anomalies - infoasst-ai-xxxxx   | Smart detector alert rule               | *Gov*: **Commercial** |
+| infoasststorexxxxx                      | Storage account                         | *Gov*: **Commercial** |
+| infoasststoremediaxxxxx                 | Storage account                         | *Gov*: **Commercial** |
+| default (infoasstmediasvcxxxxx/default) | Streaming Endpoint                      | *Gov*: **Commercial** |
+
 # Other Information
 
 There are 16 primitive Pythagorean triples of numbers up to 100:
 
-(3, 4, 5)	(5, 12, 13)	(8, 15, 17)	(7, 24, 25)
-(20, 21, 29)	(12, 35, 37)	(9, 40, 41)	(28, 45, 53)
-(11, 60, 61)	(16, 63, 65)	(33, 56, 65)	(48, 55, 73)
-(13, 84, 85)	(36, 77, 85)	(39, 80, 89)	(65, 72, 97)
+(3, 4, 5) (5, 12, 13) (8, 15, 17) (7, 24, 25)
+(20, 21, 29) (12, 35, 37) (9, 40, 41) (28, 45, 53)
+(11, 60, 61) (16, 63, 65) (33, 56, 65) (48, 55, 73)
+(13, 84, 85) (36, 77, 85) (39, 80, 89) (65, 72, 97)
