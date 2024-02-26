@@ -11,10 +11,11 @@
 - [PubSec Info Assistant](#pubsec-info-assistant)
   - [Pre-requisites](#pre-requisites)
   - [Instructions](#instructions)
+  - [Troubleshooting](#troubleshooting)
 - [Usage and Demo](#usage-and-demo)
   - [Ingesting Data](#ingesting-data)
   - [UI Title and Banner](#ui-title-and-banner)
-  - [Changing Behavior](#changing-behavior)
+  - [Changing the PubSec Info Assistant's Behavior](#changing-the-pubsec-info-assistants-behavior)
     - [Chat Settings](#chat-settings)
     - [System Message](#system-message)
   - [Thought Process](#thought-process)
@@ -259,25 +260,39 @@ make deploy
    - To aid in troubleshooting, you can navigate to the logstream using KUDU (scm) at:  https://infoasst-web-xxxxx.scm.azurewebsites.us/api/logstream
    - Note that Application Insights may be helpful in troubleshooting.
 
+## Troubleshooting
+
+- If you are prompted to log into the following URL, use the following command to do so:
+   - `az login --scope https://graph.microsoft.com//.default`
+- If you get the following error, you probably didn't set IS_USGOV_DEPLOYMENT to true when deploying to Azure Government:
+   - `deployment failed with SpecialFeatureOrQuotaIdRequired","message":"The subscription does not have QuotaId/Feature required by SKU 'S0' from kind 'OpenAI' or contains blocked QuotaId/Feature."`
+- Fix the redirect URI, if you receive errors stating that it is incorrect:
+   - Navigate to the App Registrations section of Entra ID.
+   - Find your infoasst_web_access_xxxxx application registration and open it.
+   - Go to Manage > Authentication.
+   - Confirm the URI ends with .net in Azure Commercial deployments or .us for Azure Government deployments, then click the Save button.
+
 # Usage and Demo
 
 ## Ingesting Data
 
-1. Manage Content in the upper right corner.
-2. Partition and categorize data using folders and tags.  Folders and tags are analogous to OLAP slicing and dicing operations.
-3. Each tag is added by typing it then pressing enter.
-4. Select the file(s) that should be associated with both the folder and the tag(s), then upload them.
-5. Track the status under the Upload Status tab in the Manage Content page.  This page does not refresh automatically.
-6. They should proceed to Uploaded to Queued to Complete.  While "queued", they are being processed, so expect them to remain in this state for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized is located <a href="https://platform.openai.com/tokenizer">here</a>.
+1. Ensure you have not scaled down your resources.  If you have, scale the back up again.
+2. From your PubSec Info Assistant's webpage, navigate to **Manage Content** in the upper right corner.
+3. Partition and categorize data using **folders** and **tags**.
+4. Each tag is added by typing it then pressing enter.  Tags can include spaces.
+5. Select the **file(s)** that should be associated with both the folder and the tag(s), then **upload** them.
+6. Track the state under the **Upload Status** tab in the Manage Content page.  This page *does not refresh automatically*.
+7. They should proceed from **Uploaded** to alternating between **Queued and Indexing** to **Complete**.  While queued and indexing, they are being processed in the enrichment pipeline, so expect them to alternate between these states for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized in English is located <a href="https://platform.openai.com/tokenizer">here</a>.
+   - Note:  A state of **Error** is also possible.
 
 ## UI Title and Banner
 
 You can adjust the title on the main page and the banner in your local.env file:
 
-The APPLICATION_TITLE environment variable sets the title at the top of the page.
-The CHAT_WARNING_BANNER_TEXT environment variable sets the banner text at the top of the page.
+The `APPLICATION_TITLE` environment variable sets the title at the top of the page.
+The `CHAT_WARNING_BANNER_TEXT` environment variable sets the banner text at the top of the page.
 
-## Changing Behavior
+## Changing the PubSec Info Assistant's Behavior
 
 ### Chat Settings
 
