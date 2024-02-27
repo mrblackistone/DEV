@@ -4,10 +4,11 @@
 - [Lexicon](#lexicon)
   - [Solutions](#solutions)
   - [Models](#models)
-  - [Mathematics](#mathematics)
-- [Chunking, Tokenization, and Embedding](#chunking-tokenization-and-embedding)
+  - [Mathematical Concepts](#mathematical-concepts)
+  - [Chunking, Tokenization, and Embedding](#chunking-tokenization-and-embedding)
+    - [Tokenization Example](#tokenization-example)
   - [Queries and Responses](#queries-and-responses)
-  - [Search Resources](#search-resources)
+  - [Search](#search)
 - [PubSec Info Assistant](#pubsec-info-assistant)
   - [Pre-requisites](#pre-requisites)
   - [Instructions](#instructions)
@@ -19,17 +20,24 @@
     - [Chat Settings](#chat-settings)
     - [System Message](#system-message)
   - [Thought Process](#thought-process)
+  - [Supporting Content](#supporting-content)
   - [Prompt Engineering](#prompt-engineering)
   - [Saving Money](#saving-money)
 - [Infrastructure](#infrastructure)
 - [Appendix](#appendix)
 
 <!-- /TOC -->
+<!-- /TOC -->
 
+---
+---
 
 # Purpose
 
 The purpose of this document is to consolidate information relating to OpenAI generally, Azure OpenAI specifically, generative AI concepts, and use of the PubSec Info Assistant offering from Microsoft to learn how to deploy, configure, and use generative AI in a production environment.
+
+---
+---
 
 # Lexicon
 
@@ -37,28 +45,50 @@ In order to get the most out of this document, it is best to learn the terminolo
 
 ## Solutions
 
-- **Information Assistant Accelerator** - Another name for the PubSec Info Assistant, a proof-of-concept made publicly available on GitHub for educational purposes and targeted at Public Sector application teams. The Information Assistant Accelerator is meant to demonstrate how a complete generative-AI system should be architected, how it can be deployed, and concepts relating to user interactions with it such as the effect of changing "Top-P", "Temperature", and the "System Message".
+- **Information Assistant Accelerator** - Another name for the PubSec Info Assistant, a proof-of-concept made publicly available on GitHub for educational purposes and targeted at Public Sector application teams. The Information Assistant Accelerator is meant to demonstrate how a complete generative-AI system should be architected, how it can be deployed, and concepts relating to user interactions with it such as the effect of changing the "Response Length" and "Conversation Type" settings as well as the "System Message".
 
 
 ## Models
 
-- **Machine Learning Model** - A machine learning model can be used to recognize patterns or make predictions based on data. A machine learning model is created by training a machine learning algorithm with data. This training process means that the original data is not explicitly stored or contained within the model itself, but rather influences the strength of connections generated within the model. Machine learning models are useful for many applications, such as image recognition, natural language processing, recommendation systems, and more.
-- **Generative Model** - A <a href="https://openai.com/research/generative-models">generative model</a> is a type of machine learning model that aims to learn the underlying patterns or distributions of data in order to generate new, similar data. Text generation models include GPT 3.5 and 4.
-- **Parameter** - Parameters are adjustable elements in a model that are learned from training data. These include weights in neural networks and settings in machine learning algorithms. Parameters influence the behavior of AI models and determine how they make predictions or decisions. The total number of parameters in a model is influenced by various factors such as the model's structure, the number of layers of neurons, and the complexity of the model.
+- **Machine Learning Model** - A machine learning model can be used to recognize patterns or make predictions based on data.
+   - A machine learning model is created by training a machine learning algorithm with data. This training process means that the original data is not explicitly stored or contained within the model itself, but rather influences the strength of connections generated within the model. Machine learning models are useful for many applications, such as image recognition, natural language processing, recommendation systems, and more.
+- **Generative Model** - A <a href="https://openai.com/research/generative-models">generative model</a> is a type of machine learning model that aims to learn the underlying patterns or distributions of data in order to generate new, similar data.
+   - Text generation models include GPT 3.5 and 4.
+- **Parameter** - Parameters are adjustable elements in a model that are learned from training data.
+   - These include weights in neural networks and settings in machine learning algorithms. Parameters influence the behavior of AI models and determine how they make predictions or decisions. The total number of parameters in a model is influenced by various factors such as the model's structure, the number of layers of neurons, and the complexity of the model.
    - ChatGPT 3.5 is made up of 175 Billion parameters.
    - ChatGPT 4 is far larger, at over 100 Trillion parameters.
 - **Checkpoint** - A checkpoint is a snapshot of a trained model's parameters (weights and biases) at a specific point during training.
 
-## Mathematics
+## Mathematical Concepts
 
-- **Vector** - A vector is a quantity that has a magnitude and direction. In OpenAI, a vector is represented as an array (list) of floating point numbers. The length of the array corresponds to the vector dimension. For instance, the vector [3.0,4.0] corresponds to a 2-vector having magnitude 5 (3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>). Therefore, the number of dimensions of the array, n, corresponds to the length of the array (i.e., an *n-array*)
-- **Dimensions** - The ada 2 embedding model has only 1,536 dimensions, which is impossible for a person to visualize.
-- **Vector database** - A <a href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vector embeddings, which are mathematical representations of data in a high-dimensional space. In this space, each dimension corresponds to a feature of the data, and tens of thousands of dimensions might be used to represent sophisticated data. A vector's position in this space represents its characteristics. Words, phrases, or entire documents, and images, audio, and other types of data can all be vectorized. These vector embeddings are used in similarity search, multi-modal search, recommendations engines, large languages models (LLMs), etc.
-- **Cosine similarity** - Azure OpenAI embeddings rely on <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query. From a mathematic perspective, cosine similarity measures the cosine of the angle between two vectors projected in a multidimensional space. This measurement is beneficial, because if two documents are far apart by Euclidean distance due to size, they could still have a smaller angle between them and therefore higher cosine similarity.
-   - Note that OpenAI embeddings are <a href="https://platform.openai.com/docs/guides/embeddings/frequently-asked-questions">normalized to length 1</a>, which means that cosine similarity can be computed a bit faster using only a dot product, and that cosine similarity and Euclidean distance will result in identical rankings. (Dot product is the sum of the products of multiplying each element in equal-length arrays, for instance: a<sub>1</sub>b<sub>1</sub> + a<sub>2</sub>b<sub>2</sub> + ... a<sub>n</sub>b<sub>n</sub>)
+- **Vector** - A vector is a quantity that has a magnitude and direction.
+   - Think of it as an arrow that has a defined length and points in a specific direction.
+   - In OpenAI, a vector is represented as an array (ordered list) of floating point numbers.
+   - The length of the array corresponds to the number of dimensions.
+   - For instance, the array [3.0, 4.0] corresponds to a 2-vector (two-dimensional vector) having magnitude (length) 5 (because 3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>).
+   - A graphical representation of a two-dimensional vector is shown below.
 
+<center><br><br><img src="images/Vector 3-4.png" width=25%><br>Figure xx: A 2-vector where v<sub>1</sub> = (3, 4)<br><br></center>
 
-# Chunking, Tokenization, and Embedding
+- **Dimensions** - Dimensions are the number of coordinates required to identify a location in a given space.
+   - For instance, identifying a specific location along the number line requires just one number, and therefore the number line is one-dimensional.
+   - The ada 2 embedding model has 1,536 dimensions, which is much larger than the two-dimensional example above, and is impossible for a person to visualize.
+   - These larger dimensional spaces are what allow for the intricacies and nuances of language to be captured more accurately when embedding or training.
+   - In order to compare vectors, they must be the same number of dimensions.  As such, for a given embedding model and version, each embedding will have the same number of dimensions regardless of the number of tokens it represents.
+- **Vector database** - A <a href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vector embeddings.
+   - Vector embeddings are mathematical representations of data in a high-dimensional space.
+   - In this space, each dimension corresponds to a feature of the data, and in some cases tens of thousands of dimensions might be used to represent sophisticated data.
+   - A vector's position in this space represents its characteristics.
+   - Words, phrases, or entire documents, and images, audio, and other types of data can all be vectorized.
+   - These vector embeddings are used in similarity search, multi-modal search, recommendations engines, large languages models (LLMs), etc.
+- **Cosine similarity** - Azure OpenAI embeddings rely on <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query.
+   - From a mathematic perspective, cosine similarity measures the cosine of the angle between two vectors projected in a multidimensional space.
+   - This measurement is beneficial because if two documents are far apart by Euclidean distance due to size they could still have a smaller angle between them and therefore a higher computed cosine similarity.
+   - Note that OpenAI embeddings are <a href="https://platform.openai.com/docs/guides/embeddings/frequently-asked-questions">normalized to length 1</a>, which means that cosine similarity can be computed a bit faster using only a dot product, and that cosine similarity and Euclidean distance will result in identical rankings.
+   - "Dot product" is the sum of the products of multiplying each element in equal-length arrays, for instance: a<sub>1</sub>b<sub>1</sub> + a<sub>2</sub>b<sub>2</sub> + ... a<sub>n</sub>b<sub>n</sub>
+
+## Chunking, Tokenization, and Embedding
 
 - **Token** - A <a href=https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them>token</a> is a single piece of text from an input that is associated (embedded) as a particular value in a vector. Tokens can include words with specific capitalization, sub-words, or punctuation. For instance, the sentence "Jake likes to eat, especially cake." might be broken out into the following tokens:
    - A word not preceded by a space, starting with a capital letter: "**Jake**"
@@ -71,70 +101,111 @@ In order to get the most out of this document, it is best to learn the terminolo
    - A period: "**.**"
    - You can see how text is tokenized by OpenAI using <a href="https://platform.openai.com/tokenizer">this tool</a>.
    - For English, a good rule-of-thumb is that there are 0.75 words per token. Other languages will typically require a greater number of tokens.
-- **Embedding** - An <a href="https://platform.openai.com/docs/guides/embeddings">embedding</a> is a special format of data representation that can be easily utilized by machine learning models and algorithms. The embedding is an information-dense representation of the semantic meaning of a piece of text. Each embedding is a vector of floating point numbers, such that the distance between two embeddings in the vector space is correlated with semantic similarity between two inputs in the original format. Depending on the system, each Token may be assigned a specific number in the vector. There are also limits associated with tokenization models, for instance <a href="https://openai.com/blog/new-and-improved-embedding-model">Ada 2</a> supports up to 8191 tokens at a time, and ChatGPT has a token limit shared between prompt and completion that varies with model and version.
-   - Example:  Using the previous example for Tokenization, the tokens might be embedded thusly:
-   - The Tokens before embedding: ["**Jake**", " **likes**", " **to**", " **eat**", "**,**", " **especially**", " **cake**", "**.**"]
-   - After embedding: [**7.438294**, **-0.782139**, **1.728197**, **-4.278129**, **-1.743892**, **6.273129**, **2.237180**, **9.728193**]
-   - Note:  This is purely a generic example to present a concept. These are not necessarily the values that would be generated in an actual OpenAI or similar system. For instance, Ada-2 has a fixed output dimension of 1,536 rather than the eight presented here.
-   - You can learn more about embeddings at <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/tutorials/embeddings?tabs=python%2Ccommand-line&pivots=programming-language-python">this link</a>.
-- **Chunk/chunking** - Due to token limits, the documents that the PubSec Info Assistant ingests are <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents">chunked</a> (broken up) and pre-processed into a format that's easier to use, especially complex file types like PDF. The PDF files are processed through Azure AI Document Intelligence, whereas other file types are processed through Unstructured.io, both of which result in JSON-based representations. Pre-processing status is logged in Cosmos DB. Chunking can also include overlap, to ensure that data is not split across chunks when it shouldn't be. Note that OpenAI typically performs better when documents are chunked by section rather than by page, paragraph, or fixed sizes.
+- **Embedding** - An <a href="https://platform.openai.com/docs/guides/embeddings">embedding</a> is a special format of data representation that can be easily utilized by machine learning models and algorithms.
+   - The embedding is an information-dense representation of the semantic meaning of a piece of text.
+   - Each embedding is a vector of floating point numbers, such that the distance between two embeddings in the vector space is correlated with semantic similarity between two inputs in the original format.
+   - Depending on the system, each Token may be assigned a specific number in the vector.
+   - There are also limits associated with tokenization models, for instance <a href="https://openai.com/blog/new-and-improved-embedding-model">Ada 2</a> supports up to 8191 tokens at a time, and ChatGPT has a token limit shared between prompt and completion that varies with model and version.
+- **Chunk/chunking** - Due to token limits, the documents that the PubSec Info Assistant ingests are <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents">chunked</a> (broken up) and pre-processed into a format that's easier to use, especially complex file types like PDF.
+   - The PDF files are processed through Azure AI Document Intelligence, whereas other file types are processed through Unstructured.io, both of which result in JSON-based representations.
+   - Pre-processing status is logged in Cosmos DB.
+   - Chunking can also include overlap, to ensure that data is not split across chunks when it shouldn't be.
+   - Note that OpenAI typically performs better when documents are chunked by section rather than by page, paragraph, or fixed sizes.
    - Other options to chunk documents include <a href="https://python.langchain.com/en/latest/index.html">LangChain</a> and <a href="https://github.com/microsoft/semantic-kernel">Semantic Kernel</a>.
+
+### Tokenization Example
+
+- The Tokens before embedding: ["**Jake**", " **likes**", " **to**", " **eat**", "**,**", " **especially**", " **cake**", "**.**"]
+- After embedding: [**7.438294**, **-0.782139**, **1.728197**, **-4.278129**, **-1.743892**, **6.273129**, **2.237180**, **9.728193**]
+
+Note:  This is purely a generic example to present a concept. These are not necessarily the values that would be generated in an actual OpenAI or similar system. For instance, Ada-2 has a fixed output dimension of 1,536 rather than the eight presented here.
+   - You can learn more about embeddings at <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/tutorials/embeddings?tabs=python%2Ccommand-line&pivots=programming-language-python">this link</a>.
+
 
 
 ## Queries and Responses
 
-- **Retrieval Augmented Generation (RAG)** - Retrieval Augmentation Generation (RAG) is an architecture that augments the capabilities of a Large Language Model (LLM) like ChatGPT by adding an information retrieval system that provides grounding data. It utilizes Azure AI Search's Vector Hybrid Search capabilities to retrieve documents that are contextually relevant for precise answers. This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords. As such, you don't have to go through the immense time and expense of training your own model.
-- **Persona** - The "tone" and language used by the AI, such as "an Assistant" or "a Teacher". Depending on the model used, this can impact how it presents responses to varying degrees.
-- **Chain of Thought** - Chain of Thought refers to the absence of persistent "memory" in the OpenAI instance as to your previous queries, resulting in the need with each new query in a session to include all previous questions and answers.  This allows OpenAI to provide contextually-appropriate responses based on the conversation so far, without having to store your previous queries or its responses.
-- **Session** - A session is a single Chain of Thought, meaning when all previous requests and responses are included with each new request, and impact how the AI responds. To eliminate the effect of previous interactions on future responses, you must start a new session, which resets the Chain of Thought.  This is particularly important when shifting focus to a new subject that has little or nothing to do with the queries you've made so far.
-- **Grounding** - Grounding refers to the act of limiting results to a specific dataset, rather than the LLM in its entirety.  For instance, if you provide organizational policy documents, grounding means that the PubSec Info Assistant will be limited to providing responses which are relevant to those policy documents.
-- **System Message/Metaprompt** - A system message is an optional (but highly recommended) initial message sent automatically in every new session, typically hidden from the user, that tells the system how responses should be constructed, what kind of persona the system and user should have, etc.
-- **One-shot** - One-shot is when a single example interaction is provided in the system message.
-- **Few-shot** - Few-shot is when more than one example interaction is provided in the system message, though it should consist of three or more examples, because providing only two appears to afford no benefit over just a single shot.
-- **Zero-shot** - Zero-shot is when no example interactions are proided in the system message.
-- **Enrichment Pipeline** - This term refers to the process of ingesting, parsing, and chunking input data to provide the embedding vectors that will be used by the PubSec Info Assistant to provide relevant responses to queries.
+- **Retrieval Augmented Generation (RAG)** - Retrieval Augmentation Generation (RAG) is an architecture that augments the capabilities of a Large Language Model (LLM) like ChatGPT by adding an information retrieval system that provides grounding data.
+   - It utilizes Azure AI Search's Vector Hybrid Search capabilities to retrieve documents that are contextually relevant for precise answers.
+   - This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
+   - As such, you don't have to go through the immense time and expense of training your own model.
+- **Persona** - Personal is the "tone" and language used by the AI, such as "an Assistant" or "a Teacher". Depending on the model used, this can impact how it presents responses to varying degrees.
+- **Chain of Thought** - Chain of Thought refers to the need with each new query in a session to include all previous questions and answers.
+   - This stems from the absence of persistent "memory" in the OpenAI instance as to your previous queries.
+   - This allows OpenAI to provide contextually-appropriate responses based on the conversation so far, without having to store your previous queries or its own responses to them.
+- **Session** - A session is a single Chain of Thought, meaning when all previous requests and responses are included with each new request, and impact how the AI responds.
+   - To eliminate the effect of previous interactions on future responses, you must start a new session, which resets the Chain of Thought.
+   - This is particularly important when shifting focus to a new subject that has little or nothing to do with the queries you've made so far.
+- **Grounding** - Grounding refers to the act of limiting results to a specific dataset, rather than the LLM in its entirety.
+   - For instance, if you provide organizational policy documents, grounding means that the PubSec Info Assistant will be limited to providing responses which are relevant to those policy documents.
+- **System Message/Metaprompt** - A system message is an optional (but highly recommended) initial message sent automatically in every new session.
+   - It tells the system how responses should be constructed, what kind of persona the system and user should have, etc.
+   - This is typically hidden from the user, but is made visible in the PubSec Info Assistant for educational purposes.
+   - **X-Shot** - The System Message can include zero-shot, one-shot, or few-shot example interactions, as defined below:
+      - **One-shot** - One-shot is when a single example interaction is provided in the system message.
+      - **Few-shot** - Few-shot is when more than one example interaction is provided in the system message, though it should consist of three or more examples, because providing only two appears to afford no benefit over just a single shot.
+      - **Zero-shot** - Zero-shot is when no example interactions are provided in the system message.
+- **Enrichment Pipeline** - The Enrichment Pipeline is the process of ingesting, parsing, and chunking input data, then embedding/vectorizing it, so the PubSec Info Assistant will be able to provide relevant responses to queries.
+- **Conversation Type** or **Temperature** - The "Conversation Type" selection in the application's answer generation configuration pane is also known as "Temperature", which is an option in OpenAI's API.
+   - Temperature affects the probabilities over all possible tokens during each step of the generation process. At 0 the process is completely deterministic, always sticking with the most likely token.
+   - Depending on what you set it to, the value will be 0.0, 0.6, or 1.0, represented as "Precise", "Balanced", and "Creative" respectively.
+- **Top_P** - While this OpenAI API option is unused in the PubSec Info Assistant, it is similar to the "Response Length" option in that it helps to generate short, specific answers.
+   - Top_p sampling, instead of considering all tokens, considers instead only a subset of tokens (the "nucleus"). As such it is also known as nucleus sampling.
+   - Unlike "Response Length" (below), it should be considered an **alternative** to "Temperature" and not adjusted at the same time.
+- **Response Length** - This option in the application's answer generation configuration pane limits the length of responses to a defined number of tokens.
 
-## Search Resources
+## Search
 
-- **Azure AI Search** - This accelerator employs Vector Hybrid Search, which combines vector similarity with keyword matching to enhance search accuracy. (Note that in Azure Government keyword search is not yet available as of Feb 21, 2024.) This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
+- **Azure AI Search** - This accelerator employs Vector Hybrid Search, which combines vector similarity with keyword matching to enhance search accuracy.
+   - This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
+   - Note that in Azure Government keyword search is not yet available as of Feb 21, 2024.
 - **Types of Search Methods** - Different search methods. For the Information Assistant Accelerator, only Vector search is currently available (Feb 21, 2024).
-   - **Vector** - <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview">Vector search</a> is an approach in information retrieval that stores numeric representations of content for search scenarios. Because the content is numeric rather than plain text, the search engine matches on vectors that are the most similar to the query, with no requirement for matching on exact terms.
+   - **Vector** - <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview">Vector search</a> is an approach in information retrieval that stores numeric representations of content for search scenarios.
+      - Because the content is numeric rather than plain text, the search engine matches on vectors that are the most similar to the query, with no requirement for matching on exact terms.
    - **Hybrid** - Hybrid search is a combination of full text and vector queries that execute against a search index that contains both searchable plain text content and generated embeddings. For query purposes, hybrid search is:
       - A single query request that includes both search and vectors query parameters
       - Executing in parallel
       - With merged results in the query response, scored using Reciprocal Rank Fusion (RRF)
    - **Full Text** - A full-text search is a comprehensive method that compares every word of the search request against every word within a document or database.
    - **Keyword** - Keyword search looks for exact matches of words, but lacks semantic understanding.
-   - **Semantic Ranker** (proprietary in Azure AI Search) - In Azure AI Search, semantic ranking measurably improves search relevance by using language understanding to rerank search results. Semantic ranking doesn't use generative AI or vectors. Semantic ranker is a collection of query-related capabilities that improve the quality of an initial BM25-ranked or RRF-ranked search result for text-based queries. When you enable it on your search service, semantic ranking extends the query execution pipeline in two ways:
-      - First, it adds secondary ranking over an initial result set that was scored using BM25 or RRF. This secondary ranking uses multi-lingual, deep learning models adapted from Microsoft Bing to promote the most semantically relevant results.
-      - Second, it extracts and returns captions and answers in the response, which you can render on a search page to improve the user's search experience.
+   - **Semantic Ranker** (proprietary in Azure AI Search) - In Azure AI Search, semantic ranking measurably improves search relevance by using language understanding to rerank search results.
+      - Semantic ranking doesn't use generative AI or vectors.
+      - Semantic ranker is a collection of query-related capabilities that improve the quality of an initial BM25-ranked or RRF-ranked search result for text-based queries.
+      - When you enable it on your search service, semantic ranking extends the query execution pipeline in two ways:
+         - First, it adds secondary ranking over an initial result set that was scored using BM25 or RRF. This secondary ranking uses multi-lingual, deep learning models adapted from Microsoft Bing to promote the most semantically relevant results.
+         - Second, it extracts and returns captions and answers in the response, which you can render on a search page to improve the user's search experience.
+
+---
+---
 
 # PubSec Info Assistant
 
-The PubSec Info Assistant is a ready-to-use teaching tool which deploys a functional Azure OpenAI application into a target Azure environment, designed with application teams in mind so they can learn how to deploy, modify, and use an Azure OpenAI ChatGPT application that uses grounding data to provide answers specific to the organization.
+The PubSec Info Assistant is a ready-to-use teaching tool which deploys a functional Azure OpenAI application into a target Azure environment. It is designed with application teams in mind so they can learn how to deploy, modify, and use an Azure OpenAI ChatGPT application that uses grounding data to provide answers specific to the organization.
 
 All up-to-date official documentation is located in the repository. This section consolidates information from that documentation, but is only a point-in-time collection, and should not be regarded as the official source of information.
 
 NOTE:  The instructions are written for all three of the following scenarios. Confirm which scenario is applicable to you before starting, and keep it in mind as you progress through the steps:
 - Azure OpenAI (AOAI) instance will reside in the same resource group as the other resources.
-- AOAI instance will reside in a different resource group as the other resources.
-- AOAI instance will reside in a different tenant or cloud than the other resources.
+- AOAI instance will reside in a different resource group but the same tenant as the other resources.
+- AOAI instance will reside in a different tenant or cloud than the other resources. (e.g., Azure Commercial vs Azure Government; or two different tenants in Azure Commercial)
 
 
 ## Pre-requisites
 
 1. An **Azure Tenant** where you have permissions to:
    - **Create service principals** (applications).
-2. An **Azure subscription** in that same tenant where you have rights to:
+2. Az **Azure subscription** in that tenant where you have submitted a request for approval to deploy Azure OpenAI, and that approval has been granted by Microsoft.
+3. An **Azure subscription** in that same tenant where you have rights to:
    - **Change permissions**
    - **Deploy resources**
    - **Delete deployments**
    - **Create resource groups**
-3. An **Azure Tenant** (the same one or a different one) **and Subscription** where you have permissions to:
+4. An **Azure Tenant** (the same one or a different one) **and Subscription** where you have permissions to:
    - **Deploy and read an Azure OpenAI instance**, **or**
    - One is already deployed and you have access to **read its name, key, and can get into the OpenAI studio to set up model deployments**.
-4. A **Github account**.
-5. Optional, but strongly recommended:  **VS Code w/ GitHub Workspaces extension** loaded on your local system.
+5. A **Github account**.
+6. Optional, but strongly recommended:  **VS Code w/ GitHub Workspaces extension** loaded on your local system.
+7. If you've deployed before from a forked repository, make sure you update it with the most recent changes from the original repository before going through these instructions again.
 
 ## Instructions
 
@@ -157,15 +228,15 @@ NOTE:  The instructions are written for all three of the following scenarios. Co
 6. If you forked the repository, **navigate to your fork** under your repositories.
 7. **Browse** to the **docs/deployment/deployment.md** file in the repo.
 8. **Click on the icon** near the top of the document to **deploy using GitHub Codespaces**.
-9. Check above the top box and, **if there's a message** "Single sign-on to see codespaces for accounts within the Microsoft Open Source enterprise", **click the single sign-on link to authenticate**.
+9. Check above the top box and, **if there's a message** "Single sign-on to see Codespaces for accounts within the Microsoft Open Source enterprise", **click the single sign-on link to authenticate**.
 10. Select the following:
    - **Your forked repo** if you forked it (e.g., {username}/PubSec-Info-Assistant) or the original repo (microsoft/PubSec-Info-Assistant). *If neither is immediately visible, you will have to type the path*.
    - Select the **Main branch**.
    - Select the dev container configuration (**info-asst**).
    - Select the region (e.g., **useast**).
    - Select the machine type (**4-core** recommended).
-11. Click the **Create codespace** button.
-12. **Wait** until it's set up. (**Approximately 5.5 minutes** if using a 4-core codespace.)
+11. Click the **Create Codespace** button.
+12. **Wait** until it's set up. (**Approximately 5.5 minutes** if using a 4-core Codespace.)
 
 ---
 
@@ -173,13 +244,13 @@ NOTE:  The instructions are written for all three of the following scenarios. Co
 
 ---
 
-13. **Favorite** the URL of your temporary codespace environment, to make it easy to return to (e.g. https://upgraded-meme-w95p5695pp43995q.github.dev/).
+13. **Favorite** the URL of your temporary Codespace environment, to make it easy to return to (e.g. https://upgraded-meme-w95p5695pp43995q.github.dev/).
 14. Optional but **strongly recommended**:
    - Open your local copy of VS Code.
    - Ensure the Github Codespaces extension is installed.
    - Click the Remote Explorer icon on the left bar.
    - Authenticate to Github, if you haven't already.
-   - Select the codespace that's named the same as the two randomly-selected words in the URL of the codespace in the browser (which you favorited). e.g., "upgraded meme" or "ubiquitous acorn"
+   - Select the Codespace that's named the same as the two randomly-selected words in the URL of the Codespace in the browser (which you favorited). e.g., "upgraded meme" or "ubiquitous acorn"
    - Continue the following steps in VS Code rather than the browser…
 15. Navigate to scripts/environments 
 16. Copy the local.env.example file to the same folder.
@@ -207,13 +278,15 @@ NOTE:  The instructions are written for all three of the following scenarios. Co
 
 20. If you are pointing to an existing AOAI instance, and it is not in the same subscription as where you're deploying your resources, you will need to update the following (using whatever models and version you deployed in OpenAI Studio):
 
+| System Variable                        | Value                                              |
+|----------------------------------------|----------------------------------------------------|
 | AZURE_OPENAI_CHATGPT_MODEL_NAME        | gpt-35-turbo                                       |
 | AZURE_OPENAI_CHATGPT_MODEL_VERSION     | 0301                                               |
 | AZURE_OPENAI_EMBEDDINGS_MODEL_NAME     | text-embedding-ada-002                             |
 | AZURE_OPENAI_EMBEDDINGS_MODEL_VERSION  | 2                                                  |
 
 21. **Save** the file.
-22. If you're deploying to Azure Government, run the following command in the console (open console with Terminal > New Terminal):
+22. If you're deploying to Azure Government, run the following command in the console (open console with `Terminal > New Terminal`):
 
 ```css
 az cloud set --name AzureUSGovernment
@@ -251,7 +324,7 @@ make deploy
 31. Open the enterprise application, then go to **Manage > Users and Groups**
 32. **Add yourself** as a user.
 33. If you want to make your application accessible to anyone in your directory (tenant):
-   - Go to Manage > Properties
+   - Go to `Manage > Properties`
    - Change "Assignment Required?" to "No" if it isn't already. If it's set to "Yes" then only the users/groups you added in the previous step will have access.
 34. Navigate to the **infoasst-web-xxxx Web App** resource in the portal, and **click on the URL for the website**.
    - If permissions are requested, accept.
@@ -265,14 +338,27 @@ make deploy
 - If you are prompted to log into the following URL, use the following command to do so:
    - `az login --scope https://graph.microsoft.com//.default`
 - If you get the following error, you probably didn't set IS_USGOV_DEPLOYMENT to true when deploying to Azure Government:
-   - `deployment failed with SpecialFeatureOrQuotaIdRequired","message":"The subscription does not have QuotaId/Feature required by SKU 'S0' from kind 'OpenAI' or contains blocked QuotaId/Feature."`
+
+```
+deployment failed with SpecialFeatureOrQuotaIdRequired","message":"The subscription does not have QuotaId/Feature required by SKU 'S0' from kind 'OpenAI' or contains blocked QuotaId/Feature."
+```
+
 - Fix the redirect URI, if you receive errors stating that it is incorrect:
    - Navigate to the App Registrations section of Entra ID.
    - Find your infoasst_web_access_xxxxx application registration and open it.
-   - Go to Manage > Authentication.
+   - Go to `Manage > Authentication`.
    - Confirm the URI ends with .net in Azure Commercial deployments or .us for Azure Government deployments, then click the Save button.
 
+---
+---
+
 # Usage and Demo
+
+The main page will look similar to the image below.
+
+<img src="images/Main Page Markup.png" width=75%>
+
+Figure xx: Main Page with Important Items Labeled
 
 ## Ingesting Data
 
@@ -285,27 +371,36 @@ make deploy
 7. They should proceed from **Uploaded** to alternating between **Queued and Indexing** to **Complete**.  While queued and indexing, they are being processed in the enrichment pipeline, so expect them to alternate between these states for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized in English is located <a href="https://platform.openai.com/tokenizer">here</a>.
    - Note:  A state of **Error** is also possible.
 
+<img src="images/Upload Files.png" width=75%>
+
+Figure xx: Upload Files page
+
 ## UI Title and Banner
 
 You can adjust the title on the main page and the banner in your local.env file:
 
-The `APPLICATION_TITLE` environment variable sets the title at the top of the page.
-The `CHAT_WARNING_BANNER_TEXT` environment variable sets the banner text at the top of the page.
+- The `APPLICATION_TITLE` environment variable sets the title at the top of the page.
+- The `CHAT_WARNING_BANNER_TEXT` environment variable sets the banner text at the top of the page.
 
 ## Changing the PubSec Info Assistant's Behavior
 
 ### Chat Settings
 
-1. Go to Chat in the upper right corner.
-2. Click the Adjust icon.
+1. Click on **Chat** in the upper right corner to navigate to the Chat page.
+2. Click the **Adjust** icon.
 3. Make changes:
-   - Response Length is also known as "Top P" or "Nucleus Sampling" and determines how succinct or verbose the response will be.
-   - Conversation Type is also known as "Temperature" and determines how constrained or "creative" the response will be.
-
+   - **User Persona** describes how the system should treat the user.
+   - **System Persona** describes how the system should act.
+   - **Response Length**, which is similar in effect to "top_p" or "nucleus sampling", determines how succinct or verbose the response will be by limiting the number of returned tokens.
+   - **Conversation Type** is also known as "Temperature" and determines how constrained or "creative" the response will be.
+   - **Folder Selection** allows you to scope the search to documents in specific folders.
+   - **Tags** allows you to scope the search to documents uploaded with specific tags.
+   - "Retrieve this many documents from search" and "Suggest follow-up questions" are self-explanatory.
+4. Click **Close** when you are done making changes.
 
 ### System Message
 
-The system message is an initial "query" made behind the scenes automatically to instruct the LLM on how it should interact with the user.  The system message from the PubSec Info Assistant is shown below.
+The system message is an initial query made behind the scenes automatically to instruct the LLM on how it should interact with the user.  The system message from one version of the PubSec Info Assistant is shown below.
 
 ```python
 system_message_chat_conversation = """You are an Azure OpenAI Completion system. Your persona is {systemPersona} who helps answer questions about an agency's data. {response_length_prompt}
@@ -332,18 +427,18 @@ follow_up_questions_prompt_content = """
     """
 ```
 
-This system message is located in app > backend > approaches > chatreadretrieveread.py
+This system message is located in `app > backend > approaches > chatreadretrieveread.py` and you can modify it and then deploy the application code to change how the system works.
 
 You'll notice that it references other strings, some of which include:
 
-- systemPersona: This is the system personal configured via the GUI.
-- userPersona: This is the user personal configured via the GUI.
-- response_length_prompt: This will resolve to one of the three following prompts, depending on what was selected in the GUI.  The code for this is located near the bottom of the chatreadretrieveread.py file, in the get_response_length_prompt_text() function.
-   - Please provide a succinct answer. This means that your answer should be no more than 1024 tokens long.
-   - Please provide a standard answer. This means that your answer should be no more than 2048 tokens long.
-   - Please provide a thorough answer. This means that your answer should be no more than 3072 tokens long.
-- query_term_language: The language the system is configured to use (default is English).
-- follow_up_questions_prompt: This will be the content of the follow_up_questions_prompt_content variable, if suggest_followup_questions is set to true.
+- **systemPersona**: This is the system personal configured via the GUI.
+- **userPersona**: This is the user personal configured via the GUI.
+- **response_length_prompt**: This will resolve to one of the three following prompts, depending on what was selected in the GUI.  The code for this is located near the bottom of the chatreadretrieveread.py file, in the get_response_length_prompt_text() function.
+   - Please provide a **succinct** answer. This means that your answer should be no more than **1024** tokens long.
+   - Please provide a **standard** answer. This means that your answer should be no more than **2048** tokens long.
+   - Please provide a **thorough** answer. This means that your answer should be no more than **3072** tokens long.
+- **query_term_language**: The language the system is configured to use (default is English).
+- **follow_up_questions_prompt**: This will be the content of the follow_up_questions_prompt_content variable, if suggest_followup_questions is set to true.
 
 There is also a query_prompt_template defined in the file, which is used for subsequent queries to maintain chain of thought:
 
@@ -382,7 +477,23 @@ Lastly, there are some few-shot prompts included in the file as well:
 
 ## Thought Process
 
-To see how an answer was generated, click one of the citations or one of the icons in the corner of the response. A pane will open to the right. Click on the Thought Process tab.
+- To see how an answer was generated, click one of the citations or one of the Thought Process icons (light bulb) in the corner of a response.
+- A pane will open to the right. Click on the Thought Process tab, if you are on another tab.
+- Close the right-hand pane by clicking on the Thought Process icon in the response box again.
+
+<img src="images/Thought Process.png" width=75%>
+
+Figure xx: Thought Process pane
+
+## Supporting Content
+
+- To see what supporting content was used to generate the answer, click on the Supporting Content icon (clipboard) in the corner of the response.
+- A pane will open to the right. Click on the Supporting Content tab, if you are on another tab.
+- Close the right-hand pane by clicking on the Supporting Content icon in the response box again.
+
+<img src="images/Supporting Content.png" width=75%>
+
+Figure xx: Supporting Content pane
 
 ## Prompt Engineering
 
@@ -402,12 +513,15 @@ Some of the services can be quite expensive.  You can control costs by resizing 
 
 Make sure to only do these after you've ingested your grounding data.  Otherwise ingestion will be very slow.
 
-- Go to the Function App > Settings > Scale Up and change it from Standard S2 to Standard S1.
-- Go to the Search Service > Settings > Scale and ensure Replicas is set to 1 and Partitions is set to 25 GB.
-- Go to the "Enrichmentweb" Web App > Settings > Scale Up and change it from Premium v3 P1V3 to Premium v3 P0V3.
-- Go to the "web" Web App > Settings > Scale Up and confirm it's set to Standard S1.
+- Go to the `Function App > Settings > Scale Up` and change it from Standard S2 to Standard S1.
+- Go to the `Search Service > Settings > Scale` and ensure Replicas is set to 1 and Partitions is set to 25 GB.
+- Go to the `"Enrichmentweb" Web App > Settings > Scale Up` and change it from Premium v3 P1V3 to Premium v3 P0V3.
+- Go to the `"Web" Web App > Settings > Scale Up` and confirm it's set to Standard S1.
 
 You'll want to ensure these services aren't scaled below the minimums needed to ingest or search your data when it's time to perform either task.
+
+---
+---
 
 # Infrastructure
 
@@ -441,6 +555,9 @@ Note: At this time that there is a maximum of one AOAI instance per subscription
 | infoasststorexxxxx                      | Storage account                         | *Gov*: **Commercial** |
 | infoasststoremediaxxxxx                 | Storage account                         | *Gov*: **Commercial** |
 | default (infoasstmediasvcxxxxx/default) | Streaming Endpoint                      | *Gov*: **Commercial** |
+
+---
+---
 
 # Appendix
 
