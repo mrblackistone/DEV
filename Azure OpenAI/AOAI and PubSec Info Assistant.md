@@ -51,10 +51,17 @@ In order to get the most out of this document, it is best to learn the terminolo
 ## Models
 
 - **Machine Learning Model** - A machine learning model can be used to recognize patterns or make predictions based on data.
-   - A machine learning model is created by training a machine learning algorithm with data. This training process means that the original data is not explicitly stored or contained within the model itself, but rather influences the strength of connections generated within the model. Machine learning models are useful for many applications, such as image recognition, natural language processing, recommendation systems, and more.
 - **Generative Model** - A <a href="https://openai.com/research/generative-models">generative model</a> is a type of machine learning model that aims to learn the underlying patterns or distributions of data in order to generate new, similar data.
-   - Text generation models include GPT 3.5 and 4.
 - **Parameter** - Parameters are adjustable elements in a model that are learned from training data.
+- **Checkpoint** - A checkpoint is a snapshot of a trained model's parameters (weights and biases) at a specific point during training.
+
+More details ...
+
+- **Machine Learning Model**
+   - A machine learning model is created by training a machine learning algorithm with data. This training process means that the original data is not explicitly stored or contained within the model itself, but rather influences the strength of connections generated within the model. Machine learning models are useful for many applications, such as image recognition, natural language processing, recommendation systems, and more.
+- **Generative Model**
+   - Text generation models include GPT 3.5 and 4.
+- **Parameter**
    - These include weights in neural networks and settings in machine learning algorithms. Parameters influence the behavior of AI models and determine how they make predictions or decisions. The total number of parameters in a model is influenced by various factors such as the model's structure, the number of layers of neurons, and the complexity of the model.
    - ChatGPT 3.5 is made up of 175 Billion parameters.
    - ChatGPT 4 is far larger, at over 100 Trillion parameters.
@@ -62,27 +69,34 @@ In order to get the most out of this document, it is best to learn the terminolo
 
 ## Mathematical Concepts
 
-- **Vector** - A vector is a quantity that has a magnitude and direction.
-   - Think of it as an arrow that has a defined length and points in a specific direction.
-   - In OpenAI, a vector is represented as an array (ordered list) of floating point numbers.
-   - The length of the array corresponds to the number of dimensions.
-   - For instance, the array [3.0, 4.0] corresponds to a 2-vector (two-dimensional vector) having magnitude (length) 5 (because 3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>).
+- **Vector** - A quantity that has a magnitude and direction.
+- **Dimensions** - The number of independent parameters or coordinates that are needed for defining the position of a point that is constrained to be in a given mathematical space.
+- **Vector database** - A <a href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vectors.
+- **Cosine similarity** - Azure OpenAI embeddings rely on <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query.
+
+More details ...
+
+- **Vector**
+   - Think of a vector as an arrow that has a defined length and points in a specific direction from a given starting point.
+   - In OpenAI, a vector is represented as an array (ordered list) of floating point numbers, such as: [-0.344243, 1.432833, -0.002331]
+   - The length of the array corresponds to the number of dimensions. The example on the previous line is 3-dimensional.
+   - For instance, the array [3.0, 4.0] corresponds to a 2-vector (2-dimensional vector) having magnitude (length) 5 (because 3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>).
    - A graphical representation of a two-dimensional vector is shown below.
 
 <center><br><br><img src="images/Vector 3-4.png" width=25%><br>Figure xx: A 2-vector where v<sub>1</sub> = (3, 4)<br><br></center>
 
-- **Dimensions** - Dimensions are the number of coordinates required to identify a location in a given space.
-   - For instance, identifying a specific location along the number line requires just one number, and therefore the number line is one-dimensional.
+- **Dimensions**
+   - Identifying a specific location along the number line requires just one number. Therefore, the number line is one-dimensional.
    - The ada 2 embedding model has 1,536 dimensions, which is much larger than the two-dimensional example above, and is impossible for a person to visualize.
    - These larger dimensional spaces are what allow for the intricacies and nuances of language to be captured more accurately when embedding or training.
    - In order to compare vectors, they must be the same number of dimensions.  As such, for a given embedding model and version, each embedding will have the same number of dimensions regardless of the number of tokens it represents.
-- **Vector database** - A <a href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vector embeddings.
+- **Vector database**
    - Vector embeddings are mathematical representations of data in a high-dimensional space.
    - In this space, each dimension corresponds to a feature of the data, and in some cases tens of thousands of dimensions might be used to represent sophisticated data.
    - A vector's position in this space represents its characteristics.
    - Words, phrases, or entire documents, and images, audio, and other types of data can all be vectorized.
    - These vector embeddings are used in similarity search, multi-modal search, recommendations engines, large languages models (LLMs), etc.
-- **Cosine similarity** - Azure OpenAI embeddings rely on <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query.
+- **Cosine similarity**
    - From a mathematic perspective, cosine similarity measures the cosine of the angle between two vectors projected in a multidimensional space.
    - This measurement is beneficial because if two documents are far apart by Euclidean distance due to size they could still have a smaller angle between them and therefore a higher computed cosine similarity.
    - Note that OpenAI embeddings are <a href="https://platform.openai.com/docs/guides/embeddings/frequently-asked-questions">normalized to length 1</a>, which means that cosine similarity can be computed a bit faster using only a dot product, and that cosine similarity and Euclidean distance will result in identical rankings.
@@ -90,7 +104,14 @@ In order to get the most out of this document, it is best to learn the terminolo
 
 ## Chunking, Tokenization, and Embedding
 
-- **Token** - A <a href=https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them>token</a> is a single piece of text from an input that is associated (embedded) as a particular value in a vector. Tokens can include words with specific capitalization, sub-words, or punctuation. For instance, the sentence "Jake likes to eat, especially cake." might be broken out into the following tokens:
+- **Token** - A <a href=https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them>token</a> is a single piece of text from an input that is associated (embedded) as a particular value in a vector.
+- **Embedding** - An <a href="https://platform.openai.com/docs/guides/embeddings">embedding</a> is a special format of data representation that can be easily utilized by machine learning models and algorithms.
+- **Chunk/chunking** - Due to token limits, the documents that the PubSec Info Assistant ingests are <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents">chunked</a> (broken up) and pre-processed into a format that's easier to use, especially complex file types like PDF.
+
+More details ...
+
+- **Token**
+   - Tokens can include words with specific capitalization, sub-words, or punctuation. For instance, the sentence "Jake likes to eat, especially cake." might be broken out into the following tokens:
    - A word not preceded by a space, starting with a capital letter: "**Jake**"
    - A word preceded by a space, starting with a lower-case letter: " **likes**"
    - A word preceded by a space, starting with a lower-case letter: " **to**"
@@ -101,12 +122,12 @@ In order to get the most out of this document, it is best to learn the terminolo
    - A period: "**.**"
    - You can see how text is tokenized by OpenAI using <a href="https://platform.openai.com/tokenizer">this tool</a>.
    - For English, a good rule-of-thumb is that there are 0.75 words per token. Other languages will typically require a greater number of tokens.
-- **Embedding** - An <a href="https://platform.openai.com/docs/guides/embeddings">embedding</a> is a special format of data representation that can be easily utilized by machine learning models and algorithms.
+- **Embedding**
    - The embedding is an information-dense representation of the semantic meaning of a piece of text.
    - Each embedding is a vector of floating point numbers, such that the distance between two embeddings in the vector space is correlated with semantic similarity between two inputs in the original format.
    - Depending on the system, each Token may be assigned a specific number in the vector.
    - There are also limits associated with tokenization models, for instance <a href="https://openai.com/blog/new-and-improved-embedding-model">Ada 2</a> supports up to 8191 tokens at a time, and ChatGPT has a token limit shared between prompt and completion that varies with model and version.
-- **Chunk/chunking** - Due to token limits, the documents that the PubSec Info Assistant ingests are <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents">chunked</a> (broken up) and pre-processed into a format that's easier to use, especially complex file types like PDF.
+- **Chunk/chunking**
    - The PDF files are processed through Azure AI Document Intelligence, whereas other file types are processed through Unstructured.io, both of which result in JSON-based representations.
    - Pre-processing status is logged in Cosmos DB.
    - Chunking can also include overlap, to ensure that data is not split across chunks when it shouldn't be.
@@ -125,41 +146,60 @@ Note:  This is purely a generic example to present a concept. These are not nece
 
 ## Queries and Responses
 
-- **Retrieval Augmented Generation (RAG)** - Retrieval Augmentation Generation (RAG) is an architecture that augments the capabilities of a Large Language Model (LLM) like ChatGPT by adding an information retrieval system that provides grounding data.
-   - It utilizes Azure AI Search's Vector Hybrid Search capabilities to retrieve documents that are contextually relevant for precise answers.
+- **Grounding** - <a href="https://techcommunity.microsoft.com/t5/fasttrack-for-azure/grounding-llms/ba-p/3843857">Grounding</a> is the process of using large language models (LLMs) with information that is use-case specific, relevant, and not available as part of the LLM's trained knowledge.
+- **Retrieval Augmented Generation (RAG)** - <a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview">Retrieval Augmentation Generation (RAG)</a> is an architecture that augments the capabilities of a Large Language Model (LLM) like ChatGPT by adding an information retrieval system that provides grounding data.
+- **Persona** - A persona is the "tone" and language used by the AI, such as "an Assistant" or "a Teacher", which makes interacting with the LLM less impersonal.
+- **Chain of Thought** - Chain of Thought refers to the need with each new query in a session to include all previous questions and answers.
+- **Session** - A session is a single Chain of Thought, meaning when all previous requests and responses are included with each new request, and impact how the AI responds.
+- **System Message/Metaprompt** - A system message is an optional (but highly recommended) initial message sent automatically in every new session.
+- **Enrichment Pipeline** - The Enrichment Pipeline is the process of ingesting, parsing, and chunking input data, then embedding/vectorizing it, so the PubSec Info Assistant will be able to provide relevant responses to queries.
+- **Temperature** or **Conversation Type** - Temperature adjusts the randomness of a model's output, where a low temperature results in predictable and tightly scoped responses, and a high temperature results in varied and creative responses.
+- **Response Length** - This option in the application's answer generation configuration pane limits the length of responses to a defined number of tokens.
+- **Top_P** - While this OpenAI API option is unused in the PubSec Info Assistant, it is similar to the "Response Length" option in that it helps to generate short, specific answers.
+
+More details ...
+
+- **Grounding**
+   - LLMs are not databases, but rather engines for general reasoning and text generation.  Grounding allows us to provide specific, often private, data that the LLM engine can then use to generate insights relating to that data which are accurate and specific.
+- **Retrieval Augmented Generation (RAG)**
+   - RAG, in the PubSec Info Assistant, utilizes Azure AI Search's Vector Hybrid Search capabilities to retrieve documents that are contextually relevant for precise answers.
    - This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
    - As such, you don't have to go through the immense time and expense of training your own model.
-- **Persona** - Personal is the "tone" and language used by the AI, such as "an Assistant" or "a Teacher". Depending on the model used, this can impact how it presents responses to varying degrees.
-- **Chain of Thought** - Chain of Thought refers to the need with each new query in a session to include all previous questions and answers.
+- **Persona**
+   - Depending on the LLM used, the persona can impact how it presents responses to varying degrees.
+- **Chain of Thought**
    - This stems from the absence of persistent "memory" in the OpenAI instance as to your previous queries.
    - This allows OpenAI to provide contextually-appropriate responses based on the conversation so far, without having to store your previous queries or its own responses to them.
-- **Session** - A session is a single Chain of Thought, meaning when all previous requests and responses are included with each new request, and impact how the AI responds.
+- **Session**
    - To eliminate the effect of previous interactions on future responses, you must start a new session, which resets the Chain of Thought.
    - This is particularly important when shifting focus to a new subject that has little or nothing to do with the queries you've made so far.
-- **Grounding** - Grounding refers to the act of limiting results to a specific dataset, rather than the LLM in its entirety.
-   - For instance, if you provide organizational policy documents, grounding means that the PubSec Info Assistant will be limited to providing responses which are relevant to those policy documents.
-- **System Message/Metaprompt** - A system message is an optional (but highly recommended) initial message sent automatically in every new session.
+- **System Message/Metaprompt**
    - It tells the system how responses should be constructed, what kind of persona the system and user should have, etc.
    - This is typically hidden from the user, but is made visible in the PubSec Info Assistant for educational purposes.
    - **X-Shot** - The System Message can include zero-shot, one-shot, or few-shot example interactions, as defined below:
       - **One-shot** - One-shot is when a single example interaction is provided in the system message.
       - **Few-shot** - Few-shot is when more than one example interaction is provided in the system message, though it should consist of three or more examples, because providing only two appears to afford no benefit over just a single shot.
       - **Zero-shot** - Zero-shot is when no example interactions are provided in the system message.
-- **Enrichment Pipeline** - The Enrichment Pipeline is the process of ingesting, parsing, and chunking input data, then embedding/vectorizing it, so the PubSec Info Assistant will be able to provide relevant responses to queries.
-- **Conversation Type** or **Temperature** - The "Conversation Type" selection in the application's answer generation configuration pane is also known as "Temperature", which is an option in OpenAI's API.
+- **Temperature** or **Conversation Type**
+   - The "Conversation Type" selection in the application's answer generation configuration pane is also known as "Temperature", which is an option in OpenAI's API.
    - Temperature affects the probabilities over all possible tokens during each step of the generation process. At 0 the process is completely deterministic, always sticking with the most likely token.
    - Depending on what you set it to, the value will be 0.0, 0.6, or 1.0, represented as "Precise", "Balanced", and "Creative" respectively.
-- **Top_P** - While this OpenAI API option is unused in the PubSec Info Assistant, it is similar to the "Response Length" option in that it helps to generate short, specific answers.
+- **Top_P**
    - Top_p sampling, instead of considering all tokens, considers instead only a subset of tokens (the "nucleus"). As such it is also known as nucleus sampling.
    - Unlike "Response Length" (below), it should be considered an **alternative** to "Temperature" and not adjusted at the same time.
-- **Response Length** - This option in the application's answer generation configuration pane limits the length of responses to a defined number of tokens.
+
 
 ## Search
 
 - **Azure AI Search** - This accelerator employs Vector Hybrid Search, which combines vector similarity with keyword matching to enhance search accuracy.
+- **Types of Search Methods** - For the Information Assistant Accelerator, only Vector search is currently available (Feb 21, 2024).
+
+More details ...
+
+- **Azure AI Search**
    - This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
    - Note that in Azure Government keyword search is not yet available as of Feb 21, 2024.
-- **Types of Search Methods** - Different search methods. For the Information Assistant Accelerator, only Vector search is currently available (Feb 21, 2024).
+- **Types of Search Methods**
    - **Vector** - <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview">Vector search</a> is an approach in information retrieval that stores numeric representations of content for search scenarios.
       - Because the content is numeric rather than plain text, the search engine matches on vectors that are the most similar to the query, with no requirement for matching on exact terms.
    - **Hybrid** - Hybrid search is a combination of full text and vector queries that execute against a search index that contains both searchable plain text content and generated embeddings. For query purposes, hybrid search is:
