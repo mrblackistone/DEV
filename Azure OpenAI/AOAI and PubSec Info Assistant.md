@@ -54,7 +54,7 @@ In order to maximize the benefits from this document, it’s essential to famili
 ## Models
 
 - **Machine Learning Model** - A machine learning model can be used to recognize patterns or make predictions based on data.
-- **Generative Model** - A <a href="https://openai.com/research/generative-models">generative model</a> is a type of machine learning model that aims to learn the underlying patterns or distributions of data in order to generate new, similar data.
+- **Generative Model** - A <a target="_blank" href="https://openai.com/research/generative-models">generative model</a> is a type of machine learning model that aims to learn the underlying patterns or distributions of data in order to generate new, similar data.
 - **Parameter** - Parameters are adjustable elements in a model that are learned from training data.
 - **Checkpoint** - A checkpoint is a snapshot of a trained model's parameters (weights and biases) at a specific point during training.
 
@@ -74,8 +74,8 @@ More details ...
 
 - **Vector** - A quantity that has a magnitude and direction.
 - **Dimensions** - The number of independent parameters or coordinates that are needed for defining the position of a point that is constrained to be in a given mathematical space.
-- **Vector database** - A <a href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vectors.
-- **Cosine similarity** - Azure OpenAI embeddings rely on <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query.
+- **Vector database** - A <a target="_blank" href="https://learn.microsoft.com/en-us/azure/cosmos-db/vector-database">vector database</a> is a database designed to store and manage vectors.
+- **Cosine similarity** - Azure OpenAI embeddings rely on <a target="_blank" href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/understand-embeddings">cosine similarity</a> to compute similarity between documents and a query.
 
 More details ...
 
@@ -103,14 +103,14 @@ More details ...
 - **Cosine similarity**
    - From a mathematic perspective, cosine similarity measures the cosine of the angle between two vectors projected in a multidimensional space.
    - This measurement is beneficial because if two documents are far apart by Euclidean distance due to size they could still have a smaller angle between them and therefore a higher computed cosine similarity.
-   - Note that OpenAI embeddings are <a href="https://platform.openai.com/docs/guides/embeddings/frequently-asked-questions">normalized to length 1</a>, which means that cosine similarity can be computed a bit faster using only a dot product, and that cosine similarity and Euclidean distance will result in identical rankings.
+   - Note that OpenAI embeddings are <a target="_blank" href="https://platform.openai.com/docs/guides/embeddings/frequently-asked-questions">normalized to length 1</a>, which means that cosine similarity can be computed a bit faster using only a dot product, and that cosine similarity and Euclidean distance will result in identical rankings.
    - "Dot product" is the sum of the products of multiplying each element in equal-length arrays, for instance: a<sub>1</sub>b<sub>1</sub> + a<sub>2</sub>b<sub>2</sub> + ... a<sub>n</sub>b<sub>n</sub>
 
 ## Chunking, Tokenization, and Embedding
 
-- **Token** - A <a href=https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them>token</a> is a single piece of text from an input that is associated (embedded) as a particular value in a vector.
-- **Embedding** - An <a href="https://platform.openai.com/docs/guides/embeddings">embedding</a> is a special format of data representation that can be easily utilized by machine learning models and algorithms.
-- **Chunk/chunking** - Due to token limits, the documents that the PubSec Info Assistant ingests are <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents">chunked</a> (broken up) and pre-processed into a format that's easier to use, especially complex file types like PDF.
+- **Token** - A <a target="_blank" href=https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them>token</a> is a single piece of text from an input that is associated (embedded) as a particular value in a vector.
+- **Embedding** - An <a target="_blank" href="https://platform.openai.com/docs/guides/embeddings">embedding</a> is a special format of data representation that can be easily utilized by machine learning models and algorithms.
+- **Chunk/chunking** - Due to token limits, the documents that the PubSec Info Assistant ingests are <a target="_blank" href="https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents">chunked</a> (broken up) and pre-processed into a format that's easier to use, especially complex file types like PDF.
 
 More details ...
 
@@ -124,19 +124,19 @@ More details ...
    - A word preceded by a space, starting with a lower-case letter: " **especially**"
    - A word preceded by a space, starting with a lower-case letter: " **cake**"
    - A period: "**.**"
-   - You can see how text is tokenized by OpenAI using <a href="https://platform.openai.com/tokenizer">this tool</a>.
+   - You can see how text is tokenized by OpenAI using <a target="_blank" href="https://platform.openai.com/tokenizer">this tool</a>.
    - For English, a good rule-of-thumb is that there are 0.75 words per token. Other languages will typically require a greater number of tokens.
 - **Embedding**
    - The embedding is an information-dense representation of the semantic meaning of a piece of text.
    - Each embedding is a vector of floating point numbers, such that the distance between two embeddings in the vector space is correlated with semantic similarity between two inputs in the original format.
    - Depending on the system, each Token may be assigned a specific number in the vector.
-   - There are also limits associated with tokenization models, for instance <a href="https://openai.com/blog/new-and-improved-embedding-model">Ada 2</a> supports up to 8191 tokens at a time, and ChatGPT has a token limit shared between prompt and completion that varies with model and version.
+   - There are also limits associated with tokenization models, for instance <a target="_blank" href="https://openai.com/blog/new-and-improved-embedding-model">Ada 2</a> supports up to 8191 tokens at a time, and ChatGPT has a token limit shared between prompt and completion that varies with model and version.
 - **Chunk/chunking**
    - The PDF files are processed through Azure AI Document Intelligence, whereas other file types are processed through Unstructured.io, both of which result in JSON-based representations.
    - Pre-processing status is logged in Cosmos DB.
    - Chunking can also include overlap, to ensure that data is not split across chunks when it shouldn't be.
    - Note that OpenAI typically performs better when documents are chunked by section rather than by page, paragraph, or fixed sizes.
-   - Other options to chunk documents include <a href="https://python.langchain.com/en/latest/index.html">LangChain</a> and <a href="https://github.com/microsoft/semantic-kernel">Semantic Kernel</a>.
+   - Other options to chunk documents include <a target="_blank" href="https://python.langchain.com/en/latest/index.html">LangChain</a> and <a target="_blank" href="https://github.com/microsoft/semantic-kernel">Semantic Kernel</a>.
 
 ### Tokenization Example
 
@@ -144,14 +144,14 @@ More details ...
 - After embedding: [**7.438294**, **-0.782139**, **1.728197**, **-4.278129**, **-1.743892**, **6.273129**, **2.237180**, **9.728193**]
 
 Note:  This is purely a generic example to present a concept. These are not necessarily the values that would be generated in an actual OpenAI or similar system. For instance, ada-2 has a fixed output dimension of 1,536 rather than the eight presented here.
-   - You can learn more about embeddings at <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/tutorials/embeddings?tabs=python%2Ccommand-line&pivots=programming-language-python">this link</a>.
+   - You can learn more about embeddings at <a target="_blank" href="https://learn.microsoft.com/en-us/azure/ai-services/openai/tutorials/embeddings?tabs=python%2Ccommand-line&pivots=programming-language-python">this link</a>.
 
 
 
 ## Queries and Responses
 
-- **Grounding** - <a href="https://techcommunity.microsoft.com/t5/fasttrack-for-azure/grounding-llms/ba-p/3843857">Grounding</a> is the process of using large language models (LLMs) with information that is use-case specific, relevant, and not available as part of the LLM's trained knowledge.
-- **Retrieval Augmented Generation (RAG)** - <a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview">Retrieval Augmentation Generation (RAG)</a> is an architecture that augments the capabilities of a Large Language Model (LLM) like ChatGPT by adding an information retrieval system that provides grounding data.
+- **Grounding** - <a target="_blank" href="https://techcommunity.microsoft.com/t5/fasttrack-for-azure/grounding-llms/ba-p/3843857">Grounding</a> is the process of using large language models (LLMs) with information that is use-case specific, relevant, and not available as part of the LLM's trained knowledge.
+- **Retrieval Augmented Generation (RAG)** - <a target="_blank" href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview">Retrieval Augmentation Generation (RAG)</a> is an architecture that augments the capabilities of a Large Language Model (LLM) like ChatGPT by adding an information retrieval system that provides grounding data.
 - **Persona** - A persona is the "tone" and language used by the AI, such as "an Assistant" or "a Teacher", which makes interacting with the LLM less impersonal.
 - **Chain of Thought** - Chain of Thought refers to the need with each new query in a session to include all previous questions and answers.
 - **Session** - A session is a single Chain of Thought, meaning when all previous requests and responses are included with each new request, and impact how the AI responds.
@@ -205,7 +205,7 @@ More details ...
    - This approach empowers you to find relevant information efficiently by combining the strengths of both semantic vectors and keywords.
    - Note that in Azure Government keyword search is not yet available as of Feb 21, 2024.
 - **Types of Search Methods**
-   - **Vector** - <a href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview">Vector search</a> is an approach in information retrieval that stores numeric representations of content for search scenarios.
+   - **Vector** - <a target="_blank" href="https://learn.microsoft.com/en-us/azure/search/vector-search-overview">Vector search</a> is an approach in information retrieval that stores numeric representations of content for search scenarios.
       - Because the content is numeric rather than plain text, the search engine matches on vectors that are the most similar to the query, with no requirement for matching on exact terms.
    - **Hybrid** - Hybrid search is a combination of full text and vector queries that execute against a search index that contains both searchable plain text content and generated embeddings. For query purposes, hybrid search is:
       - A single query request that includes both search and vectors query parameters
@@ -412,7 +412,7 @@ Figure 1: Main Page with Important Items Labeled
 4. Each tag is added by typing it then pressing enter.  Tags can include spaces.
 5. Select the **file(s)** that should be associated with both the folder and the tag(s), then **upload** them.
 6. Track the state under the **Upload Status** tab in the Manage Content page.  This page *does not refresh automatically*.
-7. They should proceed from **Uploaded** to alternating between **Queued and Indexing** to **Complete**.  While queued and indexing, they are being processed in the enrichment pipeline, so expect them to alternate between these states for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized in English is located <a href="https://platform.openai.com/tokenizer">here</a>.
+7. They should proceed from **Uploaded** to alternating between **Queued and Indexing** to **Complete**.  While queued and indexing, they are being processed in the enrichment pipeline, so expect them to alternate between these states for some time.  This process involves extracting data from files (structure and unstructured), chunking it, encoding, creating vectorized <a target="_blank" href="https://help.openai.com/en/articles/6824809-embeddings-frequently-asked-questions">embeddings</a> of the <a target="_blank" href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them">tokens</a>, and storing them.  A tokenizer tool to help you see how sentences are tokenized in English is located <a target="_blank" href="https://platform.openai.com/tokenizer">here</a>.
    - Note:  A state of **Error** is also possible.
 
 <img src="images/Upload Files.png" width=75%>
