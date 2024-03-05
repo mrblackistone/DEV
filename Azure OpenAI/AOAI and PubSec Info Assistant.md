@@ -155,7 +155,7 @@ Note:  This is purely a generic example to present a concept. These are not nece
 - **Enrichment Pipeline** - The Enrichment Pipeline is the process of ingesting, parsing, and chunking input data, then embedding/vectorizing it, so the PubSec Info Assistant will be able to provide relevant responses to queries.
 - **Temperature** or **Conversation Type** - Temperature adjusts the randomness of a model's output, where a low temperature results in predictable and tightly scoped responses, and a high temperature results in varied and creative responses.
 - **Response Length** - This option in the application's answer generation configuration pane limits the length of responses to a defined number of tokens.
-- **Top_P** - While this OpenAI API option is unused in the PubSec Info Assistant, it is similar to the "Response Length" option in that it helps to generate short, specific answers.
+- **Top_p** - While this OpenAI API option is unused in the PubSec Info Assistant, it is similar to the "Response Length" option in that it helps to generate short, specific answers.
 
 More details ...
 
@@ -184,9 +184,10 @@ More details ...
    - The "Conversation Type" selection in the application's answer generation configuration pane is also known as "Temperature", which is an option in OpenAI's API.
    - Temperature affects the probabilities over all possible tokens during each step of the generation process. At 0 the process is completely deterministic, always sticking with the most likely token.
    - Depending on what you set it to, the value will be 0.0, 0.6, or 1.0, represented as "Precise", "Balanced", and "Creative" respectively.
-- **Top_P**
+- **Top_p**
+   - Also known as Nucleus Sampling
    - Top_p sampling, instead of considering all tokens, considers instead only a subset of tokens (the "nucleus"). As such it is also known as nucleus sampling.
-   - Unlike "Response Length" (below), it should be considered an **alternative** to "Temperature" and not adjusted at the same time.
+   - Unlike "Response Length", it should be considered an **alternative** to "Temperature" and not adjusted at the same time.
 
 
 ## Search
