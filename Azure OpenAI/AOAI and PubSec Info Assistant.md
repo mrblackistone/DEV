@@ -1,5 +1,8 @@
+# Table of Contents
+
 <!-- TOC -->
 
+- [Table of Contents](#table-of-contents)
 - [Purpose](#purpose)
 - [Lexicon](#lexicon)
   - [Solutions](#solutions)
@@ -24,7 +27,6 @@
   - [Prompt Engineering](#prompt-engineering)
   - [Saving Money](#saving-money)
 - [Infrastructure](#infrastructure)
-- [Appendix](#appendix)
 
 <!-- /TOC -->
 <!-- /TOC -->
@@ -34,14 +36,15 @@
 
 # Purpose
 
-The purpose of this document is to consolidate information relating to OpenAI generally, Azure OpenAI specifically, generative AI concepts, and use of the PubSec Info Assistant offering from Microsoft to learn how to deploy, configure, and use generative AI in a production environment.
+
+The objective of this document is to consolidate information related to OpenAI in general, Azure OpenAI specifically, generative AI concepts, and the utilization of Microsoft’s PubSec Info Assistant offering. The goal is to learn how to deploy, configure, and effectively use generative AI in a production environment.
 
 ---
 ---
 
 # Lexicon
 
-In order to get the most out of this document, it is best to learn the terminology that is used. Some words will be new, while others may have different meanings (in the context of generative AI) than you are used to.
+In order to maximize the benefits from this document, it’s essential to familiarize yourself with the terminology used. Some terms may be unfamiliar, while others might have distinct meanings in the context of generative AI compared to what you’re accustomed to.
 
 ## Solutions
 
@@ -80,10 +83,11 @@ More details ...
    - Think of a vector as an arrow that has a defined length and points in a specific direction from a given starting point.
    - In OpenAI, a vector is represented as an array (ordered list) of floating point numbers, such as: [-0.344243, 1.432833, -0.002331]
    - The length of the array corresponds to the number of dimensions. The example on the previous line is 3-dimensional.
-   - For instance, the array [3.0, 4.0] corresponds to a 2-vector (2-dimensional vector) having magnitude (length) 5 (because 3: 4 :5 is a pythagorean triple, as 3<sup>2</sup> + 4<sup>2</sup> = 5<sup>2</sup>).
+   - For instance, the array [8.0, 15.0] corresponds to a 2-vector (2-dimensional vector) having magnitude (length) 17.
+      - (8: 15 :17 is a pythagorean triple, as 8<sup>2</sup> + 15<sup>2</sup> = 17<sup>2</sup>).
    - A graphical representation of a two-dimensional vector is shown below.
 
-<center><br><br><img src="images/Vector 3-4.png" width=25%><br>Figure xx: A 2-vector where v<sub>1</sub> = (3, 4)<br><br></center>
+<center><br><br><img src="images/Vector 3-4.png" width=25%><br>Figure 1: A 2-vector where v = (3, 4)<br><br></center>
 
 - **Dimensions**
    - Identifying a specific location along the number line requires just one number. Therefore, the number line is one-dimensional.
@@ -139,7 +143,7 @@ More details ...
 - The Tokens before embedding: ["**Jake**", " **likes**", " **to**", " **eat**", "**,**", " **especially**", " **cake**", "**.**"]
 - After embedding: [**7.438294**, **-0.782139**, **1.728197**, **-4.278129**, **-1.743892**, **6.273129**, **2.237180**, **9.728193**]
 
-Note:  This is purely a generic example to present a concept. These are not necessarily the values that would be generated in an actual OpenAI or similar system. For instance, Ada-2 has a fixed output dimension of 1,536 rather than the eight presented here.
+Note:  This is purely a generic example to present a concept. These are not necessarily the values that would be generated in an actual OpenAI or similar system. For instance, ada-2 has a fixed output dimension of 1,536 rather than the eight presented here.
    - You can learn more about embeddings at <a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/tutorials/embeddings?tabs=python%2Ccommand-line&pivots=programming-language-python">this link</a>.
 
 
@@ -221,15 +225,14 @@ More details ...
 
 # PubSec Info Assistant
 
-The PubSec Info Assistant is a ready-to-use teaching tool which deploys a functional Azure OpenAI application into a target Azure environment. It is designed with application teams in mind so they can learn how to deploy, modify, and use an Azure OpenAI ChatGPT application that uses grounding data to provide answers specific to the organization.
+The PubSec Info Assistant is a ready-to-use teaching tool which deploys a functional Azure OpenAI application into a target Azure environment. It is designed with application teams in mind so they can learn how to deploy, modify, and use an Azure OpenAI ChatGPT application that uses grounding data to provide answers specific to the organization's data, without the need to train their own model.
 
 All up-to-date official documentation is located in the repository. This section consolidates information from that documentation, but is only a point-in-time collection, and should not be regarded as the official source of information.
 
-NOTE:  The instructions are written for all three of the following scenarios. Confirm which scenario is applicable to you before starting, and keep it in mind as you progress through the steps:
-- Azure OpenAI (AOAI) instance will reside in the same resource group as the other resources.
-- AOAI instance will reside in a different resource group but the same tenant as the other resources.
-- AOAI instance will reside in a different tenant or cloud than the other resources. (e.g., Azure Commercial vs Azure Government; or two different tenants in Azure Commercial)
-
+NOTE:  The instructions are written for all of the following scenarios. Confirm which scenario is applicable to you before starting, and keep it in mind as you progress through the steps:
+- The PubSec Info Assistant's resources and an Azure OpenAI (AOAI) instance will be deployed to a single resource group. (Requires that no AOAI instance already exists in the same subscription.)
+- The PubSec Info Assistant's resources will be deployed, and will use an existing AOAI instance in the same tenant.
+- The PubSec Info Assistant's resources will be deployed, and will use an existing AOAI instance in the a different tenant or cloud.
 
 ## Pre-requisites
 
@@ -399,7 +402,7 @@ The main page will look similar to the image below.
 
 <img src="images/Main Page Markup.png" width=75%>
 
-Figure xx: Main Page with Important Items Labeled
+Figure 1: Main Page with Important Items Labeled
 
 ## Ingesting Data
 
@@ -414,7 +417,7 @@ Figure xx: Main Page with Important Items Labeled
 
 <img src="images/Upload Files.png" width=75%>
 
-Figure xx: Upload Files page
+Figure 3: Upload Files page
 
 ## UI Title and Banner
 
@@ -441,7 +444,7 @@ You can adjust the title on the main page and the banner in your local.env file:
 
 ### System Message
 
-The system message is an initial query made behind the scenes automatically to instruct the LLM on how it should interact with the user.  The system message from one version of the PubSec Info Assistant is shown below.
+The system message (AKA "metaprompt") is an initial query made behind the scenes automatically to instruct the LLM on how it should interact with the user.  An example system message from one version of the PubSec Info Assistant is shown below.
 
 ```python
 system_message_chat_conversation = """You are an Azure OpenAI Completion system. Your persona is {systemPersona} who helps answer questions about an agency's data. {response_length_prompt}
@@ -524,7 +527,7 @@ Lastly, there are some few-shot prompts included in the file as well:
 
 <img src="images/Thought Process.png" width=75%>
 
-Figure xx: Thought Process pane
+Figure 4: Thought Process pane
 
 ## Supporting Content
 
@@ -534,7 +537,7 @@ Figure xx: Thought Process pane
 
 <img src="images/Supporting Content.png" width=75%>
 
-Figure xx: Supporting Content pane
+Figure 5: Supporting Content pane
 
 ## Prompt Engineering
 
@@ -550,14 +553,14 @@ Note that all of the following will require you to have provided grounding data 
 
 ## Saving Money
 
-Some of the services can be quite expensive.  You can control costs by resizing several services, within the same family, when they are not in use.
+Some of the services can be quite expensive if they are scaled larger than they need to be.  You can control costs by resizing several services, within the same tier, when they are not in use. (e.g., Premium v3 should be resized to a different size in the Premium v3 tier, Standard to Standard, etc.)
 
 Make sure to only do these after you've ingested your grounding data.  Otherwise ingestion will be very slow.
 
-- Go to the `Function App > Settings > Scale Up` and change it from Standard S2 to Standard S1.
-- Go to the `Search Service > Settings > Scale` and ensure Replicas is set to 1 and Partitions is set to 25 GB.
-- Go to the `"Enrichmentweb" Web App > Settings > Scale Up` and change it from Premium v3 P1V3 to Premium v3 P0V3.
-- Go to the `"Web" Web App > Settings > Scale Up` and confirm it's set to Standard S1.
+- Go to the **Function App's** > `Settings > Scale Up` and change it from Standard S2 to Standard S1.
+- Go to the **Search Service's** > `Settings > Scale` and ensure Replicas is set to 1 and Partitions is set to 25 GB.
+- Go to the **"Enrichmentweb" Web App's** > `Settings > Scale Up` and change it from Premium v3 P1V3 to Premium v3 P0V3.
+- Go to the **"Web" Web App's** `Settings > Scale Up` and confirm it's set to Standard S1.
 
 You'll want to ensure these services aren't scaled below the minimums needed to ingest or search your data when it's time to perform either task.
 
@@ -568,7 +571,7 @@ You'll want to ensure these services aren't scaled below the minimums needed to 
 
 Note: Media Services only exists because AI Video Indexer currently uses its endpoints, soon to be replaced with Partner Solutions.
 
-Depending on if you're deploying to Azure Commercial or Azure government, you should have the following resources after a successful deployment.  20 in Commercial or 21 in Government, plus the AOAI instance (which may be in the same or a different resource group, depending on what you specified in the env file).
+Depending on if you're deploying to Azure Commercial or Azure government, you should have the following resources after a successful deployment, plus the AOAI instance (which may not be in the same resource group, subscription, and/or tenant, depending on what you specified in the env file).
 
 Note: At this time that there is a maximum of one AOAI instance per subscription per region.
 
@@ -582,29 +585,15 @@ Note: At this time that there is a maximum of one AOAI instance per subscription
 | infoasst-func-asp-xxxxx                 | App Service Plan                        | *Gov*; **Commercial** |
 | infoasst-ai-xxxxx                       | Application Insights                    | *Gov*; **Commercial** |
 | infoasst-enrichment-cog-xxxxx           | Azure AI Services Multi-Service Account | *Gov*; **Commercial** |
-| infoasst-cog-xxxxx                      | Azure AI Services Multi-Service Account | **Commercial**        |
-| infoasstvi-xxxxx                        | Azure AI Video Indexer                  | *Gov*; **Commercial** |
 | infoasst-cosmos-xxxxx                   | Azure Cosmos DB account                 | *Gov*: **Commercial** |
 | infoasst-lw-xxxxx                       | Azure Workbook Template                 | *Gov*: **Commercial** |
 | infoasst-fr-xxxxx                       | Document intelligence                   | *Gov*: **Commercial** |
 | infoasst-func-xxxxx                     | Function App                            | *Gov*: **Commercial** |
-| infoasst-kv-xxxxx                       | Key Vault                               | *Gov*                 |
+| infoasst-kv-xxxxx                       | Key Vault                               | *Gov*: **Commercial** |
 | infoasst-la-xxxxx                       | Log Analytics Workspace                 | *Gov*: **Commercial** |
-| infoasstmediasvcxxxxx                   | Media Service                           | *Gov*: **Commercial** |
 | infoasst-search-xxxxx                   | Search Service                          | *Gov*: **Commercial** |
 | Failure Anomalies - infoasst-ai-xxxxx   | Smart detector alert rule               | *Gov*: **Commercial** |
 | infoasststorexxxxx                      | Storage account                         | *Gov*: **Commercial** |
 | infoasststoremediaxxxxx                 | Storage account                         | *Gov*: **Commercial** |
-| default (infoasstmediasvcxxxxx/default) | Streaming Endpoint                      | *Gov*: **Commercial** |
 
----
----
 
-# Appendix
-
-For those who are interested, there are 16 primitive Pythagorean triples of numbers up to 100:
-
-(3, 4, 5) (5, 12, 13) (8, 15, 17) (7, 24, 25)
-(20, 21, 29) (12, 35, 37) (9, 40, 41) (28, 45, 53)
-(11, 60, 61) (16, 63, 65) (33, 56, 65) (48, 55, 73)
-(13, 84, 85) (36, 77, 85) (39, 80, 89) (65, 72, 97)
