@@ -19,6 +19,9 @@
   - [Equations](#equations)
 
 <!-- /TOC -->
+  - [Equations](#equations)
+
+<!-- /TOC -->
 <!-- /TOC -->
 <!-- /TOC -->
 <!-- /TOC -->
@@ -79,13 +82,17 @@ A unit vector has a magnitude (or length) of 1.
 
 $$\vec{v} = \begin{bmatrix}2\\3\end{bmatrix} = (2, 3)$$
 
-$$\hat{i} = \begin{bmatrix}1\\0\end{bmatrix}$$
+$$\text{"i hat"} = \hat{i} = \begin{bmatrix}1\\0\end{bmatrix}$$
 
-$$\hat{j} = \begin{bmatrix}0\\1\end{bmatrix}$$
+$$\text{"j hat"} = \hat{j} = \begin{bmatrix}0\\1\end{bmatrix}$$
 
 $$\vec{v} = 2\hat{i} + 3\hat{j}$$
 
 In three dimensions, you use i, j, k.
+
+Dividing a vector by its magnitude will find a vector in the same direction as the vector, but with a magnitude of 1:
+
+$$\text{Unit vector in the direction of }\vec{v} = \frac{\vec{v}}{||\vec{v}||} = \frac{(6,3)}{\sqrt{6^2 + 3^2}} = \frac{1}{\sqrt{45}} \cdot (6,3) = (\frac{6}{\sqrt{45}}, \frac{3}{\sqrt{45}})$$
 
 # Appendix: Markdown
 
