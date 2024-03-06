@@ -7,6 +7,7 @@
 
 - [Table of Contents {-}](#table-of-contents--)
 - [Basics](#basics)
+- [Triangles](#triangles)
 - [Adding a Vector to a Vector](#adding-a-vector-to-a-vector)
 - [Multiply Vector by Scalar](#multiply-vector-by-scalar)
 - [Multiply Vector by Vector](#multiply-vector-by-vector)
@@ -19,14 +20,6 @@
   - [Equations](#equations)
 
 <!-- /TOC -->
-  - [Equations](#equations)
-
-<!-- /TOC -->
-<!-- /TOC -->
-<!-- /TOC -->
-<!-- /TOC -->
-<!-- /TOC -->
-<!-- /TOC -->
 
 
 # Basics
@@ -34,6 +27,21 @@
 $$\reals{^2}$$
 <sup>2</sup> = 2-dimensional real coordinate space, represented by a 2-tuple.  It is all possible real-valued 2-tuples.
 A tuple is as ordered list of numbers.
+
+# Triangles
+
+<center><img src="images/Graph-TriangleLabeled.png" width=20%></center>
+
+$$\text{a = horizontal (x)}$$
+$$\text{b = vertical (y)}$$
+$$\text{c = hypotenuse}$$
+$$\theta\text{ = the angle of ac (theta symbol)}$$
+$$\sin \theta = \frac{b}{c}$$
+$$\cos \theta = \frac{a}{c}$$
+$$\tan \theta = \frac{b}{a}$$
+$$\csc \theta = \frac{c}{b}\text{ (cosecant)}$$
+$$\sec \theta = \frac{c}{a}\text{ (secant)}$$
+$$\cot \theta = \frac{a}{b}\text{ (cotangent)}$$
 
 # Adding a Vector to a Vector
 
