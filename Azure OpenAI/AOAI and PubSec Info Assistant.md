@@ -227,7 +227,7 @@ More details ...
 
 The PubSec Info Assistant is a ready-to-use teaching tool which deploys a functional Azure OpenAI application into a target Azure environment. It is designed with application teams in mind so they can learn how to deploy, modify, and use an Azure OpenAI ChatGPT application that uses grounding data to provide answers specific to the organization's data, without the need to train their own model.
 
-IMPORTANT: Some customers may say they need to "train the model" when speaking about LLMs, but in reality what you are doing is "grounding the responses" using your data.
+IMPORTANT: Some customers may say they need to "train the model" when speaking about LLMs, but in reality what you are doing is "grounding the responses" using your data. Microsoft does not use your data to train Azure OpenAI or M365 Copilot.
 
 All up-to-date official documentation is located in the repository. This section consolidates information from that documentation, but is only a point-in-time collection, and should not be regarded as the official source of information.
 
