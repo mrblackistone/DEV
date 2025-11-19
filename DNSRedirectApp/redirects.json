@@ -1,0 +1,7 @@
+{
+  "/old-page": "https://www.example.com/new-page",
+  "/blog": "https://blog.example.com",
+  "/docs": "https://docs.example.com",
+  "/support": "https://support.example.com/help",
+  "/products/*": "https://www.example.com/catalog"
+}
