@@ -1,0 +1,90 @@
+# Azure Pipeline: Deploy Linux DNS Server VM with Wildcard DNS
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  resourceGroupName: 'dns-server-rg'
+  location: 'eastus'
+  deploymentName: 'dns-server-deployment'
+  bicepFile: 'LinuxDNSServer/dns-server.bicep'
+  adminUsername: 'azureuser'
+  adminPassword: '$(dnsAdminPassword)'
+
+stages:
+- stage: DeployInfrastructure
+  displayName: 'Deploy DNS Server VM'
+  jobs:
+  - job: DeployVM
+    displayName: 'Deploy VM via Bicep'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: '<your-service-connection>'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az group create --name ${{ variables.resourceGroupName }} --location ${{ variables.location }}
+          az deployment group create \
+            --resource-group ${{ variables.resourceGroupName }} \
+            --name ${{ variables.deploymentName }} \
+            --template-file ${{ variables.bicepFile }} \
+            --parameters adminUsername=${{ variables.adminUsername }} adminPassword=${{ variables.adminPassword }}
+
+- stage: ConfigureDNS
+  displayName: 'Configure DNS Server'
+  dependsOn: DeployInfrastructure
+  jobs:
+  - job: SetupDNS
+    displayName: 'Install and Configure Bind9'
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: '<your-service-connection>'
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          VM_IP=$(az vm show --resource-group ${{ variables.resourceGroupName }} --name dns-server-vm --show-details --query publicIps -o tsv)
+          sshpass -p "${{ variables.adminPassword }}" ssh -o StrictHostKeyChecking=no ${{ variables.adminUsername }}@$VM_IP << 'EOF'
+            sudo apt-get update
+            sudo apt-get install -y bind9
+            sudo bash -c 'cat > /etc/bind/named.conf.local <<EOL
+zone "azureapi.us" {
+  type master;
+  file "/etc/bind/db.azureapi.us";
+};
+zone "microsoft.com" {
+  type master;
+  file "/etc/bind/db.microsoft.com";
+};
+EOL'
+            sudo bash -c 'cat > /etc/bind/db.azureapi.us <<EOL
+$TTL    604800
+@       IN      SOA     ns.azureapi.us. admin.azureapi.us. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.azureapi.us.
+*       IN      A       10.0.0.4
+ns      IN      A       10.0.0.4
+EOL'
+            sudo bash -c 'cat > /etc/bind/db.microsoft.com <<EOL
+$TTL    604800
+@       IN      SOA     ns.microsoft.com. admin.microsoft.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      ns.microsoft.com.
+*       IN      A       10.0.0.4
+ns      IN      A       10.0.0.4
+EOL'
+            sudo systemctl restart bind9
+EOF
