@@ -4,8 +4,8 @@ A simple Node.js application for HTTP redirects, designed to run on Azure App Se
 
 ## Features
 
-- Simple HTTP 301 redirects based on URI patterns
-- Wildcard pattern support for flexible routing
+- HTTP 301 redirects based on **hostname** (base URI) or **path** patterns
+- Wildcard pattern support for flexible routing on both hosts and paths
 - Easy configuration via JSON file
 - Health check endpoint for monitoring
 - Configuration reload without restart
@@ -30,16 +30,41 @@ Edit `redirects.json` to define your redirect rules:
 
 ```json
 {
-  "/old-page": "https://www.example.com/new-page",
-  "/blog": "https://blog.example.com",
-  "/docs": "https://docs.example.com",
-  "/support": "https://support.example.com/help",
-  "/products/*": "https://www.example.com/catalog"
+  "hostRedirects": {
+    "old-domain.com": "https://www.new-domain.com",
+    "legacy.example.com": "https://www.example.com",
+    "*.staging.example.com": "https://staging.example.com",
+    "blog.oldsite.com": "https://newsite.com/blog"
+  },
+  "pathRedirects": {
+    "/old-page": "https://www.example.com/new-page",
+    "/blog": "https://blog.example.com",
+    "/docs": "https://docs.example.com",
+    "/support": "https://support.example.com/help",
+    "/products/*": "https://www.example.com/catalog"
+  }
 }
 ```
 
-- **Exact matches**: `/old-page` will redirect only that specific path
-- **Wildcard patterns**: `/products/*` will redirect any path starting with `/products/`
+### Redirect Types
+
+#### Host-Based Redirects
+Redirects based on the hostname (domain) of the incoming request:
+- **Exact matches**: `"old-domain.com"` will redirect all requests to that domain
+- **Wildcard patterns**: `"*.staging.example.com"` matches any subdomain like `app.staging.example.com`
+- Host redirects are checked **first** and will redirect regardless of the path
+
+#### Path-Based Redirects
+Redirects based on the URL path:
+- **Exact matches**: `"/old-page"` will redirect only that specific path
+- **Wildcard patterns**: `"/products/*"` will redirect any path starting with `/products/`
+- Path redirects are checked **after** host redirects
+
+### Priority Order
+1. Host exact match
+2. Host wildcard match
+3. Path exact match
+4. Path wildcard match
 
 ## Running Locally
 
@@ -52,9 +77,14 @@ The server will start on port 8080 (or the PORT environment variable if set).
 ## Testing
 
 Visit these endpoints to test:
-- `http://localhost:8080/health` - Health check
-- `http://localhost:8080/old-page` - Test redirect
+- `http://localhost:8080/health` - Health check (shows counts for both redirect types)
+- `http://localhost:8080/old-page` - Test path-based redirect
 - `http://localhost:8080/admin/reload` - Reload configuration
+
+To test host-based redirects locally, you can:
+1. Edit your `hosts` file to point test domains to `127.0.0.1`
+2. Use curl with the Host header: `curl -H "Host: old-domain.com" http://localhost:8080/`
+3. Use browser extensions to modify request headers
 
 ## Deployment to Azure App Service
 
@@ -101,7 +131,9 @@ Returns the health status of the application.
 ```json
 {
   "status": "healthy",
-  "redirectCount": 5
+  "hostRedirectCount": 4,
+  "pathRedirectCount": 5,
+  "totalRedirectCount": 9
 }
 ```
 
@@ -112,7 +144,9 @@ Reloads the redirect configuration from `redirects.json` without restarting the 
 ```json
 {
   "message": "Configuration reloaded",
-  "redirectCount": 5
+  "hostRedirectCount": 4,
+  "pathRedirectCount": 5,
+  "totalRedirectCount": 9
 }
 ```
 

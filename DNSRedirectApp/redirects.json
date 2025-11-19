@@ -1,7 +1,15 @@
 {
-  "/old-page": "https://www.example.com/new-page",
-  "/blog": "https://blog.example.com",
-  "/docs": "https://docs.example.com",
-  "/support": "https://support.example.com/help",
-  "/products/*": "https://www.example.com/catalog"
+  "hostRedirects": {
+    "old-domain.com": "https://www.new-domain.com",
+    "legacy.example.com": "https://www.example.com",
+    "*.staging.example.com": "https://staging.example.com",
+    "blog.oldsite.com": "https://newsite.com/blog"
+  },
+  "pathRedirects": {
+    "/old-page": "https://www.example.com/new-page",
+    "/blog": "https://blog.example.com",
+    "/docs": "https://docs.example.com",
+    "/support": "https://support.example.com/help",
+    "/products/*": "https://www.example.com/catalog"
+  }
 }
